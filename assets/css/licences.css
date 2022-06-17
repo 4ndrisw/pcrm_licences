@@ -1,0 +1,16 @@
+
+.licence-update{ background-color:#ddd; }
+
+body #licence-preview .licence-items table tbody td.description span{
+    color: #d1d3ea !important;
+}
+
+.customers.viewlicence #wrapper {
+    margin-left: 0;
+}
+
+@media (max-width: 1430px){
+    .customers.viewlicence .panel_s {
+        width: 100%;
+    }
+}
