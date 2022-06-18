@@ -65,7 +65,7 @@ if(get_option('exclude_licence_from_client_area_with_draft_status') == 0){
         <div class="row">
             <div class="col-md-8 stats-status">
                 <a href="<?php echo site_url('clients/licences/5'); ?>">
-                    <h5 class="no-margin bold"><?php echo _l('licence_status_expired'); ?></h5>
+                    <h5 class="no-margin bold"><?php echo _l('licence_status_released'); ?></h5>
                 </a>
             </div>
             <div class="col-md-4 text-right bold stats-numbers">

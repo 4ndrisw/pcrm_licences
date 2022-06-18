@@ -29,21 +29,21 @@ $lang['licence_status_draft']           = 'Draft';
 $lang['licence_status_sent']            = 'Sent';
 $lang['licence_status_declined']        = 'Declined';
 $lang['licence_status_accepted']        = 'Accepted';
-$lang['licence_status_expired']         = 'Expired';
+$lang['licence_status_released']         = 'Released';
 $lang['licence_note']                   = 'Note:';   
 
 $lang['licences']                                = 'Licences';
-$lang['licence']                                 = 'Job Report';
-$lang['licence_lowercase']                       = 'job reports';
-$lang['create_new_licence']                      = 'Create New Job Report';
-$lang['view_licence']                            = 'View job report';
-$lang['preview_licence']                            = 'Preview job report';
+$lang['licence']                                 = 'Licence';
+$lang['licence_lowercase']                       = 'licences';
+$lang['create_new_licence']                      = 'Create New Licence';
+$lang['view_licence']                            = 'View licence';
+$lang['preview_licence']                            = 'Preview licence';
 $lang['licence_reminders']                      = 'Reminders';
 $lang['licence_notes']                          = 'Notes';
 $lang['licence_add_note']                       = 'Add Note';
 $lang['licence_to']                              = 'To';
 $lang['licence_data_date']              = 'Date';
-$lang['licence_pdf_heading']            = 'JOB REPORT';
+$lang['licence_pdf_heading']            = 'LICENCE';
 $lang['licence_table_item_heading']     = 'Item';
 $lang['licence_table_quantity_heading'] = 'Qty';
 
@@ -62,14 +62,14 @@ $lang['licence_acceptance_date']           = 'Acceptance Date';
 $lang['licence_list_project']           = 'Project';
 $lang['view_licence_as_client']         = 'View licence as customer';
 $lang['licence_mark_as']                = 'Mark as %s';
-$lang['licence_staff_string']           = 'Director';
+$lang['licence_staff_string']           = 'Operation Manager';
 $lang['licence_note']                   = 'Note:';
 $lang['licence_order']                  = 'To order the staff for';
 $lang['licence_status_draft']           = 'Draft';
 $lang['licence_status_sent']            = 'Sent';
 $lang['licence_status_declined']        = 'Declined';
 $lang['licence_status_accepted']        = 'Accepted';
-$lang['licence_status_expired']         = 'Expired';
+$lang['licence_status_released']         = 'Released';
 $lang['licence_set_reminder_title']             = 'Set Licence Reminder';
 $lang['licence_invoiced_date']                   = 'Licence Invoiced on %s';
 $lang['edit_licence_tooltip']                    = 'Edit Licence';
@@ -122,6 +122,9 @@ $lang['licence_declare']                = 'hereby declare that :';
 $lang['licence_result']                = 'The work has been completed with the following results:';
 $lang['licence_closing']                ='This Minutes of Work Completion is made to be used properly, thank you for your attention and cooperation.';
 
+$lang['licence_related']				= 'Licence related';
+$lang['licence_proposed']				= 'Licence proposed';
+$lang['no_licence_released']				= 'No licence released';
 
 /*
 
@@ -366,7 +369,7 @@ $lang['new_licence']             		 = 'New licence';
 $lang['licence_members_name']           = 'Staff in charge';
 $lang['completed_tasks_no_file']           = 'Completed tasks no file';
 $lang['licence_members']                       = 'Staff In Charge';
-$lang['licence_assigned_string']                       = 'Director';
+$lang['licence_assigned_string']                       = 'Operation Manager';
 $lang['licence_table_item_unit']           = 'Unit/Lot';
 $lang['licence_table_unit_heading']           = 'Unit';
 $lang['settings_group_licences']           = 'Licences';

@@ -277,12 +277,18 @@
                   </div>
                   <div class="row">
                      <div class="col-md-12 licence-items">
-                        <div class="table-responsive">
-                              <?php
-                                 $items = get_licence_items_table_data($licence, 'licence', 'html', true);
-                                 echo $items->table();
-                              ?>
+                        
+                        <div class="col-md-12">
+                           <?php 
+                              $info = $this->uri->segment(3);
+                              if($info == 'propose'){
+                                 $this->load->view('admin/licences/licence_proposed'); 
+                              }elseif($info == 'licence'){
+                                 $this->load->view('admin/licences/licence_released'); 
+                              }
+                           ?>
                         </div>
+
                      </div>
                      <?php if(count($licence->attachments) > 0){ ?>
                         <div class="clearfix"></div>

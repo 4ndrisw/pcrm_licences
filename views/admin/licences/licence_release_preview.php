@@ -24,7 +24,7 @@
 						echo form_open($this->uri->uri_string(),array('id'=>'licence-import-form','class'=>'_transaction_form'));
 						?>
 						<div class="col-md-12">
-							<?php $this->load->view('admin/licences/licence_related'); ?>
+							<?php $this->load->view('admin/licences/licence_processed'); ?>
 						</div>
 						<?php echo form_close(); ?>
 					</div>

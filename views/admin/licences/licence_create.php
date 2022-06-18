@@ -13,7 +13,6 @@
 				<?php $this->load->view('admin/licences/licence_template'); ?>
 			</div>
 			<?php echo form_close(); ?>
-			<?php $this->load->view('admin/invoice_items/item'); ?>
 		</div>
 	</div>
 </div>
@@ -25,8 +24,6 @@
 		validate_licence_form();
 		// Project ajax search
 		init_ajax_project_search_by_customer_id();
-		// Maybe items ajax search
-	    init_ajax_search('items','#item_select.ajax-search',undefined,admin_url+'items/search');
 	});
 </script>
 </body>

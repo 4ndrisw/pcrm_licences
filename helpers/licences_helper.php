@@ -111,7 +111,7 @@ function licence_status_color_pdf($status_id)
         //Accepted
         $statusColor = '0, 191, 54';
     } else {
-        // Expired
+        // Released
         $statusColor = '255, 111, 0';
     }
 
@@ -155,7 +155,7 @@ function licence_status_by_id($id)
         $status = _l('licence_status_accepted');
     } elseif ($id == 5) {
         // status 5
-        $status = _l('licence_status_expired');
+        $status = _l('licence_status_released');
     } else {
         if (!is_numeric($id)) {
             if ($id == 'not_sent') {

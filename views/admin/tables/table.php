@@ -97,7 +97,7 @@ foreach ($rResult as $aRow) {
             } elseif ($aRow['status'] == 4) {
                 $outputStatus = '<span class="label label-success inline-block">' . _l('licence_status_accepted') . '</span>';
             } elseif ($aRow['status'] == 5) {
-                $outputStatus = '<span class="label label-primary inline-block">' . _l('licence_status_expired') . $span;
+                $outputStatus = '<span class="label label-primary inline-block">' . _l('licence_status_released') . $span;
             }
 
             $_data = $outputStatus;
