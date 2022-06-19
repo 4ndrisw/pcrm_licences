@@ -123,6 +123,9 @@ $lang['licence_terms_and_conditions']		='Syarat dan ketentuan';
 
 $lang['licence_related']				= 'Licence terkait';
 $lang['licence_proposed']				= 'Licence diajukan';
+$lang['licence_processed']				= 'Licence diproses';
+$lang['licence_released']				= 'Licence diterbitkan';
+
 $lang['no_licence_released']				= 'Belum ada licence yang terbit';
 
 /*

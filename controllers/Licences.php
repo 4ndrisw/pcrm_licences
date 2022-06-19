@@ -49,7 +49,6 @@ class Licences extends AdminController
             $licence_data = $this->input->post();
             if(!empty($licence_data['tasks'])){
                 $tasks_data = $licence_data['tasks'];
-                //log_activity(json_encode($tasks_data));
                 $this->licences_model->update_licence_data($id, $licence->project_id, $tasks_data);
             }
 
@@ -81,7 +80,8 @@ class Licences extends AdminController
         $data['members']           = $this->staff_model->get('', ['active' => 1]);
         $data['licence_statuses'] = $this->licences_model->get_statuses();
 
-        $data['related_tasks'] = $this->licences_model->get_related_tasks($licence->project_data->id);
+        $data['related_tasks'] = $this->licences_model->get_related_tasks($id, $licence->project_data->id);
+        $data['released_tasks'] = $this->licences_model->get_related_tasks($id, $licence->project_data->id, true, true);
 
         $data['totalNotes']        = total_rows(db_prefix() . 'notes', ['rel_id' => $id, 'rel_type' => 'licence']);
 
@@ -151,8 +151,8 @@ class Licences extends AdminController
         $data['members']           = $this->staff_model->get('', ['active' => 1]);
         $data['licence_statuses'] = $this->licences_model->get_statuses();
 
-        $data['related_tasks'] = $this->licences_model->get_related_tasks($licence->project_data->id, true);
-        $data['proposed_tasks'] = $this->licences_model->get_related_tasks($licence->project_data->id);
+        $data['related_tasks'] = $this->licences_model->get_related_tasks('', $licence->project_data->id);
+        $data['proposed_tasks'] = $this->licences_model->get_related_tasks($id, $licence->project_data->id, true);
 
         $data['totalNotes']        = total_rows(db_prefix() . 'notes', ['rel_id' => $id, 'rel_type' => 'licence']);
 
@@ -478,7 +478,8 @@ class Licences extends AdminController
         if ($this->set_licence_pipeline_autoload($id)) {
             redirect($_SERVER['HTTP_REFERER']);
         } else {
-            redirect(admin_url('licences/licence/' . $id));
+            redirect($_SERVER['HTTP_REFERER']);
+//            redirect(admin_url('licences/licence/' . $id));
         }
     }
 

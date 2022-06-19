@@ -124,6 +124,9 @@ $lang['licence_closing']                ='This Minutes of Work Completion is mad
 
 $lang['licence_related']				= 'Licence related';
 $lang['licence_proposed']				= 'Licence proposed';
+$lang['licence_processed']				= 'Licence processed';
+$lang['licence_released']				= 'Licence released';
+
 $lang['no_licence_released']				= 'No licence released';
 
 /*

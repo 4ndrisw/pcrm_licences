@@ -1,11 +1,11 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
 
 
-            <div class="widget" id="widget-<?php echo create_widget_id(); ?>" data-name="<?php echo _l('licence_related'); ?>">
+            <div class="widget" id="widget-<?php echo create_widget_id(); ?>" data-name="<?php echo _l('licence_processed'); ?>">
                 <?php if(staff_can('view', 'licences') || staff_can('view_own', 'licences')) { ?>
                 <div class="panel_s related_tasks-expiring">
                     <div class="panel-body padding-10">
-                        <p class="padding-5"><?php echo _l('licence_related'); ?></p>
+                        <p class="padding-5"><?php echo _l('licence_processed'); ?></p>
                         <hr class="hr-panel-heading-dashboard">
                         <?php if (!empty($related_tasks)) { ?>
                             <div class="table-vertical-scroll">

@@ -1293,18 +1293,21 @@ class Licences_model extends App_Model
 
 
 
-    public function get_related_tasks($project_id, $propose = false){
+    public function get_related_tasks($licence_id, $project_id, $proposed = false, $released = false){
         $this->db->select([db_prefix() . 'tasks.id',db_prefix() . 'tasks.name', db_prefix() . 'tasks.rel_id', db_prefix() . 'licences_related_tasks.licence_upt_number', db_prefix() . 'tasks.dateadded']);
         $this->db->where(db_prefix() . 'tasks.rel_id =' . $project_id);
         
         $this->db->join(db_prefix() . 'licences_related_tasks', db_prefix() . 'licences_related_tasks.task_id = ' . db_prefix() . 'tasks.id', 'left');
 
         $this->db->where(db_prefix() . 'tasks.rel_type = ' . "'project'");
+        $this->db->where(db_prefix() . 'licences_related_tasks.licence_id = ' . $licence_id);
 
-        if($propose){
-            $this->db->where(db_prefix() . 'licences_related_tasks.task_id IS NULL');
-        }else{
+        if($proposed){
             $this->db->where(db_prefix() . 'licences_related_tasks.task_id IS NOT NULL');            
+        }
+
+        if($released){
+            $this->db->where(db_prefix() . 'licences_related_tasks.licence_upt_number IS NOT NULL');            
         }
 
         //return $this->db->get_compiled_select(db_prefix() . 'tasks');
@@ -1314,13 +1317,31 @@ class Licences_model extends App_Model
 
     public function add_licence_data($licence_id, $project_id, $tasks_data){
         foreach($tasks_data as $task){
-            $this->db->insert(db_prefix() . 'licences_related_tasks', [
-                    'licence_id'      => $licence_id,
-                    'project_id' => $project_id,
-                    'task_id'              => $task]);
+
+
+            $this->db->where('licence_id', $licence_id);
+            $this->db->where('task_id', $task);
+            $q = $this->db->get(db_prefix() . 'licences_related_tasks');
+            $this->db->reset_query();
+
+            if ( $q->num_rows() > 0 )
+            {
+                $this->db->where('licence_id', $licence_id);
+                $this->db->where('task_id', $task);
+                $this->db->update(db_prefix() . 'licences_related_tasks', [
+                        'task_id'              => $task]);
+
+            } else {
+
+                $this->db->insert(db_prefix() . 'licences_related_tasks', [
+                        'licence_id'      => $licence_id,
+                        'project_id' => $project_id,
+                        'task_id'              => $task]);
+            }
 
         }
     }
+
 
     public function update_licence_data($licence_id, $project_id, $tasks_data){
         foreach($tasks_data as $key => $task){
@@ -1328,7 +1349,6 @@ class Licences_model extends App_Model
 
                 $search = 'task_id_' ;
                 $task_id = str_replace($search, '', $key) ;
-                log_activity($task_id);
 
                 $this->db->where('licence_id', $licence_id);
                 $this->db->where('project_id', $project_id);
