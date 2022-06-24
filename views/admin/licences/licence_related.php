@@ -33,7 +33,7 @@
                                             <?php foreach ($related_tasks as $task) { ?>
                                                 <tr>
                                                     <td>
-                                                       <input type="checkbox" name="<?php echo 'tasks[task_id_' .$task["id"] .']'; ?>" value="<?php echo $task["id"]; ?>"> 
+                                                       <input type="checkbox" name="<?php echo 'tasks[task_id_' .$task["id"] .']'; ?>" value="<?php echo $task["id"]; ?>">
                                                     </td>
                                                     <td>
                                                         <?php echo '<a href="' . admin_url("tasks/licence/" . $task["id"] . '">' . $task["name"]) . '</a>'; ?>
@@ -52,10 +52,10 @@
                             <?php } else { ?>
                                 <div class="text-center padding-5">
                                     <i class="fa fa-check fa-5x" aria-hidden="true"></i>
-                                    <h4><?php echo _l('no_licence_this_week',["7"]) ; ?> </h4>
+                                    <h4><?php echo _l('no_equipment_available',["7"]) ; ?> </h4>
                                 </div>
                             <?php } ?>
-                        
+
                         <?php } ?>
 
 
@@ -63,4 +63,3 @@
                 </div>
                 <?php } ?>
             </div>
-

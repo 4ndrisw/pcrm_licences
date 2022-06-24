@@ -2,14 +2,14 @@
 <?php
     $CI = &get_instance();
     $CI->load->model('licences/licences_model');
-    $licences = $CI->licences_model->get_licences_this_week(get_staff_user_id());
+    $licences = $CI->licences_model->get_licence_proposed_this_week(get_staff_user_id());
 ?>
 
-<div class="widget" id="widget-<?php echo create_widget_id(); ?>" data-name="<?php echo _l('licence_this_week'); ?>">
+<div class="widget" id="widget-<?php echo create_widget_id(); ?>" data-name="<?php echo _l('licence_proposed_this_week'); ?>">
     <?php if(staff_can('view', 'licences') || staff_can('view_own', 'licences')) { ?>
     <div class="panel_s licences-expiring">
         <div class="panel-body padding-10">
-            <p class="padding-5"><?php echo _l('licence_this_week'); ?></p>
+            <p class="padding-5"><?php echo _l('licence_proposed_this_week'); ?></p>
             <hr class="hr-panel-heading-dashboard">
             <?php if (!empty($licences)) { ?>
                 <div class="table-vertical-scroll">
@@ -20,6 +20,7 @@
                                 <th><?php echo _l('licence_number'); ?> #</th>
                                 <th class="<?php echo (isset($client) ? 'not_visible' : ''); ?>"><?php echo _l('licence_list_client'); ?></th>
                                 <th><?php echo _l('licence_list_project'); ?></th>
+                                <th><?php echo _l('licence_list_task'); ?></th>
                                 <th><?php echo _l('licence_list_date'); ?></th>
                             </tr>
                         </thead>
@@ -33,8 +34,10 @@
                                         <?php echo '<a href="' . admin_url("clients/client/" . $licence["userid"]) . '">' . $licence["company"] . '</a>'; ?>
                                     </td>
                                     <td>
-                                        <?php echo '<a href="' . admin_url("projects/view/" . $licence["project_id"]) . '">' . $licence["company"] . '</a>'; ?>
-                                        <?php //echo $licence['name']; ?>
+                                        <?php echo '<a href="' . admin_url("projects/view/" . $licence["project_id"]) . '">' . $licence["name"] . '</a>'; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $licence['count_task']; ?>
                                     </td>
                                     <td>
                                         <?php echo _d($licence['date']); ?>
@@ -47,7 +50,7 @@
             <?php } else { ?>
                 <div class="text-center padding-5">
                     <i class="fa fa-check fa-5x" aria-hidden="true"></i>
-                    <h4><?php echo _l('no_licence_this_week',["7"]) ; ?> </h4>
+                    <h4><?php echo _l('no_licence_proposed_this_week',["7"]) ; ?> </h4>
                 </div>
             <?php } ?>
         </div>

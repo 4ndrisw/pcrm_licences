@@ -1130,7 +1130,7 @@ class Licences_model extends App_Model
         return $kanBan->get();
     }
 
-
+/*
     public function get_licence_members($id, $with_name = false)
     {
         if ($with_name) {
@@ -1143,7 +1143,7 @@ class Licences_model extends App_Model
 
         return $this->db->get(db_prefix() . 'licence_members')->result_array();
     }
-
+*/
 
     /**
      * Update canban licence status when drag and drop
@@ -1208,6 +1208,53 @@ class Licences_model extends App_Model
     }
 
 
+    public function licence_remove_item($data)
+    {
+
+        $affectedRows   = 0;
+
+        $this->db->where('licence_id', $data['licence_id']);
+        $this->db->where('task_id', $data['task_id']);
+        $id = $this->db->get(db_prefix() . 'licences_related_tasks')->row();
+        if(isset($id)){
+            $this->db->delete(db_prefix() . 'licences_related_tasks', [
+                'licence_id' => $data['licence_id'],
+                'task_id' => $data['task_id'],
+            ]);            
+        }
+
+        $_log_message = '';
+
+        if ($this->db->affected_rows() > 0) {
+            $affectedRows++;
+                $_log_message    = 'not_licence_remove_proposed_item';
+                $additional_data = serialize([
+                    get_staff_full_name(),
+                    $data['licence_id'],
+                    $data['task_id'],
+                ]);
+
+                hooks()->do_action('licence_remove_proposed_item', [
+                    'licence_id' => $data['licence_id'],
+                    'task_id' => $data['task_id'],
+                ]);
+            
+        }
+
+        if ($affectedRows > 0) {
+            if ($_log_message == '') {
+                return true;
+            }
+            $this->log_licence_activity($data['licence_id'], $_log_message, false, $additional_data);
+
+            return true;
+        }
+
+        return false;
+    }
+
+
+
     /**
      * Get the licences about to expired in the given days
      *
@@ -1216,7 +1263,7 @@ class Licences_model extends App_Model
      *
      * @return array
      */
-    public function get_licences_this_week($staffId = null, $days = 7)
+    public function get_licence_proposed_this_week($staffId = null, $days = 7)
     {
         $diff1 = date('Y-m-d', strtotime('-' . $days . ' days'));
         $diff2 = date('Y-m-d', strtotime('+' . $days . ' days'));
@@ -1225,9 +1272,13 @@ class Licences_model extends App_Model
             $this->db->where(db_prefix() . 'licences.addedfrom', $staffId);
         }
 
-        $this->db->select(db_prefix() . 'licences.id,' . db_prefix() . 'licences.number,' . db_prefix() . 'clients.userid,' . db_prefix() . 'clients.company,' . db_prefix() . 'projects.id AS project_id,' . db_prefix() . 'projects.name,' . db_prefix() . 'licences.date');
+        $this->db->select([db_prefix() . 'licences.id', db_prefix() . 'licences.number', db_prefix() . 'clients.userid', db_prefix() . 'clients.company', db_prefix() . 'projects.id AS project_id', db_prefix() . 'projects.name', 'COUNT('. db_prefix() . 'licences_related_tasks.task_id) AS count_task', db_prefix() . 'licences.date']);
         $this->db->join(db_prefix() . 'clients', db_prefix() . 'clients.userid = ' . db_prefix() . 'licences.clientid', 'left');
         $this->db->join(db_prefix() . 'projects', db_prefix() . 'projects.id = ' . db_prefix() . 'licences.project_id', 'left');
+        $this->db->join(db_prefix() . 'licences_related_tasks', db_prefix() . 'licences.id = ' . db_prefix() . 'licences_related_tasks.licence_id', 'left');
+
+        $this->db->group_by([db_prefix() . 'licences.id',db_prefix() . 'clients.userid', db_prefix() . 'projects.id']); 
+
         $this->db->where('date IS NOT NULL');
         $this->db->where('date >=', $diff1);
         $this->db->where('date <=', $diff2);
@@ -1286,9 +1337,9 @@ class Licences_model extends App_Model
         $this->db->where('expirydate >=', $diff1);
         $this->db->where('expirydate <=', $diff2);
 
-        return $this->db->get_compiled_select(db_prefix() . 'licences');
-//        return $this->db->get(db_prefix() . 'licences')->get_compiled_select();
-//        return $this->db->get(db_prefix() . 'licences')->result_array();
+        //return $this->db->get_compiled_select(db_prefix() . 'licences');
+        //return $this->db->get(db_prefix() . 'licences')->get_compiled_select();
+        return $this->db->get(db_prefix() . 'licences')->result_array();
     }
 
 
@@ -1326,11 +1377,13 @@ class Licences_model extends App_Model
 
             if ( $q->num_rows() > 0 )
             {
+                /*
                 $this->db->where('licence_id', $licence_id);
                 $this->db->where('task_id', $task);
                 $this->db->update(db_prefix() . 'licences_related_tasks', [
                         'task_id'              => $task]);
-
+                */
+                return;
             } else {
 
                 $this->db->insert(db_prefix() . 'licences_related_tasks', [
@@ -1358,10 +1411,13 @@ class Licences_model extends App_Model
                                 'licence_upt_number'=> $task,
                             ]
                 );
-   
             }
         }
     }
-
+    
+    public function get_upt(){
+        $this->db->select([db_prefix() . 'licence_upt.id',db_prefix() . 'licence_upt.full_name']);
+        return $this->db->get(db_prefix() . 'licence_upt')->result_array();
+    }
 
 }

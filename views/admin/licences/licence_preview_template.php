@@ -277,14 +277,14 @@
                   </div>
                   <div class="row">
                      <div class="col-md-12 licence-items">
-                        
+
                         <div class="col-md-12">
-                           <?php 
+                           <?php
                               $info = $this->uri->segment(3);
                               if($info == 'propose'){
-                                 $this->load->view('admin/licences/licence_proposed'); 
+                                 $this->load->view('admin/licences/licence_proposed');
                               }elseif($info == 'licence'){
-                                 $this->load->view('admin/licences/licence_released'); 
+                                 $this->load->view('admin/licences/licence_released');
                               }
                            ?>
                         </div>
@@ -455,4 +455,4 @@
       </div>
    </div>
 </div>
-<?php $this->load->view('admin/licences/licence_send_to_client'); ?>
+<?php //$this->load->view('admin/licences/licence_send_to_client'); ?>

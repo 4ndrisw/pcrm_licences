@@ -10,12 +10,13 @@
                         <?php if (!empty($proposed_tasks)) { ?>
                             <div class="table-vertical-scroll">
                                 <a href="<?php echo admin_url('proposed_tasks'); ?>" class="mbot20 inline-block full-width"><?php echo _l('home_widget_view_all'); ?></a>
-                                <table id="widget-<?php echo create_widget_id(); ?>" class="table dt-table" data-order-col="0" data-order-type="DESC">
+                                <table id="widget-<?php echo create_widget_id(); ?>" class="table dt-table licence-items-proposed" data-order-col="0" data-order-type="DESC">
                                     <thead>
                                         <tr>
                                             <th><?php echo _l('select'); ?></th>
                                             <th><?php echo _l('licence_number'); ?> #</th>
                                             <th><?php echo _l('licence_list_date'); ?></th>
+                                            <th><?php echo 'X'; ?> </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -30,6 +31,9 @@
                                                 </td>
                                                 <td>
                                                     <?php echo _d($task['dateadded']); ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo ' <a href="#" class="_delete" onclick="licence_remove_item(' . $licence->id . ',' . $task['id'] . '); return false;">x</a>  '; ?>
                                                 </td>
                                             </tr>
                                         <?php $i++; } ?>

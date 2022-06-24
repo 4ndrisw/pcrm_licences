@@ -40,6 +40,7 @@
 	</div>
 </div>
 <?php init_tail(); ?>
+<script type="text/javascript" id="licence-js" src="<?= base_url() ?>modules/licences/assets/js/licences.js?"></script>
 
 <script>
    init_items_sortable(true);

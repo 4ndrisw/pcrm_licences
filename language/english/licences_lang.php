@@ -103,7 +103,7 @@ $lang['clients_decline_licence']               = 'Decline';
 $lang['clients_accept_licence']                = 'Accept';
 $lang['clients_my_licences']                   = 'Licences';
 
-$lang['licence_this_week']                = 'Licences this week';
+$lang['licence_proposed_this_week']                = 'Licences proposed this week';
 $lang['licence_date']                = 'Licence date';
 $lang['licence_datesend']                = 'Licence sent date';
 $lang['licence_assigned_string']                = 'Submitted by';
@@ -128,6 +128,12 @@ $lang['licence_processed']				= 'Licence processed';
 $lang['licence_released']				= 'Licence released';
 
 $lang['no_licence_released']				= 'No licence released';
+$lang['propose']				= 'Propose';
+$lang['this_licence_already_send']				= 'This licence already send';
+$lang['licence_already_send_to_client_tooltip']  = 'This licence is already sent to the client %s';
+$lang['licence_upt_string']				= 'UPT';
+$lang['no_equipment_available']				= 'No equipment available';
+$lang['licence_list_task']				= 'Unit';
 
 /*
 
@@ -146,7 +152,6 @@ $lang['licence_add_edit_currency']               = 'Currency';
 $lang['licences_toggle_table_tooltip']           = 'Toggle Table';
 $lang['licence_add_edit_advanced_options']       = 'Advanced Options';
 $lang['licences_list_all']                       = 'All';
-$lang['licence_already_send_to_client_tooltip']  = 'This licence is already sent to the client %s';
 $lang['licence_send_to_client_modal_heading']    = 'Send licence to client';
 $lang['licence_send_to_client_attach_pdf']       = 'Attach licence PDF';
 $lang['licence_send_to_client_preview_template'] = 'Preview Email Template';

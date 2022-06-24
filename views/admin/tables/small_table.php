@@ -26,10 +26,13 @@ foreach ($rResult as $aRow) {
     $row = [];
     for ($i = 0; $i < count($aColumns); $i++) {
         $_data = $aRow[$aColumns[$i]];
+
+        $path = $this->ci->uri->segment(3);
         if ($aColumns[$i] == 'formatted_number') {
-            $_data = '<a href="' . admin_url('licences/licence/' . $aRow['id']) . '">' . $_data . '</a>';
+            $_data = '<a href="' . admin_url('licences/'.$path.'/' . $aRow['id']) . '">' . $_data . '</a>';
             $_data .= '<div class="row-options">';
-            $_data .= '<a href="' . admin_url('licences/update/' . $aRow['id']) . '">' . _l('edit') . '</a>';
+            $_data .= '<a href="' . admin_url('licences/propose/' . $aRow['id']) . '">' . _l('propose') . '</a>';
+            $_data .= ' | <a href="' . admin_url('licences/update/' . $aRow['id']) . '">' . _l('edit') . '</a>';
 
             if (has_permission('licences', '', 'delete')) {
                 $_data .= ' | <a href="' . admin_url('licences/delete/' . $aRow['id']) . '" class="text-danger _delete">' . _l('delete') . '</a>';

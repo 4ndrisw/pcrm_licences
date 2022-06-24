@@ -33,7 +33,7 @@ hooks()->add_filter('module_licences_action_links', 'module_licences_action_link
 function licences_add_dashboard_widget($widgets)
 {
     $widgets[] = [
-        'path'      => 'licences/widgets/licence_this_week',
+        'path'      => 'licences/widgets/licence_proposed_this_week',
         'container' => 'left-8',
     ];
 
@@ -167,7 +167,16 @@ function licences_module_init_menu_items()
         $CI->app_menu->add_sidebar_menu_item('licences', [
                 'slug'     => 'licences-tracking',
                 'name'     => _l('licences'),
-                'icon'     => 'fa fa-briefcase',
+                'icon'     => 'fa fa-bookmark',
+                'href'     => admin_url('licences'),
+                'position' => 13,
+        ]);
+    }
+    if (has_permission('licences', '', 'view')) {
+        $CI->app_menu->add_sidebar_children_item('licences', [
+                'slug'     => 'licences-tracking-table',
+                'name'     => _l('licences'),
+                'icon'     => 'fa fa-bookmark-o',
                 'href'     => admin_url('licences'),
                 'position' => 13,
         ]);

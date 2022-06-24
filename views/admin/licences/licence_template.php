@@ -39,64 +39,7 @@
               </select>
             </div>
            </div>
-            <div class="row">
-               <div class="col-md-12">
-                  <a href="#" class="edit_shipping_billing_info" data-toggle="modal" data-target="#billing_and_shipping_details"><i class="fa fa-pencil-square-o"></i></a>
-                  <?php include_once(module_views_path('licences','admin/licences/billing_and_shipping_template.php')); ?>
-               </div>
-               <div class="col-md-6">
-                  <p class="bold"><?php echo _l('bill_to'); ?></p>
-                  <address>
-                     <span class="billing_street">
-                     <?php $billing_street = (isset($licence) ? $licence->billing_street : '--'); ?>
-                     <?php $billing_street = ($billing_street == '' ? '--' :$billing_street); ?>
-                     <?php echo $billing_street; ?></span><br>
-                     <span class="billing_city">
-                     <?php $billing_city = (isset($licence) ? $licence->billing_city : '--'); ?>
-                     <?php $billing_city = ($billing_city == '' ? '--' :$billing_city); ?>
-                     <?php echo $billing_city; ?></span>,
-                     <span class="billing_state">
-                     <?php $billing_state = (isset($licence) ? $licence->billing_state : '--'); ?>
-                     <?php $billing_state = ($billing_state == '' ? '--' :$billing_state); ?>
-                     <?php echo $billing_state; ?></span>
-                     <br/>
-                     <span class="billing_country">
-                     <?php $billing_country = (isset($licence) ? get_country_short_name($licence->billing_country) : '--'); ?>
-                     <?php $billing_country = ($billing_country == '' ? '--' :$billing_country); ?>
-                     <?php echo $billing_country; ?></span>,
-                     <span class="billing_zip">
-                     <?php $billing_zip = (isset($licence) ? $licence->billing_zip : '--'); ?>
-                     <?php $billing_zip = ($billing_zip == '' ? '--' :$billing_zip); ?>
-                     <?php echo $billing_zip; ?></span>
-                  </address>
-               </div>
-               <div class="col-md-6">
-                  <p class="bold"><?php echo _l('ship_to'); ?></p>
-                  <address>
-                     <span class="shipping_street">
-                     <?php $shipping_street = (isset($licence) ? $licence->shipping_street : '--'); ?>
-                     <?php $shipping_street = ($shipping_street == '' ? '--' :$shipping_street); ?>
-                     <?php echo $shipping_street; ?></span><br>
-                     <span class="shipping_city">
-                     <?php $shipping_city = (isset($licence) ? $licence->shipping_city : '--'); ?>
-                     <?php $shipping_city = ($shipping_city == '' ? '--' :$shipping_city); ?>
-                     <?php echo $shipping_city; ?></span>,
-                     <span class="shipping_state">
-                     <?php $shipping_state = (isset($licence) ? $licence->shipping_state : '--'); ?>
-                     <?php $shipping_state = ($shipping_state == '' ? '--' :$shipping_state); ?>
-                     <?php echo $shipping_state; ?></span>
-                     <br/>
-                     <span class="shipping_country">
-                     <?php $shipping_country = (isset($licence) ? get_country_short_name($licence->shipping_country) : '--'); ?>
-                     <?php $shipping_country = ($shipping_country == '' ? '--' :$shipping_country); ?>
-                     <?php echo $shipping_country; ?></span>,
-                     <span class="shipping_zip">
-                     <?php $shipping_zip = (isset($licence) ? $licence->shipping_zip : '--'); ?>
-                     <?php $shipping_zip = ($shipping_zip == '' ? '--' :$shipping_zip); ?>
-                     <?php echo $shipping_zip; ?></span>
-                  </address>
-               </div>
-            </div>
+
             <?php
                $next_licence_number = get_option('next_licence_number');
                $format = get_option('licence_number_format');
@@ -174,22 +117,24 @@
             </div>
 
             <div class="row">
-               <div class="col-md-6">
-                  <?php $value = (isset($licence) ? _d($licence->date) : _d(date('Y-m-d'))); ?>
-                  <?php echo render_date_input('date','licence_add_edit_date',$value); ?>
+               <div class="col-md-12">
+                      <?php
+                     $selected = isset($licence->upt) ? $licence->upt : '';
+                     foreach($offices as $upt){
+                      if(isset($licence)){
+                        if($licence->upt == $upt['id']) {
+                          $selected = $upt['id'];
+                        }
+                      }
+                     }
+                     echo render_select('upt',$offices,array('id',array('full_name')),'licence_upt_string',$selected);
+                     ?>
                </div>
                <div class="col-md-6">
                   
                </div>
             </div>
             <div class="clearfix mbot15"></div>
-            <?php $rel_id = (isset($licence) ? $licence->id : false); ?>
-            <?php
-                  if(isset($custom_fields_rel_transfer)) {
-                      $rel_id = $custom_fields_rel_transfer;
-                  }
-             ?>
-            <?php echo render_custom_fields('licence',$rel_id); ?>
          </div>
          <div class="col-md-6">
             <div class="panel_s no-shadow">
@@ -213,19 +158,25 @@
                     <?php $value = (isset($licence) ? $licence->reference_no : ''); ?>
                     <?php echo render_input('reference_no','reference_no',$value); ?>
                   </div>
-                  <div class="col-md-6">
-                         <?php
-                        $selected = get_option('default_licence_assigned');
-                        foreach($staff as $member){
-                         if(isset($licence)){
-                           if($licence->assigned == $member['staffid']) {
-                             $selected = $member['staffid'];
+                     <div class="col-md-6">
+                        <?php $value = (isset($licence) ? _d($licence->date) : _d(date('Y-m-d'))); ?>
+                        <?php echo render_date_input('date','licence_add_edit_date',$value); ?>
+                     </div>
+                     
+                     <div class="col-md-6">
+                            <?php
+                           $selected = get_option('default_licence_assigned');
+                           foreach($staff as $member){
+                            if(isset($licence)){
+                              if($licence->assigned == $member['staffid']) {
+                                $selected = $member['staffid'];
+                              }
+                            }
                            }
-                         }
-                        }
-                        echo render_select('assigned',$staff,array('staffid',array('firstname','lastname')),'licence_assigned_string',$selected);
-                        ?>
-                  </div>
+                           echo render_select('assigned',$staff,array('staffid',array('firstname','lastname')),'licence_assigned_string',$selected);
+                           ?>
+                     </div>
+                  
                </div>
                <?php $value = (isset($licence) ? $licence->adminnote : ''); ?>
                <?php echo render_textarea('adminnote','licence_add_edit_admin_note',$value); ?>

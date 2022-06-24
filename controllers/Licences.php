@@ -20,9 +20,11 @@ class Licences extends AdminController
         if (!has_permission('licences', '', 'view')) {
             access_denied('licences');
         }
+
         if ($this->input->is_ajax_request()) {
             $this->app->get_table_data(module_views_path('licences', 'admin/tables/table'));
         }
+
         $data['licenceid']            = $id;
         $data['title']                 = _l('licences_tracking');
         $this->load->view('admin/licences/manage', $data);
@@ -42,8 +44,7 @@ class Licences extends AdminController
         $data['licence'] = $licence;
         $data['edit']     = false;
         $title            = _l('preview_licence');
-    
-
+        
         if ($this->input->post()) {
 
             $licence_data = $this->input->post();
@@ -71,7 +72,7 @@ class Licences extends AdminController
 
         //$data = licence_mail_preview_data($template_name, $licence->clientid);
 
-        $data['licence_members'] = $this->licences_model->get_licence_members($id,true);
+        //$data['licence_members'] = $this->licences_model->get_licence_members($id,true);
 
         //$data['licence_items']    = $this->licences_model->get_licence_item($id);
 
@@ -100,7 +101,7 @@ class Licences extends AdminController
 
 
     /* Add new propose or update existing */
-    public function propose($id)
+    public function propose($id='')
     {
 
         $licence = $this->licences_model->get($id);
@@ -113,13 +114,15 @@ class Licences extends AdminController
         $data['edit']     = false;
         $title            = _l('preview_licence');
     
-
+        if($id ==''){
+            $this->load->view('admin/licences/manage', $data);
+           return;
+        }
         if ($this->input->post()) {
 
             $licence_data = $this->input->post();
             if(!empty($licence_data['tasks'])){
                 $tasks_data = $licence_data['tasks'];
-                log_activity(json_encode($tasks_data));
                 $this->licences_model->add_licence_data($id, $licence->project_id, $tasks_data);
             }
 
@@ -142,7 +145,7 @@ class Licences extends AdminController
 
         //$data = licence_mail_preview_data($template_name, $licence->clientid);
 
-        $data['licence_members'] = $this->licences_model->get_licence_members($id,true);
+        //$data['licence_members'] = $this->licences_model->get_licence_members($id,true);
 
         //$data['licence_items']    = $this->licences_model->get_licence_item($id);
 
@@ -233,6 +236,7 @@ class Licences extends AdminController
         */
 
         $data['staff']             = $this->staff_model->get('', ['active' => 1]);
+        $data['offices']             = $this->licences_model->get_upt();
         $data['licence_statuses'] = $this->licences_model->get_statuses();
         $data['title']             = $title;
 
@@ -388,6 +392,7 @@ class Licences extends AdminController
 
 
         $data['staff']             = $this->staff_model->get('', ['active' => 1]);
+        $data['offices']             = $this->licences_model->get_upt();
         $data['licence_statuses'] = $this->licences_model->get_statuses();
         $data['title']             = $title;
         $this->load->view('admin/licences/licence_update', $data);
@@ -552,6 +557,15 @@ class Licences extends AdminController
             $this->licences_model->update_licence_status($this->input->post());
         }
     }
+
+
+    public function licence_remove_item()
+    {
+        if ($this->input->post() && $this->input->is_ajax_request()) {
+            $this->licences_model->licence_remove_item($this->input->post());
+        }
+    }
+
 
     public function clear_signature($id)
     {
