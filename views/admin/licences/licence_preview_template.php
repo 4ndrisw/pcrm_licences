@@ -282,7 +282,9 @@
                            <?php
                               $info = $this->uri->segment(3);
                               if($info == 'propose'){
-                                 $this->load->view('admin/licences/licence_proposed');
+                                 //$this->load->view('admin/licences/licence_proposed');
+                                 $this->load->view('admin/licences/licence_table_proposed');
+
                               }elseif($info == 'licence'){
                                  $this->load->view('admin/licences/licence_released');
                               }

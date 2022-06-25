@@ -94,6 +94,7 @@ class Licences extends AdminController
 
         if ($this->input->is_ajax_request()) {
             $this->app->get_table_data(module_views_path('licences', 'admin/tables/small_table'));
+            $this->app->get_table_data(module_views_path('licences', 'admin/tables/table_proposed'));
         }
 
         $this->load->view('admin/licences/licence_release_preview', $data);
@@ -167,11 +168,21 @@ class Licences extends AdminController
 
         if ($this->input->is_ajax_request()) {
             $this->app->get_table_data(module_views_path('licences', 'admin/tables/small_table'));
+            //$this->app->get_table_data(module_views_path('licences', 'admin/tables/table_proposed'));
         }
+//        $licence_id = $this->uri->segment(4);
+        $licence_id = $this->uri->segment(4);
+
+        $this->session->set_userdata('licence_id', $licence_id);
 
         $this->load->view('admin/licences/licence_preview', $data);
     }
 
+    public function table_proposed($licence_id='')
+    {
+
+        $this->app->get_table_data(module_views_path('licences', 'admin/tables/table_proposed'));
+    }
 
 
     /* Add new licence */

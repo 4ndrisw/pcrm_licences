@@ -14,6 +14,13 @@
 			<div class="col-md-6 no-padding licence-preview">
 				<?php $this->load->view('admin/licences/licence_preview_template'); ?>
 			</div>
+
+
+			<div class="col-md-6 no-padding licence-preview">
+				<?php $this->load->view('admin/licences/table_proposed'); ?>
+			</div>
+
+
 		</div>
 
 		<div class="row">

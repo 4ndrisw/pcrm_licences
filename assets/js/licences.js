@@ -153,8 +153,8 @@ function licence_remove_item(licence_id, task_id) {
 
 // Reload all licences possible table where the table data needs to be refreshed after an action is performed on task.
 function reload_licences_tables() {
-    //var av_licences_tables = ['.table-licences', '.table-rel-licences', '.licence-items-proposed'];
-    var av_licences_tables = ['.licence-items-proposed'];
+    var av_licences_tables = ['.table-licences', '.table-rel-licences', '.table-licences-proposed'];
+    //var av_licences_tables = ['.licence-items-proposed'];
     $.each(av_licences_tables, function (i, selector) {
         if ($.fn.DataTable.isDataTable(selector)) {
             $(selector).DataTable().ajax.reload(null, false);

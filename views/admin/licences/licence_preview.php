@@ -5,9 +5,6 @@
 		<div class="row">
 			<div class="col-md-6 no-padding">
 				<?php 
-			        if ($this->input->is_ajax_request()) {
-			            $this->app->get_table_data(module_views_path('licences', 'admin/tables/table'));
-			        }
 					$this->load->view('admin/licences/licence_small_table'); 
 				?>
 			</div>
@@ -57,6 +54,12 @@
 <script>
     $(function(){
         initDataTable('.table-licences', window.location.href, 'undefined', 'undefined','fnServerParams', [0, 'desc']);
+    });
+</script>
+
+<script>
+    $(function(){
+        initDataTable('.table-licences-proposed', admin_url+'licences/table_proposed', 'undefined', 'undefined','fnServerParams', [0, 'desc']);
     });
 </script>
 

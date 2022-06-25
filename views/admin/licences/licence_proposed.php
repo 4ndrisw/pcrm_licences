@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
 
 
-            <div class="widget" id="widget-proposed" data-name="<?php echo _l('licence_proposed'); ?>">
+            <div class="widget dataTables_wrapper form-inline dt-bootstrap no-footer" id="widget-proposed" data-name="<?php echo _l('licence_proposed'); ?>">
                 <?php if(staff_can('view', 'licences') || staff_can('view_own', 'licences')) { ?>
                 <div class="panel_s proposed_tasks-expiring">
                     <div class="panel-body padding-10">
