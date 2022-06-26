@@ -134,6 +134,13 @@ $lang['no_equipment_available']				= 'Tidak ada peralatan tersedia';
 $lang['licence_list_task']				= 'Unit';
 $lang['proposed_date'] 	='Diajukan tanggal';
 
+$lang['not_licence_remove_proposed_item']				= 'Menghapus data dari pengajuan lisensi';
+$lang['licence_task']				= 'Task';
+$lang['licence_flag']				= 'Operasi';
+$lang['licence_tag']				= 'Tag';
+$lang['attach_file']				= 'file';
+$lang['remove_this_item']				= 'Hapus item ini';
+
 /*
 
 

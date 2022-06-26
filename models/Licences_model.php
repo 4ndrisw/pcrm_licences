@@ -1208,52 +1208,6 @@ class Licences_model extends App_Model
     }
 
 
-    public function licence_remove_item($data)
-    {
-
-        $affectedRows   = 0;
-
-        $this->db->where('licence_id', $data['licence_id']);
-        $this->db->where('task_id', $data['task_id']);
-        $id = $this->db->get(db_prefix() . 'licences_related_tasks')->row();
-        if(isset($id)){
-            $this->db->delete(db_prefix() . 'licences_related_tasks', [
-                'licence_id' => $data['licence_id'],
-                'task_id' => $data['task_id'],
-            ]);            
-        }
-
-        $_log_message = '';
-
-        if ($this->db->affected_rows() > 0) {
-            $affectedRows++;
-                $_log_message    = 'not_licence_remove_proposed_item';
-                $additional_data = serialize([
-                    get_staff_full_name(),
-                    $data['licence_id'],
-                    $data['task_id'],
-                ]);
-
-                hooks()->do_action('licence_remove_proposed_item', [
-                    'licence_id' => $data['licence_id'],
-                    'task_id' => $data['task_id'],
-                ]);
-            
-        }
-
-        if ($affectedRows > 0) {
-            if ($_log_message == '') {
-                return true;
-            }
-            $this->log_licence_activity($data['licence_id'], $_log_message, false, $additional_data);
-
-            return true;
-        }
-
-        return false;
-    }
-
-
 
     /**
      * Get the licences about to expired in the given days
@@ -1366,37 +1320,66 @@ class Licences_model extends App_Model
 
     }
 
-    public function add_licence_data($licence_id, $project_id, $tasks_data){
-        foreach($tasks_data as $task){
+    public function licence_add_proposed_item($data){
+        
+        log_activity(json_encode($data));
+        
+        $this->db->insert(db_prefix() . 'licences_related_tasks', [
+                'licence_id'      => $data['licence_id'],
+                'project_id' => $data['project_id'],
+                'task_id'              => $data['task_id']]);
+    }
 
 
-            $this->db->where('licence_id', $licence_id);
-            $this->db->where('task_id', $task);
-            $q = $this->db->get(db_prefix() . 'licences_related_tasks');
-            $this->db->reset_query();
 
-            if ( $q->num_rows() > 0 )
-            {
-                /*
-                $this->db->where('licence_id', $licence_id);
-                $this->db->where('task_id', $task);
-                $this->db->update(db_prefix() . 'licences_related_tasks', [
-                        'task_id'              => $task]);
-                */
-                return;
-            } else {
+    public function licence_remove_proposed_item($data)
+    {
 
-                $this->db->insert(db_prefix() . 'licences_related_tasks', [
-                        'licence_id'      => $licence_id,
-                        'project_id' => $project_id,
-                        'task_id'              => $task]);
-            }
+        $affectedRows   = 0;
 
+        //$this->db->where('licence_id', $data['licence_id']);
+        //$this->db->where('task_id', $data['task_id']);
+        //$id = $this->db->get(db_prefix() . 'licences_related_tasks')->row();
+        //if(isset($id)){
+            $this->db->delete(db_prefix() . 'licences_related_tasks', [
+                'licence_id' => $data['licence_id'],
+                'task_id' => $data['task_id'],
+            ]);            
+        //}
+
+        $_log_message = '';
+
+        if ($this->db->affected_rows() > 0) {
+            $affectedRows++;
+                $_log_message    = 'not_licence_remove_proposed_item';
+                $additional_data = serialize([
+                    get_staff_full_name(),
+                    $data['licence_id'],
+                    $data['task_id'],
+                ]);
+
+                hooks()->do_action('licence_remove_proposed_item', [
+                    'licence_id' => $data['licence_id'],
+                    'task_id' => $data['task_id'],
+                ]);
+            
         }
+
+        if ($affectedRows > 0) {
+            if ($_log_message == '') {
+                return true;
+            }
+            $this->log_licence_activity($data['licence_id'], $_log_message, false, $additional_data);
+
+            return true;
+        }
+
+        return false;
     }
 
 
     public function update_licence_data($licence_id, $project_id, $tasks_data){
+
         foreach($tasks_data as $key => $task){
             if($task !== ''){
 

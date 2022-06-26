@@ -10,7 +10,7 @@
                 _l('licence_task'),
                 _l('licence_tag'),
                 _l('licence_flag'),
-                ),'licences-proposed'); ?>
+                ),'licences-related'); ?>
          </div>
         </div>
     </div>

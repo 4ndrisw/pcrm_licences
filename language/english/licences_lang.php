@@ -134,6 +134,13 @@ $lang['licence_already_send_to_client_tooltip']  = 'This licence is already sent
 $lang['licence_upt_string']				= 'UPT';
 $lang['no_equipment_available']				= 'No equipment available';
 $lang['licence_list_task']				= 'Unit';
+$lang['not_licence_remove_proposed_item']				= 'Remove licence proposed item';
+$lang['licence_task']				= 'Task';
+$lang['licence_flag']				= 'Operation';
+$lang['licence_tag']				= 'Tag';
+$lang['attach_file']				= 'attach file';
+$lang['remove_this_item']				= 'Remove this item';
+
 
 /*
 

@@ -142,18 +142,32 @@ function licence_mark_as(status_id, licence_id) {
 
 
 // From licence table mark as
-function licence_remove_item(licence_id, task_id) {
+function licence_remove_proposed_item(licence_id, task_id) {
     var data = {};
     data.licence_id = licence_id;
     data.task_id = task_id;
-    $.post(admin_url + 'licences/licence_remove_item', data).done(function (response) {
+    $.post(admin_url + 'licences/remove_proposed_item', data).done(function (response) {
         reload_licences_tables();
     });
 }
 
+// From licence table mark as
+
+function licence_add_proposed_item(licence_id, project_id, task_id) {
+    var data = {};
+    data.licence_id = licence_id;
+    data.project_id = project_id;
+    data.task_id = task_id;
+    $.post(admin_url + 'licences/add_proposed_item', data).done(function (response) {
+        reload_licences_tables();
+    });
+}
+
+
 // Reload all licences possible table where the table data needs to be refreshed after an action is performed on task.
+
 function reload_licences_tables() {
-    var av_licences_tables = ['.table-licences', '.table-rel-licences', '.table-licences-proposed'];
+    var av_licences_tables = ['.table-licences', '.table-rel-licences', '.table-licences-proposed', '.table-licences-related'];
     //var av_licences_tables = ['.licence-items-proposed'];
     $.each(av_licences_tables, function (i, selector) {
         if ($.fn.DataTable.isDataTable(selector)) {
@@ -161,3 +175,4 @@ function reload_licences_tables() {
         }
     });
 }
+

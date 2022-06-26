@@ -119,16 +119,20 @@ class Licences extends AdminController
             $this->load->view('admin/licences/manage', $data);
            return;
         }
+        
         if ($this->input->post()) {
 
             $licence_data = $this->input->post();
             if(!empty($licence_data['tasks'])){
                 $tasks_data = $licence_data['tasks'];
-                $this->licences_model->add_licence_data($id, $licence->project_id, $tasks_data);
+                unset($tasks_data['licence_id_'.$id]);
+                unset($tasks_data['project_id_'.$licence->project_id]);
+                log_activity(json_encode($tasks_data));
+
+                $this->licences_model->licence_add_proposed_item($id, $licence->project_id, $tasks_data);
             }
-
         }
-
+        
         if ($this->input->get('customer_id')) {
             $data['customer_id'] = $this->input->get('customer_id');
         }
@@ -170,20 +174,12 @@ class Licences extends AdminController
             $this->app->get_table_data(module_views_path('licences', 'admin/tables/small_table'));
             //$this->app->get_table_data(module_views_path('licences', 'admin/tables/table_proposed'));
         }
-//        $licence_id = $this->uri->segment(4);
-        $licence_id = $this->uri->segment(4);
 
-        $this->session->set_userdata('licence_id', $licence_id);
+        $this->session->set_userdata('licence_id', $licence->id);
+        $this->session->set_userdata('project_id', $licence->project_data->id);
 
         $this->load->view('admin/licences/licence_preview', $data);
     }
-
-    public function table_proposed($licence_id='')
-    {
-
-        $this->app->get_table_data(module_views_path('licences', 'admin/tables/table_proposed'));
-    }
-
 
     /* Add new licence */
     public function create()
@@ -570,10 +566,30 @@ class Licences extends AdminController
     }
 
 
-    public function licence_remove_item()
+    public function table_proposed($licence_id='')
+    {
+
+        $this->app->get_table_data(module_views_path('licences', 'admin/tables/table_proposed'));
+    }
+
+    public function table_related($licence_id='')
+    {
+
+        $this->app->get_table_data(module_views_path('licences', 'admin/tables/table_related'));
+    }
+
+    public function add_proposed_item()
     {
         if ($this->input->post() && $this->input->is_ajax_request()) {
-            $this->licences_model->licence_remove_item($this->input->post());
+            $this->licences_model->licence_add_proposed_item($this->input->post());
+        }
+    }
+
+
+    public function remove_proposed_item()
+    {
+        if ($this->input->post() && $this->input->is_ajax_request()) {
+            $this->licences_model->licence_remove_proposed_item($this->input->post());
         }
     }
 
