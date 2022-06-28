@@ -73,7 +73,7 @@
             </div>
          </div>
          <div class="row mtop10">
-            <div class="col-md-4">
+            <div class="col-md-5">
                <?php echo format_licence_status($licence->status,'mtop5');  ?>           
                <?php
                   $path = $this->uri->segment(3);
@@ -85,7 +85,7 @@
                ?>
             </div>
 
-            <div class="col-md-8">
+            <div class="col-md-7">
                <div class="visible-xs">
                   <div class="mtop10"></div>
                </div>
