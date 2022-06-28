@@ -127,7 +127,7 @@
                         }
                       }
                      }
-                     echo render_select('upt',$offices,array('id',array('full_name')),'licence_upt_string',$selected);
+                     echo render_select('upt_id',$offices,array('id',array('full_name')),'licence_upt_string',$selected);
                      ?>
                </div>
                <div class="col-md-6">
