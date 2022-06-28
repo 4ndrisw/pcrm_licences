@@ -21,7 +21,7 @@
                         //_l('licence_projects_name'),
                         _l('licence_status'),
                         _l('licence_start_date'),
-                        _l('licence_acceptance_name'),
+                        //_l('licence_acceptance_name'),
                         _l('licence_acceptance_date'),
                         //_l('licence_end_date'),
                         ),'licences'); ?>
