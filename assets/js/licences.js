@@ -141,17 +141,6 @@ function licence_mark_as(status_id, licence_id) {
     });
 }
 
-
-// From licence table mark as
-function licence_remove_proposed_item(licence_id, task_id) {
-    var data = {};
-    data.licence_id = licence_id;
-    data.task_id = task_id;
-    $.post(admin_url + 'licences/remove_proposed_item', data).done(function (response) {
-        reload_licences_tables();
-    });
-}
-
 // From licence table mark as
 
 function licence_add_proposed_item(licence_id, project_id, task_id) {
@@ -160,6 +149,17 @@ function licence_add_proposed_item(licence_id, project_id, task_id) {
     data.project_id = project_id;
     data.task_id = task_id;
     $.post(admin_url + 'licences/add_proposed_item', data).done(function (response) {
+        reload_licences_tables();
+    });
+}
+
+
+// From licence table mark as
+function licence_remove_proposed_item(licence_id, task_id) {
+    var data = {};
+    data.licence_id = licence_id;
+    data.task_id = task_id;
+    $.post(admin_url + 'licences/remove_proposed_item', data).done(function (response) {
         reload_licences_tables();
     });
 }
@@ -177,3 +177,41 @@ function reload_licences_tables() {
     });
 }
 
+
+
+function licence_add_released_item(licence_id, project_id, task_id) {
+    var data = {};
+    data.licence_id = licence_id;
+    data.project_id = project_id;
+    data.task_id = task_id;
+    data.released = 1;
+
+    $.post(admin_url + 'licences/add_released_item', data).done(function (response) {
+        reload_released_tables();
+    });
+}
+
+
+// From licence table mark as
+function licence_remove_released_item(licence_id, task_id) {
+    var data = {};
+    data.licence_id = licence_id;
+    data.task_id = task_id;
+    $.post(admin_url + 'licences/remove_released_item', data).done(function (response) {
+        reload_released_tables();
+    });
+}
+
+
+
+// Reload all licences possible table where the table data needs to be refreshed after an action is performed on task.
+
+function reload_released_tables() {
+    var av_released_tables = ['.table-licences', '.table-licences-processed', '.table-licences-released'];
+    //var av_licences_tables = ['.licence-items-proposed'];
+    $.each(av_released_tables, function (i, selector) {
+        if ($.fn.DataTable.isDataTable(selector)) {
+            $(selector).DataTable().ajax.reload(null, false);
+        }
+    });
+}

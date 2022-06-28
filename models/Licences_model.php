@@ -198,6 +198,7 @@ class Licences_model extends App_Model
 
             $this->log_licence_activity('Copied Licence ' . format_licence_number($_licence->id));
 
+            hooks()->do_action('after_licence_copied', $id);
             return $id;
         }
 
@@ -1316,9 +1317,6 @@ class Licences_model extends App_Model
     }
 
     public function licence_add_proposed_item($data){
-        
-        log_activity(json_encode($data));
-        
         $this->db->insert(db_prefix() . 'licence_items', [
                 'licence_id'      => $data['licence_id'],
                 'project_id' => $data['project_id'],
@@ -1370,6 +1368,21 @@ class Licences_model extends App_Model
         }
 
         return false;
+    }
+
+
+    public function licence_add_released_item($data){
+        
+        $this->db->where(array('licence_id'=> $data['licence_id'], 'project_id' => $data['project_id'],'task_id' => $data['task_id']));
+        $this->db->update(db_prefix() . 'licence_items', [
+                'released'              => $data['released']]);
+    }
+
+    public function licence_remove_released_item($data){
+        
+        $this->db->where(array('licence_id'=> $data['licence_id'], 'task_id' => $data['task_id']));
+        $this->db->update(db_prefix() . 'licence_items', [
+                'released'              => NULL]);
     }
 
 

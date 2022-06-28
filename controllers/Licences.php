@@ -97,6 +97,9 @@ class Licences extends AdminController
             //$this->app->get_table_data(module_views_path('licences', 'admin/tables/table_proposed'));
         }
 
+        $this->session->set_userdata('licence_id', $licence->id);
+        $this->session->set_userdata('project_id', $licence->project_id);
+
         $this->load->view('admin/licences/licence_release_preview', $data);
     }
 
@@ -524,7 +527,7 @@ class Licences extends AdminController
             if ($this->set_licence_pipeline_autoload($new_id)) {
                 redirect($_SERVER['HTTP_REFERER']);
             } else {
-                redirect(admin_url('licences/licence/' . $new_id));
+                redirect(admin_url('licences/propose/' . $new_id));
             }
         }
         set_alert('danger', _l('licence_copied_fail'));
@@ -585,6 +588,12 @@ class Licences extends AdminController
         $this->app->get_table_data(module_views_path('licences', 'admin/tables/table_processed'));
     }
 
+    public function table_released($licence_id='')
+    {
+
+        $this->app->get_table_data(module_views_path('licences', 'admin/tables/table_released'));
+    }
+
 
     public function add_proposed_item()
     {
@@ -601,6 +610,19 @@ class Licences extends AdminController
         }
     }
 
+    public function add_released_item()
+    {
+        if ($this->input->post() && $this->input->is_ajax_request()) {
+            $this->licences_model->licence_add_released_item($this->input->post());
+        }
+    }
+
+    public function remove_released_item()
+    {
+        if ($this->input->post() && $this->input->is_ajax_request()) {
+            $this->licences_model->licence_remove_released_item($this->input->post());
+        }
+    }
 
     public function clear_signature($id)
     {

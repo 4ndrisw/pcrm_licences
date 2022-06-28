@@ -15,7 +15,7 @@
 
 		<div class="row">
 			<div class="col-md-12 no-padding licence-table-related">
-				<?php $this->load->view('admin/licences/licence_table_related'); ?>
+				<?php $this->load->view('admin/licences/licence_table_processed'); ?>
 			</div>
 		</div>
 
@@ -43,12 +43,12 @@
 </script>
 <script>
     $(function(){
-        initDataTable('.table-licences-proposed', admin_url+'licences/table_released', 'undefined', 'undefined','fnServerParams', [0, 'desc']);
+        initDataTable('.table-licences-released', admin_url+'licences/table_released', 'undefined', 'undefined','fnServerParams', [0, 'desc']);
     });
 </script>
 <script>
     $(function(){
-        initDataTable('.table-licences-related', admin_url+'licences/table_processed', 'undefined', 'undefined','fnServerParams', [0, 'desc']);
+        initDataTable('.table-licences-processed', admin_url+'licences/table_processed', 'undefined', 'undefined','fnServerParams', [0, 'desc']);
     });
 </script>
 

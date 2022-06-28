@@ -73,10 +73,17 @@
             </div>
          </div>
          <div class="row mtop10">
-            <div class="col-md-3">
-               <?php echo format_licence_status($licence->status,'mtop5');  ?>
+            <div class="col-md-4">
+               <?php echo format_licence_status($licence->status,'mtop5');  ?>           
+               <?php
+                  $path = $this->uri->segment(3);
+                  if($licence->status =='2' && $path == 'propose'){
+                    echo '<a href="'. admin_url() .'licences/licence/'.$licence->id.'" class="btn btn-info">Proses</a>';
+                  }
+               ?>
             </div>
-            <div class="col-md-9">
+
+            <div class="col-md-8">
                <div class="visible-xs">
                   <div class="mtop10"></div>
                </div>
@@ -283,7 +290,7 @@
                               if($info == 'propose'){
                                  $this->load->view('admin/licences/licence_table_proposed');
                               }elseif($info == 'licence'){
-                                 $this->load->view('admin/licences/licence_released');
+                                 $this->load->view('admin/licences/licence_table_released');
                               }
                            ?>
                         </div>

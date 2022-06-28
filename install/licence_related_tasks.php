@@ -8,6 +8,7 @@ if (!$CI->db->table_exists(db_prefix() . 'licence_items')) {
   `project_id` int(11) NOT NULL,
   `task_id` int(11) NOT NULL,
   `licence_upt_number` varchar(40) DEFAULT NULL,
+  `released` tinyint(1) DEFAULT NULL,
   `flag` tinyint(1) DEFAULT NULL
     ) ENGINE=InnoDB DEFAULT CHARSET=" . $CI->db->char_set . ';');
 
@@ -16,7 +17,8 @@ if (!$CI->db->table_exists(db_prefix() . 'licence_items')) {
   ADD UNIQUE KEY `licence_id_task_id` (`licence_id`,`task_id`) USING BTREE,
   ADD KEY `project_id` (`project_id`),
   ADD KEY `task_id` (`task_id`),
-  ADD KEY `licence_id` (`licence_id`);
+  ADD KEY `licence_id` (`licence_id`),
+  ADD KEY `released` (`released`);
   ');
 
     $CI->db->query('ALTER TABLE `' . db_prefix() . 'licence_items`

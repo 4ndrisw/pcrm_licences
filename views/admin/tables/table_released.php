@@ -5,6 +5,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 $CI = &get_instance();
 $path = $CI->uri->segment(3);
 $licence_id = $CI->session->userdata('licence_id');
+$project_id = $CI->session->userdata('project_id');
 
 $aColumns = [
     db_prefix() . 'tasks.name',
@@ -27,6 +28,7 @@ $additionalSelect = [db_prefix() . 'licence_items.id','licence_id','task_id'];
 
 $where  = [];
 array_push($where, 'AND ' . db_prefix() . 'licence_items.licence_id = "'.$licence_id.'"');
+array_push($where, 'AND ' . db_prefix() . 'licence_items.released IS NOT NULL');
 array_push($where, 'AND ' . db_prefix() . 'tasks.rel_type = "project"');
 
 
@@ -44,7 +46,7 @@ foreach ($rResult as $aRow) {
             $_data = '<a href="' . admin_url('tasks/view/' . $aRow['task_id']) . '" target = "_blank">' . $_data . '</a>';
             $_data .= '</div>';
         } elseif ($aColumns[$i] == 'flag') {
-            $_data = '<a class="btn btn-danger" title = "'._l('remove_this_item').'" href="#" onclick="licence_remove_item(' . $aRow['licence_id'] . ',' . $aRow['task_id'] . '); return false;">x</a>';
+            $_data = '<a class="btn btn-danger" title = "'._l('remove_this_item').'" href="#" onclick="licence_remove_released_item(' . $aRow['licence_id'] . ',' . $aRow['task_id'] . '); return false;">x</a>';
         } 
         $row[] = $_data;
 
