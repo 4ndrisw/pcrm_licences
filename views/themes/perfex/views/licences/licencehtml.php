@@ -148,9 +148,9 @@
          <div class="row">
             <div class="col-md-12">
                <div class="table-responsive">
+                  <hr />
                   <?php
-                     $items = get_licence_items_table_data($licence, 'licence');
-                     echo $items->table();
+                     $this->view('themes/'. active_clients_theme() .'/template_parts/licence_proposed_items_table');
                   ?>
                </div>
             </div>

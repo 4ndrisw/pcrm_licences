@@ -244,7 +244,7 @@ class Licences extends AdminController
         */
 
         $data['staff']             = $this->staff_model->get('', ['active' => 1]);
-        $data['offices']             = $this->licences_model->get_upt();
+        $data['offices']             = $this->licences_model->get_upt_fullname();
         $data['licence_statuses'] = $this->licences_model->get_statuses();
         $data['title']             = $title;
 
@@ -395,12 +395,12 @@ class Licences extends AdminController
         }
 
 
-        $data['licence_members']  = $this->licences_model->get_licence_members($id);
+        //$data['licence_members']  = $this->licences_model->get_licence_members($id);
         //$data['licence_items']    = $this->licences_model->get_licence_item($id);
 
 
         $data['staff']             = $this->staff_model->get('', ['active' => 1]);
-        $data['offices']             = $this->licences_model->get_upt();
+        $data['offices']             = $this->licences_model->get_upt_fullname();
         $data['licence_statuses'] = $this->licences_model->get_statuses();
         $data['title']             = $title;
         $this->load->view('admin/licences/licence_update', $data);

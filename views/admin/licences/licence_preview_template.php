@@ -245,16 +245,15 @@
                      </div>
                      <div class="col-sm-6 text-right">
                         <span class="bold"><?php echo _l('licence_to'); ?>:</span>
-                        <address>
-                           <?php echo format_customer_info($licence, 'licence', 'billing', true); ?>
-                        </address>
+                        
                         <?php if($licence->include_shipping == 1 && $licence->show_shipping_on_licence == 1){ ?>
                         <span class="bold"><?php echo _l('ship_to'); ?>:</span>
                         <address>
-                           <?php echo format_customer_info($licence, 'licence', 'shipping'); ?>
                         </address>
                         <?php } ?>
                      </div>
+                           <?php echo format_upt_info($licence->upt);?>
+                        
                   </div>
                   <div class="row">
                      <div class="container-fluid">
@@ -288,6 +287,8 @@
                      <div class="col-md-12 licence-items">
                         <div class="col-md-12">
                            <?php
+                          
+
                               $info = $this->uri->segment(3);
                               if($info == 'propose'){
                                  $this->load->view('admin/licences/licence_table_proposed');

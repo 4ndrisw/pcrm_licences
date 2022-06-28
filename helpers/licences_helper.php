@@ -735,3 +735,13 @@ function add_licence_items($insert_id){
     }
 
 }
+function format_upt_info($upt){
+
+    $info = '<span class="text-right mright15">';
+    $info .= '<b>'.$upt->full_name .'</b><br />';
+    $info .= $upt->address .'<br />';
+    $info .= $upt->city .' '. $upt->state .' '. $upt->zip .'<br />';
+    $info .= '</span>';
+
+    return $info;
+}

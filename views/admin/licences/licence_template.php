@@ -119,7 +119,7 @@
             <div class="row">
                <div class="col-md-12">
                       <?php
-                     $selected = isset($licence->upt) ? $licence->upt : '';
+                     $selected = isset($licence->upt_id) ? $licence->upt_id : '';
                      foreach($offices as $upt){
                       if(isset($licence)){
                         if($licence->upt == $upt['id']) {

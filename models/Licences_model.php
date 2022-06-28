@@ -78,6 +78,9 @@ class Licences_model extends App_Model
 
                 $this->load->model('email_schedule_model');
                 $licence->scheduled_email = $this->email_schedule_model->get($id, 'licence');
+                
+                $licence->upt = $this->get_upt($licence->upt_id);
+
             }
 
             return $licence;
@@ -1406,9 +1409,15 @@ class Licences_model extends App_Model
         }
     }
     
-    public function get_upt(){
+    public function get_upt_fullname(){
         $this->db->select([db_prefix() . 'licence_upt.id',db_prefix() . 'licence_upt.full_name']);
         return $this->db->get(db_prefix() . 'licence_upt')->result_array();
+    }
+
+    public function get_upt($id){
+        $this->db->select();
+        $this->db->where(db_prefix() . 'licence_upt.id', $id);
+        return $this->db->get(db_prefix() . 'licence_upt')->row();
     }
 
     public function get_available_tasks($licence_id, $project_id){
@@ -1425,5 +1434,52 @@ class Licences_model extends App_Model
         //return $this->db->get_compiled_select(db_prefix() . 'tasks');
         return $this->db->get(db_prefix() . 'tasks')->result_array();
     }
+
+
+  public function get_licence_proposed_items($licence_id, $project_id){
+
+        $this->db->select([db_prefix() . 'tasks.id AS task_id', db_prefix() . 'tasks.name AS task_name']);
+        $this->db->select([db_prefix() . 'licence_items.licence_id', db_prefix() . 'projects.id AS project_id', db_prefix() . 'tags.name AS tags_name', 'COUNT('.db_prefix() . 'tasks.id) AS count']);
+
+        $this->db->join(db_prefix() . 'tasks', db_prefix() . 'tasks.id = ' . db_prefix() . 'licence_items.task_id', 'left');
+        $this->db->join(db_prefix() . 'projects', db_prefix() . 'tasks.rel_id = ' . db_prefix() . 'projects.id', 'left');
+        $this->db->join(db_prefix() . 'taggables', db_prefix() . 'taggables.rel_id = ' . db_prefix() . 'tasks.id', 'left');
+        $this->db->join(db_prefix() . 'tags', db_prefix() . 'taggables.tag_id = ' . db_prefix() . 'tags.id', 'left');
+
+        $this->db->group_by(db_prefix() . 'licence_items.licence_id');
+        $this->db->group_by(db_prefix() . 'licence_items.project_id');
+        $this->db->group_by(db_prefix() . 'licence_items.task_id');
+        $this->db->group_by(db_prefix() . 'tasks.name');
+        $this->db->group_by(db_prefix() . 'tags.name');
+
+        $this->db->where(db_prefix() . 'tasks.rel_id =' . $project_id);
+        $this->db->where(db_prefix() . 'tasks.rel_type = ' . "'project'");
+        $this->db->where(db_prefix() . 'licence_items.licence_id=' . $licence_id);
+
+        //return $this->db->get_compiled_select(db_prefix() . 'licence_items');
+        return $this->db->get(db_prefix() . 'licence_items')->result_array();
+    }
+
+
+  public function get_licence_proposed_taggable_items($licence_id, $project_id){
+
+        $this->db->select([db_prefix() . 'tags.name AS tags_name', 'COUNT('.db_prefix() . 'tags.name) AS count']);
+
+        $this->db->join(db_prefix() . 'tasks', db_prefix() . 'tasks.id = ' . db_prefix() . 'licence_items.task_id', 'left');
+        $this->db->join(db_prefix() . 'projects', db_prefix() . 'tasks.rel_id = ' . db_prefix() . 'projects.id', 'left');
+        $this->db->join(db_prefix() . 'taggables', db_prefix() . 'taggables.rel_id = ' . db_prefix() . 'tasks.id', 'left');
+        $this->db->join(db_prefix() . 'tags', db_prefix() . 'taggables.tag_id = ' . db_prefix() . 'tags.id', 'left');
+
+        $this->db->group_by(db_prefix() . 'tags.name');
+
+        $this->db->where(db_prefix() . 'tasks.rel_id =' . $project_id);
+        $this->db->where(db_prefix() . 'tasks.rel_type = ' . "'project'");
+        $this->db->where(db_prefix() . 'licence_items.licence_id=' . $licence_id);
+
+        //return $this->db->get_compiled_select(db_prefix() . 'licence_items');
+        return $this->db->get(db_prefix() . 'licence_items')->result_array();
+    }
+
+
 
 }

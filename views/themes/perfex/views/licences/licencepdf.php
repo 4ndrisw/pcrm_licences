@@ -28,12 +28,12 @@ $organization_info .= '</div>';
 // Licence to
 $licence_info = '<b>' . _l('licence_to') . '</b>';
 $licence_info .= '<div style="color:#424242;">';
-$licence_info .= format_customer_info($licence, 'licence', 'billing');
+$licence_info .= format_upt_info($licence->upt);
 $licence_info .= '</div>';
 
 $CI = &get_instance();
 $CI->load->model('licences_model');
-$licence_members = $CI->licences_model->get_licence_members($licence->id,true);
+//$licence_members = $CI->licences_model->get_licence_members($licence->id,true);
 
 if (!empty($licence->reference_no)) {
     $licence_info .= _l('reference_no') . ': ' . $licence->reference_no . '<br />';
@@ -52,8 +52,8 @@ $project_name = $list[0];
 $project_date = _d($project->start_date);
 
 $date = $licence->date;
-$today = _l('licence_today');
-$licence_declare = _l('licence_declare');
+$today = 'Pada hari ini, ';
+$licence_declare = 'kami mengajukan permohonan penerbitan Surat Ketarangan Layak K3 untuk peralatan sebagai berikut:';
 $getDayName = getDayName($date);
 $getDay = getDay($date);
 $getMonth = getMonth($date);
@@ -66,42 +66,39 @@ EOD;
 // print a block of text using Write()
 $pdf->write(0, $txt, '', 0, 'J', true, 0, false, false, 0);
 
-$licence_date_text = _l('licence_date_text');
-$tbl_po = <<<EOD
-<table style="margin-left:10">
-    <tbody>
-        <tr>
-            <td style="width:160">PO/SPK/WO/PH *)</td>
-            <td style="width:20">:</td>
-            <td>$project_name</td>
-        </tr>
-        <tr>
-            <td style="width:160">$licence_date_text</td>
-            <td style="width:20">:</td>
-            <td>$project_date</td>
-        </tr>
-    </tbody>    
-</table>
-EOD;
-
-$licence_result = _l('licence_result');
-$pdf->writeHTML($tbl_po, true, false, false, false, '');
-
-$txt = <<<EOD
-$licence_result \r\n
-EOD;
-
-// print a block of text using Write()
-$pdf->write(0, $txt, '', 0, 'J', true, 0, false, false, 0);
-
 $pdf->Ln(hooks()->apply_filters('pdf_info_and_table_separator', 2));
 
 // The items table
-$items = get_licence_items_table_data($licence, 'licence', 'pdf');
 
-$tblhtml = $items->table();
+$items  = '';
+$items .= '<table style="padding:5,10,5,10" border="1" class="table table-bordered table-jobreport-items">';
+$items .=    '<thead>';
+$items .=        '<tr>';
+$items .=            '<th width="50" align="center">No#</th>';
+$items .=            '<th width="450" align="center">Items</th>';
+$items .=            '<th width="200" align="center">Tags</th>';
+$items .=            '<th width="100" align="center">Item/Lot</th>';
+$items .=        '</tr>';
+$items .=    '</thead>';
+$items .=    '<tbody>';
+        $i=1;
+        foreach($licence->proposed_items as $item){        
+            
+$items .=            '<tr>';
+$items .=                '<td width="50" align="right">' .$i.' </td>';
+$items .=                '<td width="450">' .$item['task_name']. '</td>';
+$items .=                '<td width="200">' .$item['tags_name']. '</td>';
+$items .=                '<td width="100" align="center">' .$item['count']. '</td>';
+$items .=            '</tr>';
+            
+             $i++; 
+         } 
+$items .=    '</tbody>';
+$items .= '</table>';
 
-$pdf->writeHTML($tblhtml, true, false, false, false, '');
+pdf_multi_row($items, '', $pdf, ($dimensions['wk'] / 1) - $dimensions['lm']);
+
+$pdf->ln(4);
 
 $pdf->SetFont($font_name, '', $font_size);
 
@@ -137,7 +134,7 @@ $client_info .= '</div>';
 $left_info  = $swap == '1' ? $client_info : $assigned_info;
 $right_info = $swap == '1' ? $assigned_info : $client_info;
 pdf_multi_row($left_info, $right_info, $pdf, ($dimensions['wk'] / 2) - $dimensions['lm']);
-$licence_closing = _l('licence_closing');
+$licence_closing = 'Demikian permohonan ini kami sampaikan, atas perhatian dan kerjasamanya kami ucapkan terima kasih.';
 $txt = <<<EOD
 $licence_closing \r\n
 EOD;

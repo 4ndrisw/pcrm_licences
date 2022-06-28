@@ -84,6 +84,7 @@ class Mylicence extends ClientsController
         if ($identity_confirmation_enabled == '1') {
             $data['bodyclass'] .= ' identity-confirmation';
         }
+        $data['licence_proposed_items'] = $this->licences_model->get_licence_proposed_items($licence->id, $licence->project_id);
 
         $qrcode_data  = '';
         $qrcode_data .= _l('licence_number') . ' : ' . $licence_number ."\r\n";
@@ -144,7 +145,8 @@ class Mylicence extends ClientsController
         }
         $licence        = $this->licences_model->get($id);
         $licence_number = format_licence_number($licence->id);
-
+        
+        $licence->proposed_items = $this->licences_model->get_licence_proposed_items($licence->id, $licence->project_id);
         $licence->assigned_path = FCPATH . get_licence_upload_path('licence').$licence->id.'/assigned-'.$licence_number.'.png';
         $licence->acceptance_path = FCPATH . get_licence_upload_path('licence').$licence->id .'/'.$licence->signature;
         $licence->client_company = $this->clients_model->get($licence->clientid)->company;

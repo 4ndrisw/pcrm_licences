@@ -5,7 +5,11 @@ if (!$CI->db->table_exists(db_prefix() . 'licence_upt')) {
     $CI->db->query('CREATE TABLE ' . db_prefix() . "licence_upt (
       id int(11) NOT NULL,
       short_name varchar(30) NOT NULL,
-      full_name varchar(60) NOT NULL
+      full_name varchar(60) NOT NULL,
+      `address` varchar(191) DEFAULT NULL,
+      `city` varchar(100) DEFAULT NULL,
+      `state` varchar(50) NOT NULL,
+      `zip` varchar(15) NOT NULL
     ) ENGINE=InnoDB DEFAULT CHARSET=" . $CI->db->char_set . ';');
 
     $CI->db->query('ALTER TABLE ' . db_prefix() . 'licence_upt

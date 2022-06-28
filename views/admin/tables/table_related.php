@@ -44,6 +44,8 @@ foreach ($rResult as $aRow) {
         $_data = $aRow[$aColumns[$i]];
         if ($aColumns[$i] == db_prefix() . 'tasks.name') {
             $_data = '<a href="' . admin_url('tasks/view/' . $aRow['task_id']) . '" target = "_blank">' . $_data . '</a>';
+            $_data .= '<a href="#" onclick="edit_task_inline_description(this,457); return false;" class="pull-left mright5 mleft5 font-medium-xs"><i class="fa fa-pencil-square-o"></i></a>';
+
         }elseif ($aColumns[$i] == 'flag') {
             $_data = '<a class="btn btn-success" title = "'._l('propose_this_item').'" href="#" onclick="licence_add_proposed_item(' . $licence_id . ','. $project_id . ',' . $aRow['task_id'] . '); return false;">+</a>';
         } 
