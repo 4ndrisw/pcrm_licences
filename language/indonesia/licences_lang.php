@@ -143,6 +143,7 @@ $lang['remove_this_item']				= 'Hapus item ini';
 $lang['licence_send_telegram_message']				= 'Kirim pesan telegram';
 $lang['licences_tracking']				= 'Daftar Licensi';
 $lang['release_this_item']				= 'Terbitkan lisensi ini';
+$lang['release']				= 'Terbit';
 
 /*
 

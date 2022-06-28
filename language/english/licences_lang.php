@@ -143,8 +143,7 @@ $lang['remove_this_item']				= 'Remove this item';
 $lang['licence_send_telegram_message']				= 'Send telegram message';
 $lang['licences_tracking']				= 'Licences tracking';
 $lang['release_this_item']				= 'Release this item';
-
-
+$lang['release']				= 'Release';
 
 
 /*

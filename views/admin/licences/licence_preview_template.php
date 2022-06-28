@@ -78,7 +78,7 @@
                <?php
                   $path = $this->uri->segment(3);
                   if($path == 'propose'){
-                    echo '<a href="'. admin_url() .'licences/licence/'.$licence->id.'" class="btn btn-success">'._l('licence').'</a>';
+                    echo '<a href="'. admin_url() .'licences/licence/'.$licence->id.'" class="btn btn-success">'._l('release').'</a>';
                   }elseif($path == 'licence'){
                     echo '<a href="'. admin_url() .'licences/propose/'.$licence->id.'" class="btn btn-info">'._l('propose').'</a>';
                   }
