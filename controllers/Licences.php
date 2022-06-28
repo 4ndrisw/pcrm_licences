@@ -94,7 +94,7 @@ class Licences extends AdminController
 
         if ($this->input->is_ajax_request()) {
             $this->app->get_table_data(module_views_path('licences', 'admin/tables/small_table'));
-            $this->app->get_table_data(module_views_path('licences', 'admin/tables/table_proposed'));
+            //$this->app->get_table_data(module_views_path('licences', 'admin/tables/table_proposed'));
         }
 
         $this->load->view('admin/licences/licence_release_preview', $data);
@@ -127,8 +127,6 @@ class Licences extends AdminController
                 $tasks_data = $licence_data['tasks'];
                 unset($tasks_data['licence_id_'.$id]);
                 unset($tasks_data['project_id_'.$licence->project_id]);
-                log_activity(json_encode($tasks_data));
-
                 $this->licences_model->licence_add_proposed_item($id, $licence->project_id, $tasks_data);
             }
         }
@@ -176,7 +174,7 @@ class Licences extends AdminController
         }
 
         $this->session->set_userdata('licence_id', $licence->id);
-        $this->session->set_userdata('project_id', $licence->project_data->id);
+        $this->session->set_userdata('project_id', $licence->project_id);
 
         $this->load->view('admin/licences/licence_preview', $data);
     }
@@ -215,7 +213,7 @@ class Licences extends AdminController
             if ($id) {
                 set_alert('success', _l('added_successfully', _l('licence')));
 
-                $redUrl = admin_url('licences/licence/' . $id);
+                $redUrl = admin_url('licences/propose/' . $id);
 
                 if ($save_and_send_later) {
                     $this->session->set_userdata('send_later', true);
@@ -577,6 +575,16 @@ class Licences extends AdminController
 
         $this->app->get_table_data(module_views_path('licences', 'admin/tables/table_related'));
     }
+
+
+
+
+    public function table_processed($licence_id='')
+    {
+
+        $this->app->get_table_data(module_views_path('licences', 'admin/tables/table_processed'));
+    }
+
 
     public function add_proposed_item()
     {

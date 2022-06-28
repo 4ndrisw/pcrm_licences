@@ -24,13 +24,13 @@ $lang['require_client_logged_in_to_view_licence']                          = 'Re
 $lang['licences']                          = 'Licences';
 $lang['licence_view_activity_tooltip']           = 'Activity Log';
 
-         
+
 $lang['licence_status_draft']           = 'Draft';
 $lang['licence_status_sent']            = 'Sent';
 $lang['licence_status_declined']        = 'Declined';
 $lang['licence_status_accepted']        = 'Accepted';
 $lang['licence_status_released']         = 'Released';
-$lang['licence_note']                   = 'Note:';   
+$lang['licence_note']                   = 'Note:';
 
 $lang['licences']                                = 'Licences';
 $lang['licence']                                 = 'Licence';
@@ -140,6 +140,8 @@ $lang['licence_flag']				= 'Operation';
 $lang['licence_tag']				= 'Tag';
 $lang['attach_file']				= 'attach file';
 $lang['remove_this_item']				= 'Remove this item';
+$lang['licence_send_telegram_message']				= 'Send telegram message';
+$lang['licences_tracking']				= 'Licences tracking';
 
 
 /*

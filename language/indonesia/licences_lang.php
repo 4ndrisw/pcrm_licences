@@ -23,13 +23,13 @@ $lang['settings_group_licences']                          = 'Job Reports';
 $lang['require_client_logged_in_to_view_licence']                          = 'Klien harus login untuk melihat Suket';
 $lang['licences']                          = 'Suket';
 $lang['licence_view_activity_tooltip']           = 'Log aktifitas';
-         
+
 $lang['licence_status_draft']           = 'Draft';
 $lang['licence_status_sent']            = 'Terkirim';
 $lang['licence_status_declined']        = 'Ditolak';
 $lang['licence_status_accepted']        = 'Diterima';
 $lang['licence_status_released']         = 'Released';
-$lang['licence_note']                   = 'Catatan:';   
+$lang['licence_note']                   = 'Catatan:';
 
 $lang['licences']                                = 'Suket';
 $lang['licence']                                 = 'Suket';
@@ -140,6 +140,8 @@ $lang['licence_flag']				= 'Operasi';
 $lang['licence_tag']				= 'Tag';
 $lang['attach_file']				= 'file';
 $lang['remove_this_item']				= 'Hapus item ini';
+$lang['licence_send_telegram_message']				= 'Kirim pesan telegram';
+$lang['licences_tracking']				= 'Daftar Licensi';
 
 /*
 

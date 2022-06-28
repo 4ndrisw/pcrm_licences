@@ -49,6 +49,7 @@ add_option('licences_pipeline_limit', 1);
 add_option('default_licences_pipeline_sort', 1);
 add_option('licence_accept_identity_confirmation', 1);
 add_option('licence_qrcode_size', '160');
+add_option('licence_send_telegram_message', 0);
 
 
 /*

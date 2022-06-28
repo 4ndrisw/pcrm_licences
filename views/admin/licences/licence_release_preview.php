@@ -3,49 +3,26 @@
 <div id="wrapper">
 	<div class="content">
 		<div class="row">
-			<div class="col-md-6 no-padding">
-				<?php 
-			        if ($this->input->is_ajax_request()) {
-			            $this->app->get_table_data(module_views_path('licences', 'admin/tables/table'));
-			        }
-					$this->load->view('admin/licences/licence_small_table'); 
+			<div class="col-md-6 no-padding licence-small-table">
+				<?php
+					$this->load->view('admin/licences/licence_small_table');
 				?>
 			</div>
-			<div class="col-md-6 no-padding licence-preview">
+			<div class="col-md-6 no-padding licence-preview-template">
 				<?php $this->load->view('admin/licences/licence_preview_template'); ?>
 			</div>
-
-			<div class="col-md-6 no-padding licence-preview">
-				<?php $this->load->view('admin/licences/table_proposed'); ?>
-			</div>
-
-
 		</div>
 
 		<div class="row">
-			<div class="col-md-12">
-				<div class="content licence-add">
-					<div class="row">
-						<?php
-						echo form_open($this->uri->uri_string(),array('id'=>'licence-import-form','class'=>'_transaction_form'));
-						?>
-						<div class="col-md-12">
-							<?php $this->load->view('admin/licences/licence_processed'); ?>
-						</div>
-						<?php echo form_close(); ?>
-					</div>
-				</div>
-
-
-			</div>
-			<div class="col-md-12">
-				<?php // $this->load->view('admin/licences/licence_tasks_table'); ?>
+			<div class="col-md-12 no-padding licence-table-related">
+				<?php $this->load->view('admin/licences/licence_table_related'); ?>
 			</div>
 		</div>
 
 	</div>
 </div>
 <?php init_tail(); ?>
+<script type="text/javascript" id="licence-js" src="<?= base_url() ?>modules/licences/assets/js/licences.js?"></script>
 
 <script>
    init_items_sortable(true);
@@ -62,6 +39,16 @@
 <script>
     $(function(){
         initDataTable('.table-licences', window.location.href, 'undefined', 'undefined','fnServerParams', [0, 'desc']);
+    });
+</script>
+<script>
+    $(function(){
+        initDataTable('.table-licences-proposed', admin_url+'licences/table_released', 'undefined', 'undefined','fnServerParams', [0, 'desc']);
+    });
+</script>
+<script>
+    $(function(){
+        initDataTable('.table-licences-related', admin_url+'licences/table_processed', 'undefined', 'undefined','fnServerParams', [0, 'desc']);
     });
 </script>
 

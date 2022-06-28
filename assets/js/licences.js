@@ -19,6 +19,7 @@ function validate_licence_form(selector) {
             }
         },
         date: 'required',
+        upt: 'required',
         number: {
             required: true
         }

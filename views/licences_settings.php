@@ -15,6 +15,8 @@
       <hr />
       <?php render_yes_no_option('delete_only_on_last_licence','delete_only_on_last_licence'); ?>
       <hr />
+      <?php render_yes_no_option('licence_send_telegram_message','licence_send_telegram_message'); ?>
+      <hr />
       <?php render_yes_no_option('licence_number_decrement_on_delete','decrement_licence_number_on_delete','decrement_licence_number_on_delete_tooltip'); ?>
       <hr />
       <?php echo render_yes_no_option('allow_staff_view_licences_assigned','allow_staff_view_licences_assigned'); ?>
