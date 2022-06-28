@@ -16,6 +16,7 @@ $sTable       = db_prefix() . 'licence_items';
 
 
 $join = [
+    'LEFT JOIN ' . db_prefix() . 'licences ON ' . db_prefix() . 'licences.id = ' . db_prefix() . 'licence_items.licence_id',
     'LEFT JOIN ' . db_prefix() . 'tasks ON ' . db_prefix() . 'tasks.id = ' . db_prefix() . 'licence_items.task_id',
     'LEFT JOIN ' . db_prefix() . 'taggables ON ' . db_prefix() . 'taggables.rel_id = ' . db_prefix() . 'tasks.id',
     'LEFT JOIN ' . db_prefix() . 'tags ON ' . db_prefix() . 'taggables.tag_id = ' . db_prefix() . 'tags.id',
@@ -28,6 +29,7 @@ $where  = [];
 array_push($where, 'AND ' . db_prefix() . 'licence_items.licence_id = "'.$licence_id.'"');
 array_push($where, 'AND ' . db_prefix() . 'licence_items.released IS NULL');
 array_push($where, 'AND ' . db_prefix() . 'tasks.rel_type = "project"');
+array_push($where, 'AND ' . db_prefix() . 'licences.status = "2"');
 
 
 $result = data_tables_init($aColumns, $sIndexColumn, $sTable, $join, $where, $additionalSelect);

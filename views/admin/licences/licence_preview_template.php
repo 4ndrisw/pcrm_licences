@@ -77,8 +77,10 @@
                <?php echo format_licence_status($licence->status,'mtop5');  ?>           
                <?php
                   $path = $this->uri->segment(3);
-                  if($licence->status =='2' && $path == 'propose'){
-                    echo '<a href="'. admin_url() .'licences/licence/'.$licence->id.'" class="btn btn-info">Proses</a>';
+                  if($path == 'propose'){
+                    echo '<a href="'. admin_url() .'licences/licence/'.$licence->id.'" class="btn btn-success">'._l('licence').'</a>';
+                  }elseif($path == 'licence'){
+                    echo '<a href="'. admin_url() .'licences/propose/'.$licence->id.'" class="btn btn-info">'._l('propose').'</a>';
                   }
                ?>
             </div>
