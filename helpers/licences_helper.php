@@ -716,3 +716,22 @@ function licence_status_changed_hook($data){
     log_activity('licence_status_changed');
 
 }
+
+
+function add_licence_items($insert_id){
+
+    $CI = &get_instance();
+    $CI->load->model('licences_model');
+    
+    $licence = $CI->licences_model->get($insert_id);
+
+    $items = $CI->licences_model->get_available_tasks($licence->id, $licence->project_id);
+    
+    foreach($items as $item){
+        $item['licence_id']=$insert_id;
+        
+        $CI->db->insert(db_prefix().'licence_items', $item);
+        
+    }
+
+}

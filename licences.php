@@ -30,6 +30,8 @@ hooks()->add_filter('global_search_result_output', 'licences_global_search_resul
 hooks()->add_filter('get_dashboard_widgets', 'licences_add_dashboard_widget');
 hooks()->add_filter('module_licences_action_links', 'module_licences_action_links');
 
+hooks()->add_action('after_licence_added', 'add_licence_items');
+
 function licences_add_dashboard_widget($widgets)
 {
     $widgets[] = [

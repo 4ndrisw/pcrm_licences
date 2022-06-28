@@ -755,11 +755,7 @@ class Licences_model extends App_Model
             delete_tracked_emails($id, 'licence');
 
             // Delete the items values
-            $this->db->where('licenceid', $id);
-            $this->db->set('licenceid', NULL, true);
-            $this->db->set('licence_date', NULL, true);
-            $this->db->update(db_prefix() . 'schedules');
-
+           
             $this->db->where('rel_id', $id);
             $this->db->where('rel_type', 'licence');
             $this->db->delete(db_prefix() . 'notes');
@@ -776,8 +772,7 @@ class Licences_model extends App_Model
             $this->db->where('rel_id', $id);
             $this->db->delete(db_prefix() . 'reminders');
 
-            $this->db->where('rel_id', $id);
-            $this->db->where('rel_type', 'licence');
+            $this->db->where('licence_id', $id);
             $this->db->delete(db_prefix() . 'licence_items');
 
             $this->db->where('rel_id', $id);
@@ -1226,10 +1221,10 @@ class Licences_model extends App_Model
             $this->db->where(db_prefix() . 'licences.addedfrom', $staffId);
         }
 
-        $this->db->select([db_prefix() . 'licences.id', db_prefix() . 'licences.number', db_prefix() . 'clients.userid', db_prefix() . 'clients.company', db_prefix() . 'projects.id AS project_id', db_prefix() . 'projects.name', 'COUNT('. db_prefix() . 'licences_related_tasks.task_id) AS count_task', db_prefix() . 'licences.date']);
+        $this->db->select([db_prefix() . 'licences.id', db_prefix() . 'licences.number', db_prefix() . 'clients.userid', db_prefix() . 'clients.company', db_prefix() . 'projects.id AS project_id', db_prefix() . 'projects.name', 'COUNT('. db_prefix() . 'licence_items.task_id) AS count_task', db_prefix() . 'licences.date']);
         $this->db->join(db_prefix() . 'clients', db_prefix() . 'clients.userid = ' . db_prefix() . 'licences.clientid', 'left');
         $this->db->join(db_prefix() . 'projects', db_prefix() . 'projects.id = ' . db_prefix() . 'licences.project_id', 'left');
-        $this->db->join(db_prefix() . 'licences_related_tasks', db_prefix() . 'licences.id = ' . db_prefix() . 'licences_related_tasks.licence_id', 'left');
+        $this->db->join(db_prefix() . 'licence_items', db_prefix() . 'licences.id = ' . db_prefix() . 'licence_items.licence_id', 'left');
 
         $this->db->group_by([db_prefix() . 'licences.id',db_prefix() . 'clients.userid', db_prefix() . 'projects.id']); 
 
@@ -1299,20 +1294,20 @@ class Licences_model extends App_Model
 
 
     public function get_related_tasks($licence_id, $project_id, $proposed = false, $released = false){
-        $this->db->select([db_prefix() . 'tasks.id',db_prefix() . 'tasks.name', db_prefix() . 'tasks.rel_id', db_prefix() . 'licences_related_tasks.licence_upt_number', db_prefix() . 'tasks.dateadded']);
+        $this->db->select([db_prefix() . 'tasks.id',db_prefix() . 'tasks.name', db_prefix() . 'tasks.rel_id', db_prefix() . 'licence_items.licence_upt_number', db_prefix() . 'tasks.dateadded']);
         $this->db->where(db_prefix() . 'tasks.rel_id =' . $project_id);
         
-        $this->db->join(db_prefix() . 'licences_related_tasks', db_prefix() . 'licences_related_tasks.task_id = ' . db_prefix() . 'tasks.id', 'left');
+        $this->db->join(db_prefix() . 'licence_items', db_prefix() . 'licence_items.task_id = ' . db_prefix() . 'tasks.id', 'left');
 
         $this->db->where(db_prefix() . 'tasks.rel_type = ' . "'project'");
-        $this->db->where(db_prefix() . 'licences_related_tasks.licence_id = ' . $licence_id);
+        $this->db->where(db_prefix() . 'licence_items.licence_id = ' . $licence_id);
 
         if($proposed){
-            $this->db->where(db_prefix() . 'licences_related_tasks.task_id IS NOT NULL');            
+            $this->db->where(db_prefix() . 'licence_items.task_id IS NOT NULL');            
         }
 
         if($released){
-            $this->db->where(db_prefix() . 'licences_related_tasks.licence_upt_number IS NOT NULL');            
+            $this->db->where(db_prefix() . 'licence_items.licence_upt_number IS NOT NULL');            
         }
 
         //return $this->db->get_compiled_select(db_prefix() . 'tasks');
@@ -1324,7 +1319,7 @@ class Licences_model extends App_Model
         
         log_activity(json_encode($data));
         
-        $this->db->insert(db_prefix() . 'licences_related_tasks', [
+        $this->db->insert(db_prefix() . 'licence_items', [
                 'licence_id'      => $data['licence_id'],
                 'project_id' => $data['project_id'],
                 'task_id'              => $data['task_id']]);
@@ -1339,9 +1334,9 @@ class Licences_model extends App_Model
 
         //$this->db->where('licence_id', $data['licence_id']);
         //$this->db->where('task_id', $data['task_id']);
-        //$id = $this->db->get(db_prefix() . 'licences_related_tasks')->row();
+        //$id = $this->db->get(db_prefix() . 'licence_items')->row();
         //if(isset($id)){
-            $this->db->delete(db_prefix() . 'licences_related_tasks', [
+            $this->db->delete(db_prefix() . 'licence_items', [
                 'licence_id' => $data['licence_id'],
                 'task_id' => $data['task_id'],
             ]);            
@@ -1389,7 +1384,7 @@ class Licences_model extends App_Model
                 $this->db->where('licence_id', $licence_id);
                 $this->db->where('project_id', $project_id);
                 $this->db->where('task_id', $task_id);
-                $this->db->update(db_prefix() . 'licences_related_tasks', 
+                $this->db->update(db_prefix() . 'licence_items', 
                             [
                                 'licence_upt_number'=> $task,
                             ]
@@ -1401,6 +1396,21 @@ class Licences_model extends App_Model
     public function get_upt(){
         $this->db->select([db_prefix() . 'licence_upt.id',db_prefix() . 'licence_upt.full_name']);
         return $this->db->get(db_prefix() . 'licence_upt')->result_array();
+    }
+
+    public function get_available_tasks($licence_id, $project_id){
+
+        $this->db->select([db_prefix() . 'projects.id AS project_id', db_prefix() . 'tasks.id AS task_id']);
+
+        $this->db->join(db_prefix() . 'projects', db_prefix() . 'tasks.rel_id = ' . db_prefix() . 'projects.id', 'left');
+        $this->db->join(db_prefix() . 'licence_items', db_prefix() . 'tasks.id = ' . db_prefix() . 'licence_items.task_id', 'left');
+
+        $this->db->where(db_prefix() . 'tasks.rel_id =' . $project_id);
+        $this->db->where(db_prefix() . 'tasks.rel_type = ' . "'project'");
+        $this->db->where(db_prefix() . 'licence_items.task_id IS NULL');
+
+        //return $this->db->get_compiled_select(db_prefix() . 'tasks');
+        return $this->db->get(db_prefix() . 'tasks')->result_array();
     }
 
 }

@@ -55,7 +55,7 @@ add_option('licence_send_telegram_message', 0);
 /*
 
 DROP TABLE  IF EXISTS `tbllicences`;
-DROP TABLE  IF EXISTS `tbllicences_related_tasks`;
+DROP TABLE  IF EXISTS `licence_items`;
 DROP TABLE  IF EXISTS `tbllicence_items`;
 DROP TABLE  IF EXISTS `tbllicence_upt`;
 DROP TABLE  IF EXISTS `tbllicence_activity`;

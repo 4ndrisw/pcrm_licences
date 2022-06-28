@@ -14,23 +14,23 @@ $aColumns = [
 ];
 
 $sIndexColumn = 'id';
-$sTable       = db_prefix() . 'licences_related_tasks';
+$sTable       = db_prefix() . 'licence_items';
 
 
 $join = [
-    'RIGHT JOIN ' . db_prefix() . 'tasks ON ' . db_prefix() . 'licences_related_tasks.task_id = ' . db_prefix() . 'tasks.id',
+    'RIGHT JOIN ' . db_prefix() . 'tasks ON ' . db_prefix() . 'licence_items.task_id = ' . db_prefix() . 'tasks.id',
     'LEFT JOIN ' . db_prefix() . 'projects ON ' . db_prefix() . 'projects.id = ' . db_prefix() . 'tasks.rel_id',
     'LEFT JOIN ' . db_prefix() . 'taggables ON ' . db_prefix() . 'taggables.rel_id = ' . db_prefix() . 'tasks.id',
     'LEFT JOIN ' . db_prefix() . 'tags ON ' . db_prefix() . 'taggables.tag_id = ' . db_prefix() . 'tags.id',
 ];
 
-$additionalSelect = [db_prefix() . 'licences_related_tasks.id','licence_id',db_prefix() . 'tasks.id as task_id'];
+$additionalSelect = [db_prefix() . 'licence_items.id','licence_id',db_prefix() . 'tasks.id as task_id'];
 
 
 $where  = [];
 array_push($where, 'AND ' . db_prefix() . 'projects.id = "'.$project_id.'"');
 array_push($where, 'AND ' . db_prefix() . 'tasks.rel_type = "project"');
-array_push($where, 'AND ' . db_prefix() . 'licences_related_tasks.id IS NULL');
+array_push($where, 'AND ' . db_prefix() . 'licence_items.id IS NULL');
 
 
 $result = data_tables_init($aColumns, $sIndexColumn, $sTable, $join, $where, $additionalSelect);
