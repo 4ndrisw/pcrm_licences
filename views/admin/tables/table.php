@@ -49,7 +49,7 @@ foreach ($rResult as $aRow) {
     for ($i = 0; $i < count($aColumns); $i++) {
         $_data = $aRow[$aColumns[$i]];
         if ($aColumns[$i] == 'formatted_number') {
-            $_data = '<a href="' . admin_url('licences/licence/' . $aRow['id']) . '">' . $_data . '</a>';
+            $_data = '<a href="' . admin_url('licences/release/' . $aRow['id']) . '">' . $_data . '</a>';
             $_data .= '<div class="row-options">';
             $_data .= '<a href="' . admin_url('licences/propose/' . $aRow['id']) . '">' . _l('propose') . '</a>';
             $_data .= ' | <a href="' . admin_url('licences/update/' . $aRow['id']) . '">' . _l('edit') . '</a>';

@@ -32,7 +32,7 @@ class Licences extends AdminController
 
 
     /* Add new licence or update existing */
-    public function licence($id)
+    public function release($id)
     {
 
         $licence = $this->licences_model->get($id);
@@ -224,7 +224,7 @@ class Licences extends AdminController
                 }
 
                 redirect(
-                    !$this->set_licence_pipeline_autoload($id) ? $redUrl : admin_url('licences/licence/')
+                    !$this->set_licence_pipeline_autoload($id) ? $redUrl : admin_url('licences/release/')
                 );
             }
         }
@@ -301,7 +301,7 @@ class Licences extends AdminController
             if ($id) {
                 set_alert('success', _l('added_successfully', _l('licence')));
 
-                $redUrl = admin_url('licences/licence/' . $id);
+                $redUrl = admin_url('licences/release/' . $id);
 
                 if ($save_and_send_later) {
                     $this->session->set_userdata('send_later', true);
@@ -309,7 +309,7 @@ class Licences extends AdminController
                 }
 
                 //redirect(
-                //    !$this->set_licence_pipeline_autoload($id) ? $redUrl : admin_url('licences/licence/')
+                //    !$this->set_licence_pipeline_autoload($id) ? $redUrl : admin_url('licences/release/')
                 //);
             }
         }
@@ -375,7 +375,7 @@ class Licences extends AdminController
             if ($this->set_licence_pipeline_autoload($id)) {
                 redirect(admin_url('licences/'));
             } else {
-                redirect(admin_url('licences/licence/' . $id));
+                redirect(admin_url('licences/release/' . $id));
             }
         }
 
@@ -492,7 +492,7 @@ class Licences extends AdminController
             redirect($_SERVER['HTTP_REFERER']);
         } else {
             redirect($_SERVER['HTTP_REFERER']);
-//            redirect(admin_url('licences/licence/' . $id));
+//            redirect(admin_url('licences/release/' . $id));
         }
     }
 
@@ -534,7 +534,7 @@ class Licences extends AdminController
         if ($this->set_licence_pipeline_autoload($id)) {
             redirect($_SERVER['HTTP_REFERER']);
         } else {
-            redirect(admin_url('licences/licence/' . $id));
+            redirect(admin_url('licences/release/' . $id));
         }
     }
 
@@ -630,7 +630,7 @@ class Licences extends AdminController
             $this->licences_model->clear_signature($id);
         }
 
-        redirect(admin_url('licences/licence/' . $id));
+        redirect(admin_url('licences/release/' . $id));
     }
 
 }

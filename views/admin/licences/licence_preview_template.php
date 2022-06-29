@@ -78,7 +78,7 @@
                <?php
                   $path = $this->uri->segment(3);
                   if($path == 'propose'){
-                    echo '<a href="'. admin_url() .'licences/licence/'.$licence->id.'" class="btn btn-success">'._l('release').'</a>';
+                    echo '<a href="'. admin_url() .'licences/release/'.$licence->id.'" class="btn btn-success">'._l('release').'</a>';
                   }elseif($path == 'licence'){
                     echo '<a href="'. admin_url() .'licences/propose/'.$licence->id.'" class="btn btn-info">'._l('propose').'</a>';
                   }
@@ -292,7 +292,7 @@
                               $info = $this->uri->segment(3);
                               if($info == 'propose'){
                                  $this->load->view('admin/licences/licence_table_proposed');
-                              }elseif($info == 'licence'){
+                              }elseif($info == 'release'){
                                  $this->load->view('admin/licences/licence_table_released');
                               }
                            ?>

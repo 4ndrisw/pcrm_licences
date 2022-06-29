@@ -28,7 +28,7 @@
                             <?php foreach ($licences as $licence) { ?>
                                 <tr>
                                     <td>
-                                        <?php echo '<a href="' . admin_url("licences/licence/" . $licence["id"]) . '">' . format_licence_number($licence["id"]) . '</a>'; ?>
+                                        <?php echo '<a href="' . admin_url("licences/release/" . $licence["id"]) . '">' . format_licence_number($licence["id"]) . '</a>'; ?>
                                     </td>
                                     <td>
                                         <?php echo '<a href="' . admin_url("clients/client/" . $licence["userid"]) . '">' . $licence["company"] . '</a>'; ?>

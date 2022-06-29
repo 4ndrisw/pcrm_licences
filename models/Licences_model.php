@@ -573,7 +573,7 @@ class Licences_model extends App_Model
                             'fromcompany'     => true,
                             'touserid'        => $member['staffid'],
                             'description'     => 'licence_customer_accepted',
-                            'link'            => 'licences/licence/' . $id,
+                            'link'            => 'licences/release/' . $id,
                             'additional_data' => serialize([
                                 format_licence_number($licence->id),
                             ]),
@@ -596,7 +596,7 @@ class Licences_model extends App_Model
                             'fromcompany'     => true,
                             'touserid'        => $member['staffid'],
                             'description'     => 'licence_customer_declined',
-                            'link'            => 'licences/licence/' . $id,
+                            'link'            => 'licences/release/' . $id,
                             'additional_data' => serialize([
                                 format_licence_number($licence->id),
                             ]),
@@ -628,7 +628,7 @@ class Licences_model extends App_Model
                                 'fromcompany'     => true,
                                 'touserid'        => $member['staffid'],
                                 'description'     => 'licence_send_to_customer_already_sent',
-                                'link'            => 'licences/licence/' . $id,
+                                'link'            => 'licences/release/' . $id,
                                 'additional_data' => serialize([
                                     format_licence_number($licence->id),
                                 ]),

@@ -2,7 +2,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-$route['licences/licence/(:num)/(:any)'] = 'licence/index/$1/$2';
+$route['licences/release/(:num)/(:any)'] = 'licence/index/$1/$2';
 
 /**
  * @since 2.0.0

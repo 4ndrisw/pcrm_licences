@@ -56,7 +56,7 @@ function licences_staff_member_deleted($data)
 function licences_global_search_result_output($output, $data)
 {
     if ($data['type'] == 'licences') {
-        $output = '<a href="' . admin_url('licences/licence/' . $data['result']['id']) . '">' . format_licence_number($data['result']['id']) . '</a>';
+        $output = '<a href="' . admin_url('licences/release/' . $data['result']['id']) . '">' . format_licence_number($data['result']['id']) . '</a>';
     }
 
     return $output;
@@ -214,7 +214,6 @@ function licences_settings_tab()
     $CI = &get_instance();
     $CI->app_tabs->add_settings_tab('licences', [
         'name'     => _l('settings_group_licences'),
-        //'view'     => module_views_path(LICENCES_MODULE_NAME, 'admin/settings/includes/licences'),
         'view'     => 'licences/licences_settings',
         'position' => 51,
     ]);
