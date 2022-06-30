@@ -230,14 +230,14 @@ function is_last_licence($id)
 function format_licence_number($id)
 {
     $CI = &get_instance();
-    $CI->db->select('date,number,prefix,number_format')->from(db_prefix() . 'licences')->where('id', $id);
+    $CI->db->select('proposed_date,number,prefix,number_format')->from(db_prefix() . 'licences')->where('id', $id);
     $licence = $CI->db->get()->row();
 
     if (!$licence) {
         return '';
     }
 
-    $number = licence_number_format($licence->number, $licence->number_format, $licence->prefix, $licence->date);
+    $number = licence_number_format($licence->number, $licence->number_format, $licence->prefix, $licence->proposed_date);
 
     return hooks()->apply_filters('format_licence_number', $number, [
         'id'       => $id,

@@ -1,5 +1,5 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
-<?php echo form_hidden('_attachment_sale_id',$licence->id); ?>
+<?php echo form_hidden('_attachment_sale_id',$licence->status); ?>
 <?php echo form_hidden('_attachment_sale_type','licence'); ?>
 <div class="col-md-12 no-padding">
    <div class="panel_s">
@@ -257,15 +257,26 @@
                   </div>
                   <div class="row">
                      <div class="container-fluid">
-                        <div class="col-md-6">
+                        
+                        <div class="col-md-12 text-right">
 
-                        </div>
-                        <div class="col-md-6 text-right">
+                           <p class="no-mbot">
+                              <span class="bold"><?php echo _l('client'); ?>:</span>
+                              <?php echo $licence->client->company; ?>
+                           </p>
+
+                           <?php if($licence->project_id != 0 && get_option('show_project_on_licence') == 1){ ?>
+                           <p class="no-mbot">
+                              <span class="bold"><?php echo _l('project'); ?>:</span>
+                              <?php echo get_project_name_by_id($licence->project_id); ?>
+                           </p>
+                           <?php } ?>
+
                            <p class="no-mbot">
                               <span class="bold">
                               <?php echo _l('licence_data_date'); ?>:
                               </span>
-                              <?php echo $licence->date; ?>
+                              <?php echo $licence->proposed_date; ?>
                            </p>
                            <?php if(!empty($licence->reference_no)){ ?>
                            <p class="no-mbot">
@@ -274,12 +285,6 @@
                            </p>
                            <?php } ?>
 
-                           <?php if($licence->project_id != 0 && get_option('show_project_on_licence') == 1){ ?>
-                           <p class="no-mbot">
-                              <span class="bold"><?php echo _l('project'); ?>:</span>
-                              <?php echo get_project_name_by_id($licence->project_id); ?>
-                           </p>
-                           <?php } ?>
                         </div>
                      </div>
                   </div>
@@ -287,8 +292,6 @@
                      <div class="col-md-12 licence-items">
                         <div class="col-md-12">
                            <?php
-                          
-
                               $info = $this->uri->segment(3);
                               if($info == 'propose'){
                                  $this->load->view('admin/licences/licence_table_proposed');

@@ -536,10 +536,13 @@ class Licences_model extends App_Model
 
     public function mark_action_status($action, $id, $client = false)
     {
+                log_activity('$action ' .$action);
+
         $this->db->where('id', $id);
         $this->db->update(db_prefix() . 'licences', [
             'status' => $action,
             'signed' => ($action == 4) ? 1 : 0,
+            'released_date' => ($action == 5) ? date('Y-m-d H:i:s') : NULL,
         ]);
 
         $notifiedUsers = [];
@@ -557,7 +560,6 @@ class Licences_model extends App_Model
                 $contact_id = !is_client_logged_in()
                     ? get_primary_contact_user_id($licence->clientid)
                     : get_contact_user_id();
-
                 if ($action == 4) {
                     $this->log_licence_activity($id, 'licence_activity_client_accepted', true);
 
@@ -1189,9 +1191,12 @@ class Licences_model extends App_Model
                 ]);
             }
             $this->db->where('id', $data['licenceid']);
+            
             $this->db->update(db_prefix() . 'licences', [
                 'last_status_change' => date('Y-m-d H:i:s'),
             ]);
+
+
         }
 
         if ($affectedRows > 0) {
@@ -1320,6 +1325,7 @@ class Licences_model extends App_Model
     }
 
     public function licence_add_proposed_item($data){
+        
         $this->db->insert(db_prefix() . 'licence_items', [
                 'licence_id'      => $data['licence_id'],
                 'project_id' => $data['project_id'],

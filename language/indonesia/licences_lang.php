@@ -144,6 +144,7 @@ $lang['licence_send_telegram_message']				= 'Kirim pesan telegram';
 $lang['licences_tracking']				= 'Daftar Licensi';
 $lang['release_this_item']				= 'Terbitkan lisensi ini';
 $lang['release']				= 'Terbit';
+$lang['licence_equipment_name']				= 'Equipment';
 
 /*
 

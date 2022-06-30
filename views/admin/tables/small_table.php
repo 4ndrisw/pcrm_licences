@@ -5,7 +5,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 $aColumns = [
     'formatted_number',
     'company',
-    'date',
+    'proposed_date',
 ];
 
 $sIndexColumn = 'id';

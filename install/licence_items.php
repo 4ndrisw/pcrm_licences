@@ -7,6 +7,7 @@ if (!$CI->db->table_exists(db_prefix() . 'licence_items')) {
   `licence_id` int(11) NOT NULL,
   `project_id` int(11) NOT NULL,
   `task_id` int(11) NOT NULL,
+  `equipment_name` varchar(60) DEFAULT NULL,
   `licence_upt_number` varchar(40) DEFAULT NULL,
   `released` tinyint(1) DEFAULT NULL,
   `flag` tinyint(1) DEFAULT NULL

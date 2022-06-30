@@ -126,6 +126,8 @@ class Licences extends AdminController
         if ($this->input->post()) {
 
             $licence_data = $this->input->post();
+            log_activity(json_encode($licence_data));
+
             if(!empty($licence_data['tasks'])){
                 $tasks_data = $licence_data['tasks'];
                 unset($tasks_data['licence_id_'.$id]);
@@ -142,7 +144,7 @@ class Licences extends AdminController
         $data['licence_statuses'] = $this->licences_model->get_statuses();
         $data['title']             = $title;
 
-        $licence->date       = _d($licence->date);        
+        $licence->proposed_date       = _d($licence->proposed_date);        
         
         if ($licence->project_id !== null) {
             $this->load->model('projects_model');
@@ -562,6 +564,9 @@ class Licences extends AdminController
     public function update_licence_status()
     {
         if ($this->input->post() && $this->input->is_ajax_request()) {
+            
+        log_activity(json_encode($this->input->post()));
+        
             $this->licences_model->update_licence_status($this->input->post());
         }
     }
@@ -598,6 +603,9 @@ class Licences extends AdminController
     public function add_proposed_item()
     {
         if ($this->input->post() && $this->input->is_ajax_request()) {
+            $x = $this->input->post();
+            log_activity(json_encode($x));
+            
             $this->licences_model->licence_add_proposed_item($this->input->post());
         }
     }
