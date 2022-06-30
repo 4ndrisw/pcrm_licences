@@ -289,7 +289,7 @@
                      </div>
                   </div>
                   <div class="row">
-                     <div class="col-md-12 licence-items">
+                     <div class="licence-items">
                            <?php
                               $info = $this->uri->segment(3);
                               if($info == 'propose'){
