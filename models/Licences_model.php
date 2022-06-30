@@ -1237,9 +1237,9 @@ class Licences_model extends App_Model
 
         $this->db->group_by([db_prefix() . 'licences.id',db_prefix() . 'clients.userid', db_prefix() . 'projects.id']); 
 
-        $this->db->where('date IS NOT NULL');
-        $this->db->where('date >=', $diff1);
-        $this->db->where('date <=', $diff2);
+        $this->db->where('proposed_date IS NOT NULL');
+        $this->db->where('proposed_date >=', $diff1);
+        $this->db->where('proposed_date <=', $diff2);
 
         return $this->db->get(db_prefix() . 'licences')->result_array();
     }
