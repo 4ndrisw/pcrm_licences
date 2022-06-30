@@ -40,7 +40,7 @@
                                         <?php echo $licence['count_task']; ?>
                                     </td>
                                     <td>
-                                        <?php echo _d($licence['date']); ?>
+                                        <?php echo _d($licence['proposed_date']); ?>
                                     </td>
                                 </tr>
                             <?php } ?>
