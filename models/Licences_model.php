@@ -1230,7 +1230,7 @@ class Licences_model extends App_Model
             $this->db->where(db_prefix() . 'licences.addedfrom', $staffId);
         }
 
-        $this->db->select([db_prefix() . 'licences.id', db_prefix() . 'licences.number', db_prefix() . 'clients.userid', db_prefix() . 'clients.company', db_prefix() . 'projects.id AS project_id', db_prefix() . 'projects.name', 'COUNT('. db_prefix() . 'licence_items.task_id) AS count_task', db_prefix() . 'licences.date']);
+        $this->db->select([db_prefix() . 'licences.id', db_prefix() . 'licences.number', db_prefix() . 'clients.userid', db_prefix() . 'clients.company', db_prefix() . 'projects.id AS project_id', db_prefix() . 'projects.name', 'COUNT('. db_prefix() . 'licence_items.task_id) AS count_task', db_prefix() . 'licences.proposed_date']);
         $this->db->join(db_prefix() . 'clients', db_prefix() . 'clients.userid = ' . db_prefix() . 'licences.clientid', 'left');
         $this->db->join(db_prefix() . 'projects', db_prefix() . 'projects.id = ' . db_prefix() . 'licences.project_id', 'left');
         $this->db->join(db_prefix() . 'licence_items', db_prefix() . 'licences.id = ' . db_prefix() . 'licence_items.licence_id', 'left');
