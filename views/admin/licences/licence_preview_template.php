@@ -290,7 +290,6 @@
                   </div>
                   <div class="row">
                      <div class="col-md-12 licence-items">
-                        <div class="col-md-12">
                            <?php
                               $info = $this->uri->segment(3);
                               if($info == 'propose'){
@@ -299,8 +298,6 @@
                                  $this->load->view('admin/licences/licence_table_released');
                               }
                            ?>
-                        </div>
-
                      </div>
                      <?php if(count($licence->attachments) > 0){ ?>
                         <div class="clearfix"></div>
