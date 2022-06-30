@@ -48,8 +48,8 @@ foreach ($rResult as $aRow) {
             $_data .= '<a href="#" onclick="edit_task_inline_description(this,457); return false;" class="pull-left mright5 mleft5 font-medium-xs"><i class="fa fa-pencil-square-o"></i></a>';
 
         }elseif ($aColumns[$i] == 'equipment_name') {
-            $_data = '<div data-cid="'.$aRow['task_id'].'">aaaa-'.$aRow['task_id'].'</div>';
-            $_data .= '<div class="pull-right"><a class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal_add_new"> Add New</a></div>';
+            $_data = '<div data-cid="'.$aRow['task_id'].'">task-'.$aRow['task_id'].'</div>';
+            //$_data .= '<div class="pull-right"><a class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal_add_new"> Add New</a></div>';
 
         }elseif ($aColumns[$i] == 'flag') {
             $_data = '<a class="btn btn-success" title = "'._l('propose_this_item').'" href="#" onclick="licence_add_proposed_item(' . $licence_id . ','. $project_id . ',' . $aRow['task_id'] . '); return false;">+</a>';
