@@ -17,7 +17,8 @@ if (!$CI->db->table_exists(db_prefix() . 'licences')) {
       `formatted_number` varchar(20) DEFAULT NULL,
       `hash` varchar(32) DEFAULT NULL,
       `datecreated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      `date` date DEFAULT NULL,
+      `proposed_date` date DEFAULT NULL,
+      `released_date` date DEFAULT NULL,
       `addedfrom` int(11) NOT NULL DEFAULT 0,
       `status` int(11) NOT NULL DEFAULT 1,
       `last_status_change` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -61,7 +62,8 @@ if (!$CI->db->table_exists(db_prefix() . 'licences')) {
       ADD KEY `status` (`status`),
       ADD KEY `clientid` (`clientid`),
       ADD KEY `project_id` (`project_id`),
-      ADD KEY `date` (`date`);');
+      ADD KEY `released_date` (`released_date`),
+      ADD KEY `proposed_date` (`proposed_date`);');
 
     $CI->db->query('ALTER TABLE `' . db_prefix() . 'licences`
       MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1');
