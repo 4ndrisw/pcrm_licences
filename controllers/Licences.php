@@ -63,7 +63,7 @@ class Licences extends AdminController
         $data['licence_statuses'] = $this->licences_model->get_statuses();
         $data['title']             = $title;
 
-        $licence->date       = _d($licence->date);        
+        $licence->date       = _d($licence->proposed_date);        
         
         if ($licence->project_id !== null) {
             $this->load->model('projects_model');
