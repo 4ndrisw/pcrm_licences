@@ -18,7 +18,7 @@ function validate_licence_form(selector) {
                 }
             }
         },
-        date: 'required',
+        proposed_date: 'required',
         upt: 'required',
         number: {
             required: true
