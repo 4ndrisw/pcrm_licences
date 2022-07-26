@@ -215,3 +215,21 @@ function reload_released_tables() {
         }
     });
 }
+
+
+
+// Init task modal and get data from server
+function init_licence_task_modal(task_id) {
+
+    requestGet('tasks/get_task_data/' + task_id).done(function (response) {
+        _task_append_html(response);
+        if (typeof (comment_id) != 'undefined') {
+            setTimeout(function () {
+                $('[data-task-comment-href-id="' + comment_id + '"]').click();
+            }, 1000);
+        }
+    }).fail(function (data) {
+        $('#task-modal').modal('hide');
+        alert_float('danger', data.responseText);
+    });
+}

@@ -60,14 +60,14 @@
                  if(isset($licence)){
                    $__number = $licence->number;
                    $prefix = $licence->prefix;
-                   $prefix = '<span id="prefix">'. $prefix . '</span><span id="prefix_year">' . date('Y',strtotime($licence->date)).'</span>/';
+                   $prefix = '<span id="prefix">'. $prefix . '</span><span id="prefix_year">' . date('Y',strtotime($licence->proposed_date)).'</span>/';
                  } else {
                    $__number = $next_licence_number;
                    $prefix = $prefix.'<span id="prefix_year">'.date('Y').'</span>/';
                  }
                } else if($format == 3) {
                   if(isset($licence)){
-                   $yy = date('y',strtotime($licence->date));
+                   $yy = date('y',strtotime($licence->proposed_date));
                    $__number = $licence->number;
                    $prefix = '<span id="prefix">'. $licence->prefix . '</span>';
                  } else {
@@ -76,8 +76,8 @@
                 }
                } else if($format == 4) {
                   if(isset($licence)){
-                   $yyyy = date('Y',strtotime($licence->date));
-                   $mm = date('m',strtotime($licence->date));
+                   $yyyy = date('Y',strtotime($licence->proposed_date));
+                   $mm = date('m',strtotime($licence->proposed_date));
                    $__number = $licence->number;
                    $prefix = '<span id="prefix">'. $licence->prefix . '</span>';
                  } else {
@@ -159,8 +159,8 @@
                     <?php echo render_input('reference_no','reference_no',$value); ?>
                   </div>
                      <div class="col-md-6">
-                        <?php $value = (isset($licence) ? _d($licence->date) : _d(date('Y-m-d'))); ?>
-                        <?php echo render_date_input('date','licence_add_edit_date',$value); ?>
+                        <?php $value = (isset($licence) ? _d($licence->proposed_date) : _d(date('Y-m-d'))); ?>
+                        <?php echo render_date_input('proposed_date','licence_add_edit_date',$value); ?>
                      </div>
                      
                      <div class="col-md-6">

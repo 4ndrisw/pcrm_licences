@@ -146,7 +146,7 @@ class Licences_model extends App_Model
         $new_licence_data['clientid']   = $_licence->clientid;
         $new_licence_data['project_id']   = $_licence->project_id;
         $new_licence_data['number']     = get_option('next_licence_number');
-        $new_licence_data['date']       = _d(date('Y-m-d'));
+        $new_licence_data['proposed_date']       = _d(date('Y-m-d'));
 
     
 
@@ -162,6 +162,8 @@ class Licences_model extends App_Model
         $new_licence_data['terms']            = $_licence->terms;
         $new_licence_data['assigned']       = $_licence->assigned;
         $new_licence_data['reference_no']     = $_licence->reference_no;
+        $new_licence_data['upt_id']     = $_licence->upt_id;
+        
         // Since version 1.0.6
         $new_licence_data['billing_street']   = clear_textarea_breaks($_licence->billing_street);
         $new_licence_data['billing_city']     = $_licence->billing_city;
