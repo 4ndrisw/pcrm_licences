@@ -39,8 +39,8 @@ function validate_licence_form(selector) {
                 original_number: function () {
                     return $('input[name="number"]').data('original-number');
                 },
-                date: function () {
-                    return $('body').find('.licence input[name="date"]').val();
+                proposed_date: function () {
+                    return $('body').find('.licence input[name="proposed_date"]').val();
                 },
             }
         },

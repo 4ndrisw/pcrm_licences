@@ -1262,10 +1262,10 @@ class Licences_model extends App_Model
         }
         */
 
-        $this->db->select(db_prefix() . 'licences.id,' . db_prefix() . 'licences.number,' . db_prefix() . 'licences.status,' . db_prefix() . 'clients.userid,' . db_prefix() . 'licences.hash,' . db_prefix() . 'projects.name,' . db_prefix() . 'licences.date');
+        $this->db->select(db_prefix() . 'licences.id,' . db_prefix() . 'licences.number,' . db_prefix() . 'licences.status,' . db_prefix() . 'clients.userid,' . db_prefix() . 'licences.hash,' . db_prefix() . 'projects.name,' . db_prefix() . 'licences.proposed_date');
         $this->db->join(db_prefix() . 'clients', db_prefix() . 'clients.userid = ' . db_prefix() . 'licences.clientid', 'left');
         $this->db->join(db_prefix() . 'projects', db_prefix() . 'projects.id = ' . db_prefix() . 'licences.project_id', 'left');
-        $this->db->where('date IS NOT NULL');
+        $this->db->where('proposed_date IS NOT NULL');
         $this->db->where(db_prefix() . 'licences.status > ',1);
         $this->db->where(db_prefix() . 'licences.clientid =', $client->userid);
 
@@ -1290,7 +1290,7 @@ class Licences_model extends App_Model
             $this->db->where('addedfrom', $staffId);
         }
 
-        $this->db->select(db_prefix() . 'licences.id,' . db_prefix() . 'licences.number,' . db_prefix() . 'clients.userid,' . db_prefix() . 'clients.company,' . db_prefix() . 'projects.name,' . db_prefix() . 'licences.date');
+        $this->db->select(db_prefix() . 'licences.id,' . db_prefix() . 'licences.number,' . db_prefix() . 'clients.userid,' . db_prefix() . 'clients.company,' . db_prefix() . 'projects.name,' . db_prefix() . 'licences.proposed_date');
         $this->db->join(db_prefix() . 'clients', db_prefix() . 'clients.userid = ' . db_prefix() . 'licences.clientid', 'left');
         $this->db->join(db_prefix() . 'projects', db_prefix() . 'projects.id = ' . db_prefix() . 'licences.project_id', 'left');
         $this->db->where('expirydate IS NOT NULL');
