@@ -146,6 +146,8 @@ $lang['release_this_item']				= 'Release this item';
 $lang['release']				= 'Release';
 $lang['licence_equipment_name']				= 'Equipment';
 
+$lang['licence_add_proposed']				= 'Add items into table below to be proposed.';
+$lang['licence_add_released']				= 'Add items into table below to be released.';
 
 /*
 

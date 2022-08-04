@@ -146,6 +146,9 @@ $lang['release_this_item']				= 'Terbitkan lisensi ini';
 $lang['release']				= 'Terbit';
 $lang['licence_equipment_name']				= 'Equipment';
 
+$lang['licence_add_proposed']				= 'Tambahkan item ke table berikut untuk diajukan';
+$lang['licence_add_released']				= 'Tambahkan item ke table berikut untuk diterbitkan';
+
 /*
 
 
