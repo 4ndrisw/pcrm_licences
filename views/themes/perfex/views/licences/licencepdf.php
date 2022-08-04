@@ -28,7 +28,7 @@ $organization_info .= '</div>';
 // Licence to
 $licence_info = '<b>' . _l('licence_to') . '</b>';
 $licence_info .= '<div style="color:#424242;">';
-$licence_info .= format_upt_info($licence->upt);
+$licence_info .= format_office_info($licence->office, 'licence', 'billing', true);
 $licence_info .= '</div>';
 
 $CI = &get_instance();

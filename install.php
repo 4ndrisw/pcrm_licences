@@ -5,7 +5,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 require_once('install/licences.php');
 require_once('install/licence_activity.php');
 require_once('install/licence_items.php');
-require_once('install/licence_upt.php');
 
 
 $CI->db->query("
