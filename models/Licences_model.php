@@ -79,8 +79,6 @@ class Licences_model extends App_Model
                 $this->load->model('email_schedule_model');
                 $licence->scheduled_email = $this->email_schedule_model->get($id, 'licence');
                 
-                //$licence->upt = $this->get_upt($licence->upt_id);
-
                 include_once(FCPATH . 'modules/offices/models/Offices_model.php');
                 $this->load->model('offices_model');
                 $licence->office = $this->offices_model->get($licence->office_id);

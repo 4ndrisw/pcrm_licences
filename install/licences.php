@@ -29,7 +29,7 @@ if (!$CI->db->table_exists(db_prefix() . 'licences')) {
       `terms` text DEFAULT NULL,
       `reference_no` varchar(100) DEFAULT NULL,
       `assigned` int(11) NOT NULL DEFAULT 0,
-      `upt_id` smallint(3) DEFAULT NULL,
+      `office_id` smallint(3) DEFAULT NULL,
       `billing_street` varchar(200) DEFAULT NULL,
       `billing_city` varchar(100) DEFAULT NULL,
       `billing_state` varchar(100) DEFAULT NULL,
