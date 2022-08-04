@@ -293,8 +293,10 @@
                            <?php
                               $info = $this->uri->segment(3);
                               if($info == 'propose'){
+                                 echo '<p class="mleft15">' . 'Add items into table below to be proposed' . '</p>'; 
                                  $this->load->view('admin/licences/licence_table_proposed');
                               }elseif($info == 'release'){
+                                 echo '<p class="mleft15">' . 'Add items into table below to be released' . '</p>'; 
                                  $this->load->view('admin/licences/licence_table_released');
                               }
                            ?>
