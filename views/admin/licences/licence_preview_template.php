@@ -252,8 +252,7 @@
                         </address>
                         <?php } ?>
                      </div>
-                           <?php echo format_upt_info($licence->upt);?>
-                        
+                           <?php echo format_office_info($licence->office, 'licence', 'billing', true);?>                           
                   </div>
                   <div class="row">
                      <div class="container-fluid">

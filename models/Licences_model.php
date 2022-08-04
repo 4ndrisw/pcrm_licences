@@ -79,7 +79,11 @@ class Licences_model extends App_Model
                 $this->load->model('email_schedule_model');
                 $licence->scheduled_email = $this->email_schedule_model->get($id, 'licence');
                 
-                $licence->upt = $this->get_upt($licence->upt_id);
+                //$licence->upt = $this->get_upt($licence->upt_id);
+
+                include_once(FCPATH . 'modules/offices/models/Offices_model.php');
+                $this->load->model('offices_model');
+                $licence->office = $this->offices_model->get($licence->office_id);
 
             }
 
@@ -162,7 +166,7 @@ class Licences_model extends App_Model
         $new_licence_data['terms']            = $_licence->terms;
         $new_licence_data['assigned']       = $_licence->assigned;
         $new_licence_data['reference_no']     = $_licence->reference_no;
-        $new_licence_data['upt_id']     = $_licence->upt_id;
+        $new_licence_data['office_id']     = $_licence->office_id;
         
         // Since version 1.0.6
         $new_licence_data['billing_street']   = clear_textarea_breaks($_licence->billing_street);
