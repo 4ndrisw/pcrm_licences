@@ -119,15 +119,15 @@
             <div class="row">
                <div class="col-md-12">
                       <?php
-                     $selected = isset($licence->upt_id) ? $licence->upt_id : '';
-                     foreach($offices as $upt){
+                     $selected = isset($licence->office_id) ? $licence->office_id : '';
+                     foreach($offices as $office){
                       if(isset($licence)){
-                        if($licence->upt == $upt['id']) {
-                          $selected = $upt['id'];
+                        if($licence->office_id == $office['id']) {
+                          $selected = $office['id'];
                         }
                       }
                      }
-                     echo render_select('upt_id',$offices,array('id',array('full_name')),'licence_upt_string',$selected);
+                     echo render_select('office_id',$offices,array('id',array('full_name')),'licence_upt_string',$selected);
                      ?>
                </div>
                <div class="col-md-6">

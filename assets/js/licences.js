@@ -19,7 +19,7 @@ function validate_licence_form(selector) {
             }
         },
         proposed_date: 'required',
-        upt: 'required',
+        office_id: 'required',
         number: {
             required: true
         }

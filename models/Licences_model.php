@@ -1421,12 +1421,14 @@ class Licences_model extends App_Model
         }
     }
     
-    public function get_upt_fullname(){
+    //public function get_upt_fullname(){
+    public function get_office_fullname(){
         $this->db->select([db_prefix() . 'licence_upt.id',db_prefix() . 'licence_upt.full_name']);
         return $this->db->get(db_prefix() . 'licence_upt')->result_array();
     }
 
-    public function get_upt($id){
+    //public function get_upt($id){
+    public function get_office($id){
         $this->db->select();
         $this->db->where(db_prefix() . 'licence_upt.id', $id);
         return $this->db->get(db_prefix() . 'licence_upt')->row();

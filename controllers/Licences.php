@@ -246,7 +246,7 @@ class Licences extends AdminController
         */
 
         $data['staff']             = $this->staff_model->get('', ['active' => 1]);
-        $data['offices']             = $this->licences_model->get_upt_fullname();
+        $data['offices']           = get_available_office();
         $data['licence_statuses'] = $this->licences_model->get_statuses();
         $data['title']             = $title;
 
@@ -402,7 +402,7 @@ class Licences extends AdminController
 
 
         $data['staff']             = $this->staff_model->get('', ['active' => 1]);
-        $data['offices']             = $this->licences_model->get_upt_fullname();
+        $data['offices']           = get_available_office();
         $data['licence_statuses'] = $this->licences_model->get_statuses();
         $data['title']             = $title;
         $this->load->view('admin/licences/licence_update', $data);
