@@ -222,8 +222,19 @@
                            _l('licence_lowercase'),
                            _l('project_lowercase'),
                            '<a href="'.admin_url('projects/view/'.$licence->project_id).'" target="_blank">' . $licence->project_data->name . '</a>',
-                           )); ?></h4>
+                           )); ?>      
+                        </h4>
                      </div>
+                     <div class="col-md-12">
+                        <h4 class="bold">
+                           <a href="<?php echo site_url('licences/show/'.$licence->id.'/'.$licence->hash); ?>">
+                           <span id="licence-number">
+                           <?php echo format_licence_number($licence->id); ?>
+                           </span>
+                           </a>      
+                        </h4>
+                     </div>
+
                      <?php } ?>
                      <div class="col-md-6 col-sm-6">
                         <h4 class="bold">
@@ -233,11 +244,6 @@
                                 echo '<i class="fa fa-tag" aria-hidden="true" data-toggle="tooltip" data-title="'.html_escape(implode(', ',$tags)).'"></i>';
                               }
                               ?>
-                           <a href="<?php echo site_url('licences/show/'.$licence->id.'/'.$licence->hash); ?>">
-                           <span id="licence-number">
-                           <?php echo format_licence_number($licence->id); ?>
-                           </span>
-                           </a>
                         </h4>
                         <address>
                            <?php echo format_organization_info(); ?>
