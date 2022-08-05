@@ -540,7 +540,13 @@ class Licences_model extends App_Model
 
     public function mark_action_status($action, $id, $client = false)
     {
-                log_activity('$action ' .$action);
+        
+        $licence = $this->get($id);
+        $licence_proposed = $this->get_licence_proposed_items($id, $licence->project_id);
+        
+        if(empty($licence_proposed)){
+            return false;
+        }
 
         $this->db->where('id', $id);
         $this->db->update(db_prefix() . 'licences', [
@@ -552,7 +558,7 @@ class Licences_model extends App_Model
         $notifiedUsers = [];
 
         if ($this->db->affected_rows() > 0) {
-            $licence = $this->get($id);
+            //$licence = $this->get($id);
             if ($client == true) {
                 $this->db->where('staffid', $licence->addedfrom);
                 $this->db->or_where('staffid', $licence->assigned);

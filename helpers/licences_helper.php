@@ -704,7 +704,7 @@ function after_licence_updated($id){
 
 
 }
-
+/*
 function licence_create_assigned_qrcode_hook($id){
      
      log_activity( 'Hello, world!' );
@@ -716,6 +716,7 @@ function licence_status_changed_hook($data){
     log_activity('licence_status_changed');
 
 }
+*/
 
 
 function add_licence_items($insert_id){

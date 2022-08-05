@@ -44,7 +44,7 @@ class Licences extends AdminController
         $data['licence'] = $licence;
         $data['edit']     = false;
         $title            = _l('preview_licence');
-        
+
         if ($this->input->post()) {
 
             $licence_data = $this->input->post();
@@ -63,8 +63,8 @@ class Licences extends AdminController
         $data['licence_statuses'] = $this->licences_model->get_statuses();
         $data['title']             = $title;
 
-        $licence->date = _d($licence->proposed_date);        
-        
+        $licence->date = _d($licence->proposed_date);
+
         if ($licence->project_id !== null) {
             $this->load->model('projects_model');
             $licence->project_data = $this->projects_model->get($licence->project_id);
@@ -117,16 +117,15 @@ class Licences extends AdminController
         $data['licence'] = $licence;
         $data['edit']     = false;
         $title            = _l('preview_licence');
-    
+
         if($id ==''){
             $this->load->view('admin/licences/manage', $data);
            return;
         }
-        
+
         if ($this->input->post()) {
 
             $licence_data = $this->input->post();
-            log_activity(json_encode($licence_data));
 
             if(!empty($licence_data['tasks'])){
                 $tasks_data = $licence_data['tasks'];
@@ -135,7 +134,7 @@ class Licences extends AdminController
                 $this->licences_model->licence_add_proposed_item($id, $licence->project_id, $tasks_data);
             }
         }
-        
+
         if ($this->input->get('customer_id')) {
             $data['customer_id'] = $this->input->get('customer_id');
         }
@@ -144,8 +143,8 @@ class Licences extends AdminController
         $data['licence_statuses'] = $this->licences_model->get_statuses();
         $data['title']             = $title;
 
-        $licence->proposed_date       = _d($licence->proposed_date);        
-        
+        $licence->proposed_date       = _d($licence->proposed_date);
+
         if ($licence->project_id !== null) {
             $this->load->model('projects_model');
             $licence->project_data = $this->projects_model->get($licence->project_id);
@@ -204,13 +203,13 @@ class Licences extends AdminController
             $next_licence_number = get_option('next_licence_number');
             $_format = get_option('licence_number_format');
             $_prefix = get_option('licence_prefix');
-            
+
             $prefix  = isset($licence->prefix) ? $licence->prefix : $_prefix;
             $format  = isset($licence->number_format) ? $licence->number_format : $_format;
             $number  = isset($licence->number) ? $licence->number : $next_licence_number;
 
             $date = date('Y-m-d');
-            
+
             $licence_data['formatted_number'] = licence_number_format($number, $format, $prefix, $date);
 
             $id = $this->licences_model->add($licence_data);
@@ -261,10 +260,10 @@ class Licences extends AdminController
         $data['project_id'] = $this->uri->segment(5);
 
         $project = $this->projects_model->get($data['project_id']);
-        
+
         $data['project_data'] = false;
         $data['task'] = false;
-        
+
         if(isset($project->id)){
             $data['project_data'] = $project;
             $data['client_data'] = $project->client_data;
@@ -289,13 +288,13 @@ class Licences extends AdminController
             $next_licence_number = get_option('next_licence_number');
             $_format = get_option('licence_number_format');
             $_prefix = get_option('licence_prefix');
-            
+
             $prefix  = isset($licence->prefix) ? $licence->prefix : $_prefix;
             $format  = isset($licence->number_format) ? $licence->number_format : $_format;
             $number  = isset($licence->number) ? $licence->number : $next_licence_number;
 
             $date = date('Y-m-d');
-            
+
             $licence_data['formatted_number'] = licence_number_format($number, $format, $prefix, $date);
 
             $id = $this->licences_model->add($licence_data);
@@ -355,25 +354,25 @@ class Licences extends AdminController
                 access_denied('licences');
             }
 
-            $next_schedule_number = get_option('next_licence_number');
+            $next_licence_number = get_option('next_licence_number');
             $format = get_option('licence_number_format');
             $_prefix = get_option('licence_prefix');
-            
+
             $number_settings = $this->get_number_settings($id);
 
             $prefix = isset($number_settings->prefix) ? $number_settings->prefix : $_prefix;
-            
+
             $number  = isset($licence_data['number']) ? $licence_data['number'] : $next_licence_number;
 
             $date = date('Y-m-d');
-            
+
             $licence_data['formatted_number'] = licence_number_format($number, $format, $prefix, $date);
 
             $success = $this->licences_model->update($licence_data, $id);
             if ($success) {
                 set_alert('success', _l('updated_successfully', _l('licence')));
             }
-            
+
             if ($this->set_licence_pipeline_autoload($id)) {
                 redirect(admin_url('licences/'));
             } else {
@@ -390,7 +389,7 @@ class Licences extends AdminController
             $data['licence'] = $licence;
             $data['edit']     = true;
             $title            = _l('edit', _l('licence_lowercase'));
-       
+
 
         if ($this->input->get('customer_id')) {
             $data['customer_id'] = $this->input->get('customer_id');
@@ -411,10 +410,10 @@ class Licences extends AdminController
     public function get_number_settings($id){
         $this->db->select('prefix');
         $this->db->where('id', $id);
-        return $this->db->get(db_prefix() . 'schedules')->row();
+        return $this->db->get(db_prefix() . 'licences')->row();
 
     }
-    
+
     public function update_number_settings($id)
     {
         $response = [
@@ -559,14 +558,12 @@ class Licences extends AdminController
         }
         redirect(admin_url('licences'));
     }
-    
+
     /* Used in kanban when dragging and mark as */
     public function update_licence_status()
     {
         if ($this->input->post() && $this->input->is_ajax_request()) {
-            
-        log_activity(json_encode($this->input->post()));
-        
+
             $this->licences_model->update_licence_status($this->input->post());
         }
     }
@@ -604,8 +601,6 @@ class Licences extends AdminController
     {
         if ($this->input->post() && $this->input->is_ajax_request()) {
             $x = $this->input->post();
-            log_activity(json_encode($x));
-            
             $this->licences_model->licence_add_proposed_item($this->input->post());
         }
     }
