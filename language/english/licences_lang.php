@@ -149,6 +149,9 @@ $lang['licence_equipment_name']				= 'Equipment';
 $lang['licence_add_proposed']				= 'Add items into table below to be proposed.';
 $lang['licence_add_released']				= 'Add items into table below to be released.';
 
+$lang['completed_tasks_no_licence']				= 'Completed tasks no licence';
+
+
 /*
 
 # Licences

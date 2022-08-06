@@ -39,6 +39,10 @@ function licences_add_dashboard_widget($widgets)
         'path'      => 'licences/widgets/licence_proposed_this_week',
         'container' => 'left-8',
     ];
+    $widgets[] = [
+        'path'      => 'licences/widgets/completed_tasks_no_licence',
+        'container' => 'left-8',
+    ];
 
     return $widgets;
 }

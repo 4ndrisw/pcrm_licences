@@ -149,6 +149,8 @@ $lang['licence_equipment_name']				= 'Equipment';
 $lang['licence_add_proposed']				= 'Tambahkan item ke table berikut untuk diajukan';
 $lang['licence_add_released']				= 'Tambahkan item ke table berikut untuk diterbitkan';
 
+$lang['completed_tasks_no_licence']				= 'Task sudah completed suket belum diregister';
+
 /*
 
 
