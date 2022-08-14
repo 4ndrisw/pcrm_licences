@@ -1431,10 +1431,13 @@ class Licences_model extends App_Model
 
         $this->db->join(db_prefix() . 'projects', db_prefix() . 'tasks.rel_id = ' . db_prefix() . 'projects.id', 'left');
         $this->db->join(db_prefix() . 'licence_items', db_prefix() . 'tasks.id = ' . db_prefix() . 'licence_items.task_id', 'left');
+        $this->db->join(db_prefix() . 'inspection_items', db_prefix() . 'tasks.id = ' . db_prefix() . 'inspection_items.task_id', 'left');
 
         $this->db->where(db_prefix() . 'tasks.rel_id =' . $project_id);
         $this->db->where(db_prefix() . 'tasks.rel_type = ' . "'project'");
-        $this->db->where(db_prefix() . 'licence_items.task_id IS NULL');
+        $this->db->where(db_prefix() . 'inspection_items.equipment_name IS NOT NULL');
+
+        //$this->db->where(db_prefix() . 'licence_items.task_id IS NULL');
 
         //return $this->db->get_compiled_select(db_prefix() . 'tasks');
         return $this->db->get(db_prefix() . 'tasks')->result_array();

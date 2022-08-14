@@ -129,7 +129,6 @@ function add_licence_item_to_table(data, itemid){
   return false;
 }
 
-
 // From licence table mark as
 function licence_mark_as(status_id, licence_id) {
     var data = {};
