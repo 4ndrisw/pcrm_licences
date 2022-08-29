@@ -99,8 +99,17 @@ $items .= '</table>';
 pdf_multi_row($items, '', $pdf, ($dimensions['wk'] / 1) - $dimensions['lm']);
 
 $pdf->ln(4);
-
 $pdf->SetFont($font_name, '', $font_size);
+
+$licence_closing = 'Demikian permohonan ini kami sampaikan, atas perhatian dan kerjasamanya kami ucapkan terima kasih.';
+$txt = <<<EOD
+$licence_closing \r\n
+EOD;
+
+// print a block of text using Write()
+$pdf->ln(4);
+$pdf->Write(0, $txt, '', 0, 'J', true, 0, false, false, 0);
+
 
 $assigned_path = <<<EOF
         <img src="$licence->assigned_path">
@@ -123,15 +132,8 @@ $client_info = '';
 $left_info = $swap == '1' ? $assigned_info : $client_info;
 $right_info  = $swap == '1' ? $client_info : $assigned_info;
 
-pdf_multi_row($left_info, $right_info, $pdf, ($dimensions['wk'] / 2) - $dimensions['lm']);
-$licence_closing = 'Demikian permohonan ini kami sampaikan, atas perhatian dan kerjasamanya kami ucapkan terima kasih.';
-$txt = <<<EOD
-$licence_closing \r\n
-EOD;
-
 $pdf->ln(4);
-// print a block of text using Write()
-$pdf->Write(0, $txt, '', 0, 'J', true, 0, false, false, 0);
+pdf_multi_row($left_info, $right_info, $pdf, ($dimensions['wk'] / 2) - $dimensions['lm']);
 
 if (!empty($licence->clientnote)) {
     $pdf->Ln(4);
