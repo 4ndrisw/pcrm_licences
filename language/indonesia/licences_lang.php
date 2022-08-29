@@ -100,7 +100,8 @@ $lang['clients_accept_licence']                = 'Terima';
 $lang['clients_my_licences']                   = 'Suket';
 
 
-$lang['licence_this_week']                = 'Suket diajukan minggu ini';
+$lang['no_licence_proposed_this_week']                = 'Tidak ada suket diajukan minggu ini';
+$lang['licence_proposed_this_week']                = 'Suket diajukan minggu ini';
 $lang['licence_date']                = 'Tanggal dibuat Suket';
 $lang['licence_datesend']                = 'Tanggal dikirim Suket';
 $lang['licence_assigned_string']                = 'Manager Operasional';
@@ -150,6 +151,9 @@ $lang['licence_add_proposed']				= 'Tambahkan item ke table berikut untuk diajuk
 $lang['licence_add_released']				= 'Tambahkan item ke table berikut untuk diterbitkan';
 
 $lang['completed_tasks_no_licence']				= 'Task sudah completed suket belum diregister';
+$lang['licence_proposed_date']				= 'Tanggal Diajukan';
+$lang['licence_released_date']				= 'Tanggal Terbit';
+
 
 /*
 

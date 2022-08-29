@@ -150,6 +150,8 @@ $lang['licence_add_proposed']				= 'Add items into table below to be proposed.';
 $lang['licence_add_released']				= 'Add items into table below to be released.';
 
 $lang['completed_tasks_no_licence']				= 'Completed tasks no licence';
+$lang['licence_proposed_date']				= 'Proposed date';
+$lang['licence_released_date']				= 'Released date';
 
 
 /*

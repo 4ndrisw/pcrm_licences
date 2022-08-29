@@ -51,9 +51,9 @@ $list = explode(' ',$project->name);
 $project_name = $list[0];
 $project_date = _d($project->start_date);
 
-$date = $licence->date;
+$date = $licence->proposed_date;
 $today = 'Pada hari ini, ';
-$licence_declare = 'kami mengajukan permohonan penerbitan Surat Ketarangan Layak K3 untuk peralatan sebagai berikut:';
+$licence_declare = 'kami mengajukan permohonan penerbitan Surat Keterangan Layak K3 untuk '. $licence->client_company .' dengan peralatan sebagai berikut:';
 $getDayName = getDayName($date);
 $getDay = getDay($date);
 $getMonth = getMonth($date);
@@ -75,9 +75,9 @@ $items .= '<table style="padding:5,10,5,10" border="1" class="table table-border
 $items .=    '<thead>';
 $items .=        '<tr>';
 $items .=            '<th width="50" align="center">No#</th>';
-$items .=            '<th width="450" align="center">Items</th>';
-$items .=            '<th width="200" align="center">Tags</th>';
-$items .=            '<th width="100" align="center">Item/Lot</th>';
+$items .=            '<th width="450" align="center">Nama Pesawat</th>';
+$items .=            '<th width="200" align="center">Jenis Pesawat</th>';
+$items .=            '<th width="100" align="center">Jumlah</th>';
 $items .=        '</tr>';
 $items .=    '</thead>';
 $items .=    '<tbody>';
@@ -117,22 +117,12 @@ $assigned_info .= '</div>';
 $acceptance_path = <<<EOF
     <img src="$licence->acceptance_path">
 EOF;
-$client_info = '<div style="text-align:center;">';
-    $client_info .= $licence->client_company .'<br />';
-
-if ($licence->signed != 0) {
-    $client_info .= _l('licence_signed_by') . ": {$licence->acceptance_firstname} {$licence->acceptance_lastname}" . '<br />';
-    $client_info .= _l('licence_signed_date') . ': ' . _dt($licence->acceptance_date_string) . '<br />';
-    $client_info .= _l('licence_signed_ip') . ": {$licence->acceptance_ip}" . '<br />';
-
-    $client_info .= $acceptance_path;
-    $client_info .= '<br />';
-}
-$client_info .= '</div>';
+$client_info = '';
 
 
-$left_info  = $swap == '1' ? $client_info : $assigned_info;
-$right_info = $swap == '1' ? $assigned_info : $client_info;
+$left_info = $swap == '1' ? $assigned_info : $client_info;
+$right_info  = $swap == '1' ? $client_info : $assigned_info;
+
 pdf_multi_row($left_info, $right_info, $pdf, ($dimensions['wk'] / 2) - $dimensions['lm']);
 $licence_closing = 'Demikian permohonan ini kami sampaikan, atas perhatian dan kerjasamanya kami ucapkan terima kasih.';
 $txt = <<<EOD

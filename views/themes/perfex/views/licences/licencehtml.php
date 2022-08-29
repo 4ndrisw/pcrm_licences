@@ -109,9 +109,15 @@
             <div class="col-md-6 text-right">
                <p class="no-mbot licence-html-date">
                   <span class="bold">
-                  <?php echo _l('licence_data_date'); ?>:
+                  <?php echo _l('licence_proposed_date'); ?>:
                   </span>
-                  <?php echo _d($licence->date); ?>
+                  <?php echo _d($licence->proposed_date); ?>
+               </p>
+               <p class="no-mbot licence-html-date">
+                  <span class="bold">
+                  <?php echo _l('licence_released_date'); ?>:
+                  </span>
+                  <?php echo _d($licence->released_date); ?>
                </p>
                <?php if(!empty($licence->reference_no)){ ?>
                <p class="no-mbot licence-html-reference-no">
