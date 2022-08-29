@@ -89,7 +89,7 @@ class Mylicence extends ClientsController
         $qrcode_data  = '';
         $qrcode_data .= _l('licence_number') . ' : ' . $licence_number ."\r\n";
         $qrcode_data .= _l('licence_proposed_date') . ' : ' . $licence->proposed_date ."\r\n";
-        $qrcode_data .= _l('licence_datesend') . ' : ' . $licence->datesend ."\r\n";
+        //$qrcode_data .= _l('licence_datesend') . ' : ' . $licence->datesend ."\r\n";
         $qrcode_data .= _l('licence_assigned_string') . ' : ' . get_staff_full_name($licence->assigned) ."\r\n";
         $qrcode_data .= _l('licence_url') . ' : ' . site_url('licences/show/'. $licence->id .'/'.$licence->hash) ."\r\n";
 
