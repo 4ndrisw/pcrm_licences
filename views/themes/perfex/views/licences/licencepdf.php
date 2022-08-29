@@ -115,7 +115,8 @@ $assigned_path = <<<EOF
         <img src="$licence->assigned_path">
     EOF;    
 $assigned_info = '<div style="text-align:center;">';
-    $assigned_info .= get_option('invoice_company_name') . '<br />';
+    $assigned_info .= get_option('invoice_company_name') . ',<br />';
+    $assigned_info .= date('d / m / Y', strtotime($licence->proposed_date)) . '<br />';
     $assigned_info .= $assigned_path . '<br />';
 
 if ($licence->assigned != 0 && get_option('show_assigned_on_licences') == 1) {
