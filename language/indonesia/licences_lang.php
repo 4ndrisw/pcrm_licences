@@ -42,7 +42,7 @@ $lang['licence_notes']                          = 'Notes';
 $lang['licence_add_note']                       = 'Add Note';
 $lang['licence_to']                              = 'Kepada';
 $lang['licence_data_date']              = 'Tanggal';
-$lang['licence_pdf_heading']            = 'BERITA ACARA PENYELESAIAN PEKERJAAN';
+$lang['licence_pdf_heading']            = 'PERMOHONAN SUKET LAYAK K3';
 $lang['licence_table_item_heading']     = 'Item';
 $lang['licence_table_quantity_heading'] = 'Qty';
 
