@@ -155,6 +155,8 @@ $lang['licence_proposed_date']				= 'Tanggal Diajukan';
 $lang['licence_released_date']				= 'Tanggal Terbit';
 $lang['licence_released_date']				= 'Tidak ada Suket diajukan minggu ini';
 
+$lang['project_not_licenced']				= 'Project belum ada suket';
+
 
 /*
 

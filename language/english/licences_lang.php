@@ -155,6 +155,9 @@ $lang['licence_proposed_date']				= 'Proposed date';
 $lang['licence_released_date']				= 'Released date';
 $lang['licence_released_date']				= 'No licence proposed this week';
 
+$lang['project_not_licenced']				= 'Project not licenced';
+
+
 
 
 /*

@@ -1489,5 +1489,40 @@ class Licences_model extends App_Model
     }
 
 
+    /**
+     * Get the licences about to expired in the given days
+     *
+     * @param  integer|null $staffId
+     * @param  integer $days
+     *
+     * @return array
+     */
+    public function get_project_not_licenced($staffId = null)
+    {
+        $days = get_option('licence_number_of_date');
+        $diff1 = date('Y-m-d', strtotime('-' . $days . ' days'));
+        $diff2 = date('Y-m-d', strtotime('+' . $days . ' days'));
+        $start = date(get_option('licence_start_date'));
+
+        if ($staffId && ! staff_can('view', 'licences', $staffId)) {
+            $this->db->where(db_prefix() . 'licences.addedfrom', $staffId);
+        }
+
+        $this->db->select(db_prefix() . 'licences.id,' . db_prefix() . 'licences.formatted_number,' . db_prefix() . 'clients.userid,' . db_prefix() . 'clients.company,' . db_prefix() . 'projects.id,' . db_prefix() . 'projects.name,' . db_prefix() . 'projects.start_date');
+        $this->db->join(db_prefix() . 'projects', db_prefix() . 'projects.id = ' . db_prefix() . 'licences.project_id', 'right');
+        $this->db->join(db_prefix() . 'clients', db_prefix() . 'clients.userid = ' . db_prefix() . 'projects.clientid', 'left');
+        
+        $this->db->where('project_id IS NULL');
+        if($days !='0'){
+            $this->db->where(db_prefix() . 'projects.start_date >=', $diff1);        
+            $this->db->where(db_prefix() . 'projects.start_date <=', $diff2);            
+        }
+
+        $this->db->where(db_prefix() . 'projects.start_date >=', $start);
+
+        //return $this->db->get_compiled_select(db_prefix() . 'licences');
+
+        return $this->db->get(db_prefix() . 'licences')->result_array();
+    }
 
 }

@@ -10,6 +10,14 @@
       <i class="fa fa-question-circle pull-left" data-toggle="tooltip" data-title="<?php echo _l('next_licence_number_tooltip'); ?>"></i>
       <?php echo render_input('settings[next_licence_number]','next_licence_number',get_option('next_licence_number'), 'number', ['min'=>1]); ?>
       <hr />
+      <i class="fa fa-question-circle pull-left" data-toggle="tooltip" data-title="<?php echo _l('licence_number_of_date_tooltip'); ?>"></i>
+      <?php echo render_input('settings[licence_number_of_date]','licence_number_of_date',get_option('licence_number_of_date'), 'number', ['min'=>0]); ?>
+      <hr />
+      <i class="fa fa-question-circle pull-left" data-toggle="tooltip" data-title="<?php echo _l('licence_start_date_label'); ?>"></i>
+        <?php $start_date = get_option('licence_start_date'); ?>
+        <?php $value = $start_date ? $start_date : date('Y-m-d'); ?>
+        <?php echo render_date_input('settings[licence_start_date]','licence_start_date',$value); ?>
+      <hr />
       <i class="fa fa-question-circle pull-left" data-toggle="tooltip" data-title="<?php echo _l('due_after_help'); ?>"></i>
       <?php echo render_input('settings[licence_qrcode_size]', 'licence_qrcode_size', get_option('licence_qrcode_size')); ?>
       <hr />

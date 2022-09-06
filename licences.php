@@ -43,6 +43,10 @@ function licences_add_dashboard_widget($widgets)
         'path'      => 'licences/widgets/completed_tasks_no_licence',
         'container' => 'left-8',
     ];
+    $widgets[] = [
+        'path'      => 'licences/widgets/project_not_licenced',
+        'container' => 'left-8',
+    ];
 
     return $widgets;
 }
