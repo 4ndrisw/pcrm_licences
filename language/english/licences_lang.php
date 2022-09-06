@@ -103,6 +103,7 @@ $lang['clients_decline_licence']               = 'Decline';
 $lang['clients_accept_licence']                = 'Accept';
 $lang['clients_my_licences']                   = 'Licences';
 
+$lang['no_licence_proposed_this_week']                = 'No licence proposed this week';
 $lang['licence_proposed_this_week']                = 'Licences proposed this week';
 $lang['licence_date']                = 'Licence date';
 $lang['licence_datesend']                = 'Licence sent date';
