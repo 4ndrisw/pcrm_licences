@@ -153,6 +153,7 @@ $lang['licence_add_released']				= 'Tambahkan item ke table berikut untuk diterb
 $lang['completed_tasks_no_licence']				= 'Task sudah completed suket belum diregister';
 $lang['licence_proposed_date']				= 'Tanggal Diajukan';
 $lang['licence_released_date']				= 'Tanggal Terbit';
+$lang['licence_released_date']				= 'Tidak ada Suket diajukan minggu ini';
 
 
 /*
