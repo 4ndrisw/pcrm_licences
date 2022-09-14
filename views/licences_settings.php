@@ -35,7 +35,8 @@
       <hr />
       <?php render_yes_no_option('show_project_on_licence','show_project_on_licence'); ?>
       <hr />
-
+      <?php render_yes_no_option('show_licences_clients_area_menu_items','show_licences_clients_area_menu_items'); ?>
+      <hr />
       <?php
       $staff = $this->staff_model->get('', ['active' => 1]);
       $selected = get_option('default_licence_assigned');

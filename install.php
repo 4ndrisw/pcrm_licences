@@ -32,6 +32,7 @@ add_option('licence_prefix', 'LCE-');
 add_option('next_licence_number', 1);
 add_option('default_licence_assigned', 9);
 add_option('licence_number_decrement_on_delete', 0);
+add_option('show_licences_clients_area_menu_items', 0);
 add_option('licence_number_format', 4);
 add_option('licence_year', date('Y'));
 add_option('exclude_licence_from_client_area_with_draft_status', 1);

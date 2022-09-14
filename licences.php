@@ -204,6 +204,11 @@ function module_licences_action_links($actions)
 function licences_clients_area_menu_items()
 {   
     // Show menu item only if client is logged in
+    $clients_area = get_option('show_licences_clients_area_menu_items');
+    if(!$clients_area){
+        return;
+    }
+    // Show menu item only if client is logged in
     if (is_client_logged_in()) {
         add_theme_menu_item('licences', [
                     'name'     => _l('licences'),
