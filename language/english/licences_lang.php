@@ -156,6 +156,8 @@ $lang['licence_released_date']				= 'Released date';
 $lang['licence_released_date']				= 'No licence proposed this week';
 
 $lang['project_not_licenced']				= 'Project not licenced';
+//$lang['not_licence_request_activity_status_updated']      = '%s updated licence request status from %s to %s';
+$lang['not_licence_activity_status_updated']      = 'Not licence activity status updated';
 
 
 

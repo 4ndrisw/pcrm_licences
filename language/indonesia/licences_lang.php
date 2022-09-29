@@ -129,6 +129,8 @@ $lang['licence_released']				= 'Licence diterbitkan';
 
 $lang['no_licence_released']				= 'Belum ada licence yang terbit';
 $lang['this_licence_already_send']				= 'Pengajuan lisensi ini sudah dikirim.';
+$lang['propose']				= 'Pengajuan';
+
 $lang['licence_already_send_to_client_tooltip'] 					= 'Suket ini telah dikirim kepada klien %s';
 $lang['licence_office_label']				= 'UPT';
 $lang['no_equipment_available']				= 'Tidak ada peralatan tersedia';
@@ -156,6 +158,8 @@ $lang['licence_released_date']				= 'Tanggal Terbit';
 $lang['licence_released_date']				= 'Tidak ada Suket diajukan minggu ini';
 
 $lang['project_not_licenced']				= 'Project belum ada suket';
+//$lang['not_licence_request_activity_status_updated']      = '%s updated licence request status from %s to %s';
+$lang['not_licence_activity_status_updated']      = 'Tidak ada Aktifitas suket yang diupdate';
 
 
 /*

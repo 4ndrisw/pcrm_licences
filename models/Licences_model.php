@@ -570,7 +570,43 @@ class Licences_model extends App_Model
                 $contact_id = !is_client_logged_in()
                     ? get_primary_contact_user_id($licence->clientid)
                     : get_contact_user_id();
-                if ($action == 4) {
+
+                if ($action == 5) {
+                    $this->db->where('id', $id);
+                    $this->db->update(db_prefix() . 'licences', ['sent' => 1, 'datesend' => date('Y-m-d H:i:s')]);
+                
+                    $this->db->where('active', 1);
+                    $staff_licence = $this->db->get(db_prefix() . 'staff')->result_array();
+                    $contacts = $this->clients_model->get_contacts($licence->clientid, ['active' => 1, 'project_emails' => 1]);
+                    
+                        foreach ($staff_licence as $member) {
+                            $notified = add_notification([
+                                'fromcompany'     => true,
+                                'touserid'        => $member['staffid'],
+                                'description'     => 'licence_released_already_sent',
+                                'link'            => 'licences/release/' . $id,
+                                'additional_data' => serialize([
+                                    format_licence_number($licence->id),
+                                ]),
+                            ]);
+                    
+                            if ($notified) {
+                                array_push($notifiedUsers, $member['staffid']);
+                            }
+                            // Send staff email notification that customer declined licence
+                            // (To fix merge field) send_mail_template('licence_declined_to_staff', 'licences',$licence, $member['email'], $contact_id);
+                        }
+
+                    // Admin marked licence
+                    $this->log_licence_activity($id, 'licence_activity_marked', false, serialize([
+                        '<status>' . $action . '</status>',
+                    ]));
+                    pusher_trigger_notification($notifiedUsers);
+                    hooks()->do_action('licence_released_already_sent', $licence);
+
+                    return true;
+                }
+                elseif ($action == 4) {
                     $this->log_licence_activity($id, 'licence_activity_client_accepted', true);
 
                     // Send thank you email to all contacts with permission licences
