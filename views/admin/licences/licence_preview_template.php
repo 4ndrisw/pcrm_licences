@@ -117,13 +117,19 @@
                   <?php if(!empty($licence->clientid)){ ?>
                   <a href="#" class="licence-send-to-client btn btn-default btn-with-tooltip" data-toggle="tooltip" title="<?php echo $_tooltip; ?>" data-placement="bottom"><span data-toggle="tooltip" data-title="<?php echo $_tooltip_already_send; ?>"><i class="fa fa-envelope"></i></span></a>
                   <?php } ?>
+                  <?php 
+                     $page = 'proposed';
+                     if($licence->status == '5'){
+                       $page = 'released'; 
+                     }
+                  ?>
                   <div class="btn-group">
                      <button type="button" class="btn btn-default pull-left dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <?php echo _l('more'); ?> <span class="caret"></span>
                      </button>
                      <ul class="dropdown-menu dropdown-menu-right">
                         <li>
-                           <a href="<?php echo site_url('licences/show/' . $licence->id . '/' .  $licence->hash) ?>" target="_blank">
+                           <a href="<?php echo site_url('licences/'. $page .'/' . $licence->id . '/' .  $licence->hash) ?>" target="_blank">
                            <?php echo _l('view_licence_as_client'); ?>
                            </a>
                         </li>
@@ -227,7 +233,7 @@
                      </div>
                      <div class="col-md-12">
                         <h4 class="bold">
-                           <a href="<?php echo site_url('licences/show/'.$licence->id.'/'.$licence->hash); ?>">
+                           <a href="<?php echo site_url('licences/'. $page .'/'.$licence->id.'/'.$licence->hash); ?>">
                            <span id="licence-number">
                            <?php echo format_licence_number($licence->id); ?>
                            </span>
