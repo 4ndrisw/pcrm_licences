@@ -32,6 +32,10 @@ $lang['licence_status_accepted']        = 'Accepted';
 $lang['licence_status_released']         = 'Released';
 $lang['licence_note']                   = 'Note:';
 
+$lang['certificate_number']                   = 'Nomor';
+$lang['certificate_date']                   = 'Tanggal';
+$lang['certificate_nama_pesawat']                   = 'Pesawat';
+
 $lang['licences']                                = 'Licences';
 $lang['licence']                                 = 'Licence';
 $lang['licence_lowercase']                       = 'licences';

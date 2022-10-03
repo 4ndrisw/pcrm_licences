@@ -569,6 +569,12 @@ class Licences extends AdminController
     }
 
 
+    public function small_table($licence_id='')
+    {
+
+        $this->app->get_table_data(module_views_path('licences', 'admin/tables/small_table'));
+    }
+
     public function table_proposed($licence_id='')
     {
 
@@ -636,4 +642,120 @@ class Licences extends AdminController
         redirect(admin_url('licences/release/' . $id));
     }
 
+    public function table_suket_proposed($licence_id='')
+    {
+        $this->app->get_table_data(module_views_path('licences', 'admin/tables/table_suket_proposed'));
+    }
+
+    /* Add new licence or update existing */
+    public function licence_proposed($id, $task_id)
+    {
+
+        $licence = $this->licences_model->get($id);
+        $task = $this->tasks_model->get($task_id);
+
+        if (!$licence || !user_can_view_licence($id)) {
+            blank_page(_l('licence_not_found'));
+        }
+        $licence->task_id       = $task_id;
+        //$licence->documentations = $this->licences_model->get_licence_documentation($id,$task_id);
+
+        $data['licence'] = $licence;
+        $data['edit']     = false;
+        $title            = _l('preview_licence');
+
+
+        if ($this->input->get('customer_id')) {
+            $data['customer_id'] = $this->input->get('customer_id');
+        }
+
+        $data['staff']             = $this->staff_model->get('', ['active' => 1]);
+        $data['licence_statuses'] = $this->licences_model->get_statuses();
+        $data['title']             = $title;
+
+        $licence->proposed_date       = _d($licence->proposed_date);
+
+        if ($licence->project_id !== null) {
+            $this->load->model('projects_model');
+            $licence->project_data = $this->projects_model->get($licence->project_id);
+        }
+
+        //$data = licence_mail_preview_data($template_name, $licence->clientid);
+
+        $data['activity']          = $this->licences_model->get_licence_activity($id);
+        $data['task']              = $task;
+
+        $data['members']           = $this->staff_model->get('', ['active' => 1]);
+        $data['licence_statuses'] = $this->licences_model->get_statuses();
+        $data['totalNotes']        = total_rows(db_prefix() . 'notes', ['rel_id' => $id, 'rel_type' => 'licence']);
+
+        $data['editable_class']          = 'not_editable';
+        $data['editableText_class']          = 'noteditableText';
+        if($licence->status == 2 ){
+            $data['editable_class']          = 'editable';
+            $data['editableText_class']          = 'editableText';
+
+        }
+        $tags = get_tags_in($licence->task_id, 'task');
+
+        $equipment_type = ucfirst(strtolower(str_replace(' ', '_', $tags[0])));
+        $licence->equipment_type = $equipment_type;
+        
+        $inspections_model = 'inspections_model';
+        $model_path = FCPATH . 'modules/'. INSPECTIONS_MODULE_NAME .'/models/' . $inspections_model .'.php';
+
+        include_once($model_path);
+        $this->load->model($inspections_model);
+
+        $equipment_model = $equipment_type .'_model';
+        $model_path = FCPATH . 'modules/'. INSPECTIONS_MODULE_NAME .'/models/' . $equipment_model .'.php';
+
+        if (!file_exists($model_path)) {
+            set_alert('danger', _l('file_not_found ;', $equipment_model));
+            log_activity('File '. $equipment_model . ' not_found');
+            redirect(admin_url('licences/propose/'.$id));
+        }
+
+        include_once($model_path);
+        $this->load->model($equipment_model);
+        $equipment = $this->inspections_model->get_available_tags($licence->task_id);
+        $licence->equipment = $equipment;
+
+        $licence->categories = get_option('tag_id_'.$equipment['0']['tag_id']);
+
+        $data['licence']          = $licence;
+        $data['equipment']          = reset($equipment);
+        $licence->licence_items = $this->licences_model->get_licence_item_data($licence->id, $licence->task_id);
+        $data['licence_items'] = $licence->licence_items;
+        //$licence->categories = get_option('tag_id_'.$equipment['tag_id']);
+
+        $data['send_later'] = false;
+        if ($this->session->has_userdata('send_later')) {
+            $data['send_later'] = true;
+            $this->session->unset_userdata('send_later');
+        }
+        $this->session->set_userdata('licence_id', $id);
+        $this->session->set_userdata('project_id', $licence->project_id);
+
+        /*
+        if ($this->input->is_ajax_request()) {
+            $this->app->get_table_data(module_views_path('licences', 'admin/tables/small_table'));
+        }
+        */
+
+        $this->load->view('admin/licences/licence_suket_proposed_preview', $data);
+    }
+
+    public function update_licence_item(){
+        if ($this->input->post() && $this->input->is_ajax_request()) {
+
+            $task_id = $this->input->post('task_id');
+            $licence_id = $this->input->post('licence_id');
+            $field = $this->input->post('field');
+
+            log_activity(json_encode($this->input->post()));
+
+            $this->licences_model->update_licence_item_data($this->input->post(), $licence_id, $task_id);
+        }
+    }
 }

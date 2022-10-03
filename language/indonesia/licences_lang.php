@@ -31,6 +31,10 @@ $lang['licence_status_accepted']        = 'Diterima';
 $lang['licence_status_released']         = 'Released';
 $lang['licence_note']                   = 'Catatan:';
 
+$lang['certificate_number']                   = 'Nomor';
+$lang['certificate_date']                   = 'Tanggal';
+$lang['certificate_nama_pesawat']                   = 'Pesawat';
+
 $lang['licences']                                = 'Suket';
 $lang['licence']                                 = 'Suket';
 $lang['licence_lowercase']                       = 'Suket';

@@ -2,7 +2,7 @@
 
 use app\services\AbstractKanban;
 use app\services\licences\LicencesPipeline;
-
+use modules\offices\models\Offices_model;
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Licences_model extends App_Model
@@ -21,7 +21,7 @@ class Licences_model extends App_Model
             5,
             3,
             4,
-        ]);   
+        ]);
     }
     /**
      * Get unique sale agent for licences / Used for filters
@@ -1561,4 +1561,67 @@ class Licences_model extends App_Model
         return $this->db->get(db_prefix() . 'licences')->result_array();
     }
 
+    
+    public function get_available_tags($task_id=NULL){
+
+        $this->db->select([db_prefix() . 'tags.id AS tag_id', db_prefix() . 'tags.name AS tag_name']);
+        $this->db->select(['COUNT('.db_prefix() . 'tasks.id) AS count_task']);
+        
+        $this->db->join(db_prefix() . 'taggables', db_prefix() . 'taggables.rel_id = ' . db_prefix() . 'tasks.id', 'left');
+        $this->db->join(db_prefix() . 'tags', db_prefix() . 'taggables.tag_id = ' . db_prefix() . 'tags.id', 'left');
+        $this->db->group_by(db_prefix() . 'tags.id');
+        $this->db->where(db_prefix() . 'tasks.rel_type = ' . "'project'");
+        if(is_numeric($task_id)){
+            $this->db->where(db_prefix() . 'tasks.id = ' . $task_id);
+        }
+        $this->db->where(db_prefix() . 'tags.id is NOT NULL', NULL, true);
+
+        //return $this->db->get_compiled_select(db_prefix() . 'tasks');
+        return $this->db->get(db_prefix() . 'tasks')->result_array();
+    }
+
+    public function get_inspection_id($id, $task_id){
+        $this->db->select([db_prefix() . 'inspections.id']);
+        $this->db->join(db_prefix() . 'licence_items', db_prefix() . 'inspection_items.task_id = ' . db_prefix() . 'licence_items.task_id');
+        $this->db->join(db_prefix() . 'inspections', db_prefix() . 'inspection_items.inspection_id = ' . db_prefix() . 'inspections.id');
+        $this->db->where(db_prefix() . 'licence_items.licence_id = ' . $id);
+        $this->db->where(db_prefix() . 'licence_items.task_id = ' . $task_id);
+        //return $this->db->get_compiled_select(db_prefix() . 'inspection_items');
+        return $this->db->get(db_prefix() . 'inspection_items')->row();        
+    }
+    /*
+    public function get_office_id($id){
+        $this->db->select([db_prefix() . 'offices.id']);
+        $this->db->join(db_prefix() . 'schedules', db_prefix() . 'licences.project_id = ' . db_prefix() . 'schedules.project_id');
+        $this->db->join(db_prefix() . 'offices', db_prefix() . 'offices.id = ' . db_prefix() . 'schedules.office_id');
+        $this->db->where(db_prefix() . 'licences.id = ' . $id);
+        //return $this->db->get_compiled_select(db_prefix() . 'licences');
+        return $this->db->get(db_prefix() . 'licences')->row();        
+    }
+    */
+    public function update_licence_item_data($data, $licence_id, $task_id){
+        $field = $data['field'];
+        unset($data['field']);
+        //$data_text = htmlspecialchars($data['text'], ENT_QUOTES);
+        $data_text = strip_tags($data['text'], '<div><p><br>');
+        //$data_text = $data['text'];
+        unset($data['text']);
+        $data[$field] = $data_text;
+
+        $this->db->select('id');
+        $this->db->where('licence_id', $licence_id);
+        $this->db->where('task_id', $task_id);
+        $this->db->update(db_prefix() . 'licence_items', $data);
+    }
+
+  public function get_licence_item_data($licence_id, $task_id = ''){
+        $this->db->select('*');
+
+        $this->db->where(db_prefix() . 'licence_items.licence_id =' . $licence_id);
+        if(isset($task_id)){
+            $this->db->where(db_prefix() . 'licence_items.task_id=' . $task_id);
+        }
+        //return $this->db->get_compiled_select(db_prefix() . 'licence_items');
+        return $this->db->get(db_prefix() . 'licence_items')->result_array();
+    }
 }

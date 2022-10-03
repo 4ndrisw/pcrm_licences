@@ -152,7 +152,6 @@ function licence_add_proposed_item(licence_id, project_id, task_id) {
     });
 }
 
-
 // From licence table mark as
 function licence_remove_proposed_item(licence_id, task_id) {
     var data = {};
@@ -162,7 +161,6 @@ function licence_remove_proposed_item(licence_id, task_id) {
         reload_licences_tables();
     });
 }
-
 
 // Reload all licences possible table where the table data needs to be refreshed after an action is performed on task.
 
@@ -176,8 +174,6 @@ function reload_licences_tables() {
     });
 }
 
-
-
 function licence_add_released_item(licence_id, project_id, task_id) {
     var data = {};
     data.licence_id = licence_id;
@@ -190,7 +186,6 @@ function licence_add_released_item(licence_id, project_id, task_id) {
     });
 }
 
-
 // From licence table mark as
 function licence_remove_released_item(licence_id, task_id) {
     var data = {};
@@ -200,8 +195,6 @@ function licence_remove_released_item(licence_id, task_id) {
         reload_released_tables();
     });
 }
-
-
 
 // Reload all licences possible table where the table data needs to be refreshed after an action is performed on task.
 
@@ -214,8 +207,6 @@ function reload_released_tables() {
         }
     });
 }
-
-
 
 // Init task modal and get data from server
 function init_licence_task_modal(task_id) {
@@ -230,5 +221,27 @@ function init_licence_task_modal(task_id) {
     }).fail(function (data) {
         $('#task-modal').modal('hide');
         alert_float('danger', data.responseText);
+    });
+}
+
+function reload_suket_proposed_tables() {
+    var av_released_tables = ['.table-suket-proposed'];
+    //var av_licences_tables = ['.licence-items-proposed'];
+    $.each(av_released_tables, function (i, selector) {
+        if ($.fn.DataTable.isDataTable(selector)) {
+            $(selector).DataTable().ajax.reload(null, false);
+        }
+    });
+}
+
+// From inspection table mark as
+function licence_update_licence_items(values) {
+    var data = {};
+    data.licence_id = values.licence_id;
+    data.task_id = values.task_id;
+    data.field = values.field;
+    data.text = values.text;
+    $.post(admin_url + 'licences/update_licence_item', data).done(function (response) {
+        reload_suket_proposed_tables();
     });
 }

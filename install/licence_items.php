@@ -4,12 +4,13 @@
 if (!$CI->db->table_exists(db_prefix() . 'licence_items')) {
     $CI->db->query('CREATE TABLE `' . db_prefix() . "licence_items` (
   `id` int(11) NOT NULL,
-  `licence_id` int(11) NOT NULL,
+  `inspection_id` int(11) DEFAULT NULL,
   `project_id` int(11) NOT NULL,
   `task_id` int(11) NOT NULL,
   `equipment_name` varchar(60) DEFAULT NULL,
-  `licence_upt_number` varchar(40) DEFAULT NULL,
-  `released` tinyint(1) DEFAULT NULL,
+  `nomor_suket` varchar(30) DEFAULT NULL,
+  `expired` date DEFAULT NULL,
+  `tanggal_suket` date DEFAULT NULL,
   `flag` tinyint(1) DEFAULT NULL
     ) ENGINE=InnoDB DEFAULT CHARSET=" . $CI->db->char_set . ';');
 

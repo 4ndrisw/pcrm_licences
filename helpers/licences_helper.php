@@ -74,6 +74,30 @@ function check_licence_restrictions($id, $hash)
 }
 
 /**
+ * Prepare general licence pdf
+ * @since  Version 1.0.2
+ * @param  object $licence licence as object with all necessary fields
+ * @param  string $tag tag for bulk pdf exporter
+ * @return mixed object
+ */
+function certificate_pdf($certificate, $tag = '')
+{
+    return app_pdf('licence',  module_libs_path(LICENCES_MODULE_NAME) . 'pdf/Certificate_pdf', $certificate, $tag);
+}
+
+/**
+ * Prepare general licence pdf
+ * @since  Version 1.0.2
+ * @param  object $licence licence as object with all necessary fields
+ * @param  string $tag tag for bulk pdf exporter
+ * @return mixed object
+ */
+function suket_pdf($suket, $tag = '')
+{
+    return app_pdf('licence',  module_libs_path(LICENCES_MODULE_NAME) . 'pdf/Suket_pdf', $suket, $tag);
+}
+
+/**
  * Check if licence email template for expiry reminders is enabled
  * @return boolean
  */
@@ -245,6 +269,29 @@ function format_licence_number($id)
     ]);
 }
 
+
+/**
+ * Format licence number based on description
+ * @param  mixed $id
+ * @return string
+ */
+function format_licence_item_number($id, $categories, $task_id)
+{
+    $CI = &get_instance();
+    $CI->db->select('proposed_date,number,prefix,number_format')->from(db_prefix() . 'licences')->where('id', $id);
+    $licence = $CI->db->get()->row();
+
+    if (!$licence) {
+        return '';
+    }
+    $licence->prefix = strtoupper($categories) .'-';
+    $number = licence_number_format($licence->number, $licence->number_format, $licence->prefix, $licence->proposed_date);
+
+    return hooks()->apply_filters('format_licence_number', $number .'-'. $task_id, [
+        'id'       => $id,
+        'licence' => $licence,
+    ]);
+}
 
 function licence_number_format($number, $format, $applied_prefix, $date)
 {
@@ -735,4 +782,29 @@ function add_licence_items($insert_id){
         
     }
 
+}
+
+
+function get_licence_company_by_clientid($id){
+    $CI = &get_instance();
+ 
+    $CI->load->model('clients_model');   
+    $client = $CI->clients_model->get($id);
+    return $client->company;
+}
+
+function get_licence_company_address($id){
+    $CI = &get_instance();
+    $CI->db->select('billing_street, billing_city, billing_state','billing_zip');
+    $CI->db->from(db_prefix() . 'inspections');
+    $CI->db->where('id', $id);
+    $inspection = $CI->db->get()->row();
+
+    $address  = '';
+    $address .= isset($inspection->billing_street) ? $inspection->billing_street .' ' : '' ;
+    $address .= isset($inspection->billing_city) ? $inspection->billing_city .' ' : '' ;
+    $address .= isset($inspection->billing_state) ? $inspection->billing_state .' ' : '' ;
+    $address .= isset($inspection->billing_zip) ? $inspection->billing_zip : '' ;
+    
+    return $address;
 }

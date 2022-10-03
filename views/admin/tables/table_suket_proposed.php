@@ -8,8 +8,10 @@ $licence_id = $CI->session->userdata('licence_id');
 
 $aColumns = [
     db_prefix() . 'tasks.name',
-    db_prefix() . 'tags.name',
-    'flag',
+    db_prefix() . 'licence_items.nomor_suket',
+    db_prefix() . 'licence_items.expired',
+    db_prefix() . 'licence_items.tanggal_suket',
+    db_prefix() . 'licence_items.flag',
 ];
 
 $sIndexColumn = 'id';
@@ -37,14 +39,31 @@ $rResult = $result['rResult'];
 
 foreach ($rResult as $aRow) {
     $row = [];
+    $row_data = TRUE;
     for ($i = 0; $i < count($aColumns); $i++) {
         $_data = $aRow[$aColumns[$i]];
+        if ($aColumns[$i] != db_prefix() . 'licence_items.flag') {
+            if($aRow[$aColumns[$i]] == '' || is_null($aRow[$aColumns[$i]])){
+                $row_data = FALSE;
+            }else{
+                if(!$row_data){
+                    $row_data = FALSE;
+                }
+            }
+        }
 
         if ($aColumns[$i] == db_prefix() . 'tasks.name') {
             //$_data = '<a href="' . admin_url('tasks/view/' . $aRow['task_id']) . '" target = "_blank">' . $_data . '</a>';
-            $_data = '<a href="' . admin_url('licences/licence_proposed/' . $aRow['licence_id'].'/' . $aRow['task_id']) . '" target = "_blank">' . $_data . '</a>';
-        } elseif ($aColumns[$i] == 'flag') {
-            $_data = '<a class="btn btn-danger" title = "'._l('remove_this_item').'" href="#" onclick="licence_remove_proposed_item(' . $aRow['licence_id'] . ',' . $aRow['task_id'] . '); return false;">x</a>';
+            $_data = '<a href="' . admin_url('licences/licence_proposed/' . $aRow['licence_id'].'/' . $aRow['task_id']) . '">' . $_data . '</a>';
+        } elseif ($aColumns[$i] == db_prefix() . 'licence_items.flag') {
+            if(!$row_data){
+                $value = 'Data tidak lengkap';
+            }else{
+                //$value = '<a class="btn btn-success" title = "'._l('remove_this_item').'" href="#" onclick="licence_remove_proposed_item(' . $aRow['licence_id'] . ',' . $aRow['task_id'] . '); return false;">&#x2611;</a>';
+                $value = '<a class="btn btn-success" title = "'._l('remove_this_item').'" href="#">&#x2611;</a>';
+            }
+            $_data = $value;
+            //$_data = '<a class="btn btn-danger" title = "'._l('remove_this_item').'" href="#" onclick="licence_remove_proposed_item(' . $aRow['licence_id'] . ',' . $aRow['task_id'] . '); return false;">x</a>';
         } 
         $row[] = $_data;
 
