@@ -1376,6 +1376,8 @@ class Licences_model extends App_Model
                 'licence_id'      => $data['licence_id'],
                 'project_id' => $data['project_id'],
                 'task_id'              => $data['task_id']]);
+
+        hooks()->do_action('after_licence_item_added', $data);
     }
 
 
@@ -1623,5 +1625,20 @@ class Licences_model extends App_Model
         }
         //return $this->db->get_compiled_select(db_prefix() . 'licence_items');
         return $this->db->get(db_prefix() . 'licence_items')->result_array();
+    }
+
+    /**
+     * Get item by id
+     * @param mixed $id item id
+     * @return object
+     */
+    public function get_licence_items($id, $task_id='')
+    {
+        $this->db->where('licence_id', $id);
+        if(isset($task_id)){
+            $this->db->where('task_id', $task_id);
+        }
+        $licence_items = $this->db->get(db_prefix() . 'licence_items')->result();
+        return $licence_items;
     }
 }

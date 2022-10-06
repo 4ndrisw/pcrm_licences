@@ -31,6 +31,8 @@ hooks()->add_filter('get_dashboard_widgets', 'licences_add_dashboard_widget');
 hooks()->add_filter('module_licences_action_links', 'module_licences_action_links');
 
 hooks()->add_action('after_licence_added', 'add_licence_items');
+hooks()->add_action('after_licence_item_added', 'update_licence_item_categorie_upt');
+
 hooks()->add_action('after_licence_copied', 'add_licence_items');
 
 function licences_add_dashboard_widget($widgets)

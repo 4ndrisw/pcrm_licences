@@ -700,7 +700,8 @@ class Licences extends AdminController
 
         $equipment_type = ucfirst(strtolower(str_replace(' ', '_', $tags[0])));
         $licence->equipment_type = $equipment_type;
-        
+        $inspection_id = $this->licences_model->get_inspection_id($id, $task_id);
+        $licence->inspection_id = $inspection_id;
         $inspections_model = 'inspections_model';
         $model_path = FCPATH . 'modules/'. INSPECTIONS_MODULE_NAME .'/models/' . $inspections_model .'.php';
 
@@ -725,8 +726,8 @@ class Licences extends AdminController
 
         $data['licence']          = $licence;
         $data['equipment']          = reset($equipment);
-        $licence->licence_items = $this->licences_model->get_licence_item_data($licence->id, $licence->task_id);
-        $data['licence_items'] = $licence->licence_items;
+        $licence->licence_items = $this->licences_model->get_licence_items($licence->id, $licence->task_id);
+        $data['licence_item'] = $licence->licence_items[0];
         //$licence->categories = get_option('tag_id_'.$equipment['tag_id']);
 
         $data['send_later'] = false;

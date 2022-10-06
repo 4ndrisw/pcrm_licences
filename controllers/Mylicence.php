@@ -454,7 +454,8 @@ class Mylicence extends ClientsController
         
         $equipment = $this->{$equipment_model}->get('', ['rel_id' => $inspection_id->id, 'task_id' => $task_id]);
         $suket->inspection = $this->inspections_model->get($inspection_id->id);
-        $suket->licence_items = $this->licences_model->get_licence_item_data($suket->id, $suket->task_id);
+        $suket->licence_items = $this->licences_model->get_licence_items($suket->id, $suket->task_id);
+        $suket->inspection->assigned_item = get_staff_full_name(get_option('default_jobreport_assigned_'.$suket->categories));
 
         $offices_model = 'offices_model';
         $model_path = FCPATH . 'modules/'. OFFICES_MODULE_NAME .'/models/' . $offices_model .'.php';

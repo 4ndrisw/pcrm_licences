@@ -779,11 +779,37 @@ function add_licence_items($insert_id){
         $item['licence_id']=$insert_id;
         
         $CI->db->insert(db_prefix().'licence_items', $item);
-        
     }
-
 }
 
+
+function update_licence_item_categorie_upt($data){
+
+    $CI = &get_instance();
+    $CI->load->model('licences_model');
+    $CI->load->model('tasks_model');
+
+    $licence = $CI->licences_model->get($data['licence_id']);
+    $items = $CI->licences_model->get_licence_items($data['licence_id'],$data['task_id']);
+    
+    $task = $CI->tasks_model->get($data['task_id']);
+    $task->tags = get_tags_in($data['task_id'], 'task');
+    $task->tag_id = get_tag_by_name($task->tags[0])->id;
+    $categories = get_option('tag_id_'.$task->tag_id);
+
+    //$licence->office->pengawas_ipkh_nama
+    $nama_pengawas = 'nama_pengawas_'.$categories;
+    $nip_pengawas = 'nip_pengawas_'.$categories;
+    
+    $CI->db->where(array('licence_id'=> $data['licence_id'], 'project_id' => $data['project_id'],'task_id' => $data['task_id']));
+    $CI->db->update(db_prefix() . 'licence_items', [
+            'categories'              => $categories,
+            'kepala_dinas_nama'       => $licence->office->kepala_dinas_nama,
+            'kepala_dinas_nip'        => $licence->office->kepala_dinas_nip,
+            'pengawas_nama'           => $licence->office->{$nama_pengawas},
+            'pengawas_nip'            => $licence->office->{$nip_pengawas},
+        ]);
+}
 
 function get_licence_company_by_clientid($id){
     $CI = &get_instance();
