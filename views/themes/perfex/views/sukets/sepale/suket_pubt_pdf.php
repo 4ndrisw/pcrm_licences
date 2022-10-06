@@ -9,7 +9,9 @@ $pdf->SetAutoPageBreak(true, 5);
 $pdf->SetFont('dejavusans');
 
 $inspection = $suket->inspection;
-$inspection_date = _d($inspection->date);
+$tanggal_inspeksi_raw = _d($inspection->date);
+$tanggal_suket_raw = $suket->licence_items[0]['tanggal_suket'];
+$expired_suket_raw = $suket->licence_items[0]['expired'];
 $client = $suket->client;
 $client_company = $client->company;
 $client_address = $client->address;
@@ -39,20 +41,39 @@ $regulasi = explode(' AND ', $equipment['regulasi']);
 $equipment_regulasi = '';
 $equipment_regulasi .= '<ol class="regulasi">'; 
 
+$tahun = getYear($tanggal_inspeksi_raw);
+$bulan = getMonth($tanggal_inspeksi_raw);
+$tanggal = getDay($tanggal_inspeksi_raw);
+$tanggal_inspeksi = $tanggal.' '.$bulan.' '.$tahun;
+
+$tahun = getYear($expired_suket_raw);
+$bulan = getMonth($expired_suket_raw);
+$tanggal = getDay($expired_suket_raw);
+$bulan_suket = $bulan.' '.$tahun;
+$expired = $tanggal.' '.$bulan.' '.$tahun;
+
+
+$tahun = getYear($tanggal_suket_raw);
+$bulan = getMonth($tanggal_suket_raw);
+$tanggal = getDay($tanggal_suket_raw);
+$tanggal_suket = $tanggal.' '.$bulan.' '.$tahun;
+
+$nomor_suket = $suket->licence_items[0]['nomor_suket'];
+
 $text = 'SURAT KETERANGAN' ."\r\n";
 $text .= 'HASIL PEMERIKSAAN DAN PENGUJIAN' ."\r\n";
-$text .= 'Nomor : ';// . $suket_item_number;
+$text .= 'Nomor : ' . $nomor_suket;
 
-$pdf->ln(25);
+$pdf->ln(20);
 $pdf->Write(0, $text, '', 0, 'C', true, 0, false, false, 0);
 
 $text = 'Berdasarkan hasil pemeriksaan dan pengujian yang dilakukan oleh ';
 $text .= get_option('invoice_company_name');
-$text .= ' pada tanggal ' .$inspection_date. ' terhadap ' .$equipment_nama_pesawat. ' dapat diterangkan bahwa :' . "\r\n";
+$text .= ' pada tanggal ' .$tanggal_inspeksi. ' terhadap ' .$equipment_nama_pesawat. ' dapat diterangkan bahwa :' . "\r\n";
 
 $pdf->SetLeftMargin(24);
 $pdf->SetRightMargin(24);
-$pdf->ln(5);
+$pdf->ln(4);
 $pdf->Write(0, $text, '', 0, 'J', true, 0, false, false, 0);
 
 foreach($regulasi as $row){
@@ -202,8 +223,10 @@ $pdf->SetLeftMargin(24);
 // restore the left margin
 $pdf->SetLeftMargin($margins['left']);
 
+$pdf->ln(2);
 $pdf->writeHTML($html, true, 0, true, true);
 $blank_line ="\r\n";
+
 $pdf->Write(0, $blank_line, '', 0, 'J', true, 0, false, false, 0);
 
 
@@ -215,7 +238,7 @@ $pdf->Write(0, $text, '', 0, 'C', true, 0, false, false, 0);
 $pdf->ln(5);
 
 $text = "Demikian surat keterangan ini dibuat dengan sebenarnya agar dapat digunakan sebagaimana mestinya dan berlaku sepanjang objek pengujian tidak dilakukan perubahan dan / atau sampai dilakukan pengujian selanjutnya paling lambat tanggal ";
-$text .= $equipment_nama_pesawat ."\r\n \r\n";
+$text .= $expired .".\r\n \r\n";
 
 $pdf->SetLeftMargin(24);
 $pdf->SetRightMargin(24);
@@ -223,6 +246,7 @@ $pdf->Write(0, $text, '', 0, 'J', true, 0, false, false, 0);
 
 
 $left_info = '<div style="text-align:center;">';
+$left_info .= "<br />";
 $left_info .= 'Mengetahui,' .'<br />';
 $left_info .= 'Kepala ' . $suket->office->dinas;
 $left_info .= "<br />";
@@ -239,6 +263,7 @@ $left_info .= '</div>';
 
 
 $right_info = '<div style="text-align:center;">';
+$right_info .= "Serang, $tanggal_suket" .'<br />';
 $right_info .= 'Yang Melakukan Evaluasi,' .'<br />';
 $right_info .= 'Pengawas Ketenagakerjaan' .'<br />';
 $right_info .= "<br />";

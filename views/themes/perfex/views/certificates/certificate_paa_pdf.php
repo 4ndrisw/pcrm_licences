@@ -14,29 +14,41 @@ $pdf->ln(35);
 $pdf->Write(0, $text, '', 0, 'C', true, 0, false, false, 0);
 
 $inspection = $certificate->inspection;
-$inspection_date = _d($inspection->date);
+$tanggal_inspeksi_raw = isset($inspection->date) ? _d($inspection->date) : '1970-01-01';
+
 $client = $certificate->client;
 $client_company = $client->company;
 $client_address = $client->address;
 
 $equipment = $certificate->equipment[0];
-$equipment_jenis_pesawat = isset($equipment['jenis_pesawat']) ? $equipment['jenis_pesawat'] : 'CEK DATA INSPEKSI';
-$equipment_lokasi = isset($equipment['lokasi']) ? $equipment['lokasi'] : 'CEK DATA INSPEKSI';
-$equipment_nama_pesawat = isset($equipment['nama_pesawat']) ? $equipment['nama_pesawat'] : 'CEK DATA INSPEKSI';
-$equipment_pabrik_pembuat = isset($equipment['pabrik_pembuat']) ? $equipment['pabrik_pembuat'] : 'CEK DATA INSPEKSI';
-$equipment_tahun_pembuatan = isset($equipment['tahun_pembuatan']) ? $equipment['tahun_pembuatan'] : 'CEK DATA INSPEKSI';
+$equipment_jenis_pesawat = $equipment['jenis_pesawat'];
+$equipment_lokasi = $equipment['lokasi'];
+$equipment_nama_pesawat = $equipment['nama_pesawat'];
+$equipment_pabrik_pembuat = $equipment['pabrik_pembuat'];
+$equipment_tahun_pembuatan = $equipment['tahun_pembuatan'];
 
-$equipment_nomor_seri = isset($equipment['nomor_seri']) ? $equipment['nomor_seri'] : 'CEK DATA INSPEKSI';
-$equipment_nomor_unit = isset($equipment['nomor_unit']) ? $equipment['nomor_unit'] : 'CEK DATA INSPEKSI';
-$equipment_kapasitas = isset($equipment['kapasitas']) ? $equipment['kapasitas'] : 'CEK DATA INSPEKSI';
-$equipment_digunakan_untuk = isset($equipment['digunakan_untuk']) ? $equipment['digunakan_untuk'] : 'CEK DATA INSPEKSI';
-$equipment_jenis_pemeriksaan = isset($equipment['jenis_pemeriksaan']) ? $equipment['jenis_pemeriksaan'] : 'CEK DATA INSPEKSI';
-$equipment_bentuk = isset($equipment['bentuk']) ? $equipment['bentuk'] : 'CEK DATA INSPEKSI';
-//$equipment_bentuk = isset($equipment['bentuk']) ? $equipment['bentuk'] : 'CEK DATA INSPEKSI';
+$equipment_nomor_seri = $equipment['nomor_seri'];
+$equipment_nomor_unit = $equipment['nomor_unit'];
+$equipment_kapasitas =$equipment['kapasitas'];
+$equipment_digunakan_untuk = $equipment['digunakan_untuk'];
+$equipment_jenis_pemeriksaan = $equipment['jenis_pemeriksaan'];
+
 $office_dinas = $certificate->office->dinas;
-$regulasi = explode(' AND ', $equipment['regulasi']);
+$regulasi = explode('--', $equipment['regulasi']);
 $equipment_regulasi = '';
 $equipment_regulasi .= '<ol class="regulasi">'; 
+
+$tahun = getYear($tanggal_inspeksi_raw);
+$bulan = getMonth($tanggal_inspeksi_raw);
+$tanggal = getDay($tanggal_inspeksi_raw);
+$tanggal_inspeksi = $tanggal.' '.$bulan.' '.$tahun;
+
+$certificate_proposed_raw = isset($certificate->proposed_date) ? _d($certificate->proposed_date) : '1970-01-01';
+
+$tahun = getYear($certificate_proposed_raw);
+$bulan = getMonth($certificate_proposed_raw);
+$tanggal = getDay($certificate_proposed_raw);
+$tanggal_sertifikat = $tanggal.' '.$bulan.' '.$tahun;
 
 foreach($regulasi as $row){
     $equipment_regulasi .= '<li style="margin-left:70;">' .$row. '</li>'; 
@@ -77,17 +89,7 @@ $html = <<<EOD
     <tr>
         <td style="border-bottom:1px solid black; width:200;">Tanggal Pemeriksaan</td>
         <td style="border-bottom:1px solid black; width:45;">:</td>
-        <td style="border-bottom:1px solid black; width:400;">$inspection_date</td>
-    </tr>
-    <tr>
-        <td style="border-bottom:1px solid black; width:200;">Nama Pesawat</td>
-        <td style="border-bottom:1px solid black; width:45;">:</td>
-        <td style="border-bottom:1px solid black; width:400;">$equipment_nama_pesawat</td>
-    </tr>
-    <tr>
-        <td style="border-bottom:1px solid black; width:200;">Jenis Bejana</td>
-        <td style="border-bottom:1px solid black; width:45;">:</td>
-        <td style="border-bottom:1px solid black; width:400;">$equipment_bentuk</td>
+        <td style="border-bottom:1px solid black; width:400;">$tanggal_inspeksi</td>
     </tr>
     <tr>
         <td style="border-bottom:1px solid black; width:200;">Pabrik Pembuat</td>
@@ -100,17 +102,22 @@ $html = <<<EOD
         <td style="border-bottom:1px solid black; width:400;">$equipment_tahun_pembuatan</td>
     </tr>
     <tr>
-        <td style="border-bottom:1px solid black; width:200;">No Seri / No Unit</td>
+        <td style="border-bottom:1px solid black; width:200;">No Seri</td>
         <td style="border-bottom:1px solid black; width:45;">:</td>
-        <td style="border-bottom:1px solid black; width:400;">$equipment_nomor_seri / $equipment_nomor_unit</td>
+        <td style="border-bottom:1px solid black; width:400;">$equipment_nomor_seri</td>
     </tr>
     <tr>
-        <td style="border-bottom:1px solid black; width:200;">Kapasitas</td>
+        <td style="border-bottom:1px solid black; width:200;">No Unit</td>
+        <td style="border-bottom:1px solid black; width:45;">:</td>
+        <td style="border-bottom:1px solid black; width:400;">$equipment_nomor_unit</td>
+    </tr>
+    <tr>
+        <td style="border-bottom:1px solid black; width:200;">Kapasitas Angkat</td>
         <td style="border-bottom:1px solid black; width:45;">:</td>
         <td style="border-bottom:1px solid black; width:400;">$equipment_kapasitas</td>
     </tr>
     <tr>
-        <td style="border-bottom:1px solid black; width:200;">Digunakan untuk</td>
+        <td style="border-bottom:1px solid black; width:200;">Digunakan Untuk</td>
         <td style="border-bottom:1px solid black; width:45;">:</td>
         <td style="border-bottom:1px solid black; width:400;">$equipment_digunakan_untuk</td>
     </tr>
@@ -182,7 +189,7 @@ $pdf->write2DBarcode($qrcode, 'QRCODE,M', $x_pos+70, $y_pos+2, 40, 40, $style, '
 
 
 $assigned = '<div style="text-align:center;">';
-$assigned .= $certificate->proposed_date;
+$assigned .= $tanggal_sertifikat;
 $assigned .= '<br /><br /><br /><br /><br /><br /><br /><br />';
 $assigned .= get_staff_full_name($certificate->assigned);
 $assigned .= '</div>';

@@ -224,21 +224,14 @@
                      <?php } ?>
                      <?php if($licence->project_id != 0){ ?>
                      <div class="col-md-12">
-                        <h4 class="font-medium mbot15"><?php echo _l('related_to_project',array(
-                           _l('licence_lowercase'),
-                           _l('project_lowercase'),
-                           '<a href="'.admin_url('projects/view/'.$licence->project_id).'" target="_blank">' . $licence->project_data->name . '</a>',
-                           )); ?>      
+                        <h4 class="font-medium mbot15">
+                           <?php echo _l('this_licence_related to'); ?>
+                           <ol>
+                              <li><?php echo('Project : <a href="'.admin_url('projects/view/'.$licence->project_id).'" target="_blank">' . $licence->project_data->name . '</a>');?></li>
+                              <li><?php //echo('Inspection : <a href="'.admin_url('inspections/inspection_item/'.$licence->inspection_id->id.'/'.$licence->task_id).'" target="_blank">' . format_inspection_item_number($licence->inspection_id->id, $licence->task_id) . '</a>');?></li>
+                           </ol>
                         </h4>
-                     </div>
-                     <div class="col-md-12">
-                        <h4 class="bold">
-                           <a href="<?php echo site_url('licences/'. $page .'/'.$licence->id.'/'.$licence->hash); ?>">
-                           <span id="licence-number">
-                           <?php echo format_licence_item_number($licence->id,$licence->categories,$licence->task_id); ?>
-                           </span>
-                           </a>      
-                        </h4>
+                        <hr />
                      </div>
 
                      <?php } ?>
@@ -266,6 +259,7 @@
                      </div>
                            <?php echo format_office_info($licence->office, 'licence', 'billing', true);?>                           
                   </div>
+
                   <div class="row">
                      <div class="container-fluid">
                         
@@ -299,6 +293,18 @@
                         </div>
                      </div>
                   </div>
+                  <div class="row">
+                     <div class="col-md-12">
+                        <h4 class="bold">
+                           <a href="<?php echo site_url('licences/'. $page .'/'.$licence->id.'/'.$licence->hash); ?>">
+                           <span id="licence-number">
+                           <?php echo format_licence_item_number($licence->id,$licence->categories,$licence->task_id); ?>
+                           </span>
+                           </a>      
+                        </h4>
+                     </div>
+                  </div>
+
                   <div class="row">
                      <?php if(count($licence->attachments) > 0){ ?>
                         <div class="clearfix"></div>
@@ -336,27 +342,44 @@
                            </div>
                         <?php } ?>
                      <?php } ?>
-
-
-
                      <div class ="table-responsive">
                         <?php $value = date('Y-m-d'); ?>
                         <table id="<?= 'licence-'.$licence->id ?>" class="table licence table-bordered">
                           <tbody>
                              <tr>
-                                <td style="width:20%">Suket</td>
+                                <td style="width:30%">Suket</td>
                                 <td style="width:2%">:</td>
-                                <td class="<?= $editable_class ?>" data-field="nomor_suket" data-licence_id="<?= $licence->id ?>" data-task_id="<?= $task->id ?>"><?= isset($licence_items[0]['nomor_suket']) ? $licence_items[0]['nomor_suket'] : '' ?></td>
+                                <td class="<?= $editable_class ?>" data-field="nomor_suket" data-licence_id="<?= $licence->id ?>" data-task_id="<?= $task->id ?>"><?= isset($licence_item->nomor_suket) ? $licence_item->nomor_suket : '' ?></td>
                              </tr>
                              <tr>
-                                <td style="width:20%">Masa berlaku</td>
+                                <td style="width:30%">Masa berlaku</td>
                                 <td style="width:2%">:</td>
-                                <td class="<?= $editable_class ?>" data-field="expired" data-licence_id="<?= $licence->id ?>" data-task_id="<?= $task->id ?>"><?= isset($licence_items[0]['expired']) ? $licence_items[0]['expired'] : '' ?></td>
+                                <td class="<?= $editable_class ?>" data-field="expired" data-licence_id="<?= $licence->id ?>" data-task_id="<?= $task->id ?>"><?= isset($licence_item->expired) ? $licence_item->expired : '' ?></td>
                              </tr>
                              <tr>
-                                <td style="width:20%">Tanggal</td>
+                                <td style="width:30%">Tanggal Penerbitan</td>
                                 <td style="width:2%">:</td>
-                                <td class="<?= $editable_class ?>" data-field="Tanggal_suket" data-licence_id="<?= $licence->id ?>" data-task_id="<?= $task->id ?>"><?= isset($licence_items[0]['tanggal_suket']) ? $licence_items[0]['tanggal_suket'] : '' ?></td>
+                                <td class="<?= $editable_class ?>" data-field="tanggal_suket" data-licence_id="<?= $licence->id ?>" data-task_id="<?= $task->id ?>"><?= isset($licence_item->tanggal_suket) ? $licence_item->tanggal_suket : '' ?></td>
+                             </tr>
+                             <tr>
+                                <td style="width:30%">Nama Kepala Dinas</td>
+                                <td style="width:2%">:</td>
+                                <td class="<?= $editable_class ?>" data-field="kepala_dinas_nama" data-licence_id="<?= $licence->id ?>" data-task_id="<?= $task->id ?>"><?= isset($licence_item->kepala_dinas_nama) ? $licence_item->kepala_dinas_nama : '' ?></td>
+                             </tr>
+                             <tr>
+                                <td style="width:30%">NIP Kepala Dinas</td>
+                                <td style="width:2%">:</td>
+                                <td class="<?= $editable_class ?>" data-field="kepala_dinas_nip" data-licence_id="<?= $licence->id ?>" data-task_id="<?= $task->id ?>"><?= isset($licence_item->kepala_dinas_nip) ? $licence_item->kepala_dinas_nip : '' ?></td>
+                             </tr>
+                             <tr>
+                                <td style="width:30%">Nama Pengawas</td>
+                                <td style="width:2%">:</td>
+                                <td class="<?= $editable_class ?>" data-field="pengawas_nama" data-licence_id="<?= $licence->id ?>" data-task_id="<?= $task->id ?>"><?= isset($licence_item->pengawas_nama) ? $licence_item->pengawas_nama : '' ?></td>
+                             </tr>
+                             <tr>
+                                <td style="width:30%">NIP Pengawas</td>
+                                <td style="width:2%">:</td>
+                                <td class="<?= $editable_class ?>" data-field="pengawas_nip" data-licence_id="<?= $licence->id ?>" data-task_id="<?= $task->id ?>"><?= isset($licence_item->pengawas_nip) ? $licence_item->pengawas_nip : '' ?></td>
                              </tr>
                           </tbody>
                         </table>
