@@ -439,7 +439,7 @@ class Mylicence extends ClientsController
         $equipment_type = ucfirst(strtolower(str_replace(' ', '_', $tags[0])));
         $suket->equipment_type = $equipment_type;
         
-        $inspections_model = 'inspections_model';
+        $inspections_model = 'Inspections_model';
         $model_path = FCPATH . 'modules/'. INSPECTIONS_MODULE_NAME .'/models/' . $inspections_model .'.php';
 
         include_once($model_path);
