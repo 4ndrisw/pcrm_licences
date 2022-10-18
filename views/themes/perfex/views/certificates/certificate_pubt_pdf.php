@@ -8,10 +8,15 @@ $dimensions = $pdf->getPageDimensions();
 $pdf->SetAutoPageBreak(true, 5);
 $pdf->SetFont('dejavusans');
 
-$text = 'Nomor Sertifikat : ' . $certificate_item_number;
+$text = '<div style="text-align:center;"><strong>';
+$text .= 'Nomor Sertifikat : ' . $certificate_item_number;
+$text .= '</strong></div>';
 
-$pdf->ln(35);
-$pdf->Write(0, $text, '', 0, 'C', true, 0, false, false, 0);
+$pdf->setFontSize('10');
+$pdf->ln(45);
+$pdf->writeHTML($text, true, 0, true, true);
+
+$pdf->setFontSize('9');
 
 $inspection = $certificate->inspection;
 $inspection_date = _d($inspection->date);
@@ -192,9 +197,12 @@ $pdf->write2DBarcode($qrcode, 'QRCODE,M', $x_pos+70, $y_pos+2, 40, 40, $style, '
 
 
 $assigned = '<div style="text-align:center;">';
-$assigned .= $proposed_date;
-$assigned .= '<br /><br /><br /><br /><br /><br /><br /><br />';
-$assigned .= get_staff_full_name($certificate->assigned);
-$assigned .= '</div>';
+$assigned .= get_option('licence_certificate_assign_city') .', '. $proposed_date .'<br />';
+$assigned .= '<strong>' . strtoupper(get_option('invoice_company_name'));
+$assigned .= '<br /><br /><br /><br /><br /><br /><br /><br /><br />';
+$assigned .= '<span style="text-decoration: underline;">' . strtoupper(get_staff_full_name($certificate->assigned)) .'</span><br />';
+$assigned .= strtoupper(get_option('licence_certificate_assign_position'));
+$assigned .= '</strong></div>';
+
 
 $pdf->MultiCell(0, 0, $assigned, 0, 'R', 0, 1, $x_pos+100, $y_pos+4, true, 0, true);
