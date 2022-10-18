@@ -29,12 +29,13 @@ $equipment_tahun_pembuatan = $equipment['tahun_pembuatan'];
 
 $equipment_nomor_seri = $equipment['nomor_seri'];
 $equipment_nomor_unit = $equipment['nomor_unit'];
+$equipment_type_model = $equipment['type_model'];
 $equipment_kapasitas =$equipment['kapasitas'];
 $equipment_digunakan_untuk = $equipment['digunakan_untuk'];
 $equipment_jenis_pemeriksaan = $equipment['jenis_pemeriksaan'];
 
 $office_dinas = $certificate->office->dinas;
-$regulasi = explode('--', $equipment['regulasi']);
+$regulasi = explode(' -- ', $equipment['regulasi']);
 $equipment_regulasi = '';
 $equipment_regulasi .= '<ol class="regulasi">'; 
 
@@ -110,6 +111,11 @@ $html = <<<EOD
         <td style="border-bottom:1px solid black; width:200;">No Unit</td>
         <td style="border-bottom:1px solid black; width:45;">:</td>
         <td style="border-bottom:1px solid black; width:400;">$equipment_nomor_unit</td>
+    </tr>
+    <tr>
+        <td style="border-bottom:1px solid black; width:200;">Type / Model</td>
+        <td style="border-bottom:1px solid black; width:45;">:</td>
+        <td style="border-bottom:1px solid black; width:400;">$equipment_type_model</td>
     </tr>
     <tr>
         <td style="border-bottom:1px solid black; width:200;">Kapasitas Angkat</td>
