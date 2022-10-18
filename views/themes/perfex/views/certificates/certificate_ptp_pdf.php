@@ -13,7 +13,7 @@ $text = 'Nomor Sertifikat : ' . $certificate_item_number;
 $pdf->ln(35);
 $pdf->Write(0, $text, '', 0, 'C', true, 0, false, false, 0);
 
-$inspection = $certificate->inspection;$tanggal_inspeksi_raw = isset($inspection->date) ? _d($inspection->date) : '1970-01-01';
+$inspection = $certificate->inspection;$tanggal_pemeriksaan_raw = isset($inspection->date) ? _d($inspection->date) : '1970-01-01';
 $tanggal_suket_raw = isset($suket->licence_items[0]['tanggal_suket']) ? $suket->licence_items[0]['tanggal_suket'] : '1970-01-01';
 $expired_suket_raw = isset($suket->licence_items[0]['expired']) ? $suket->licence_items[0]['expired'] : '1970-01-01';
 
@@ -35,32 +35,28 @@ $equipment_digunakan_untuk = $equipment['digunakan_untuk'];
 $equipment_jenis_pemeriksaan = $equipment['jenis_pemeriksaan'];
 
 $office_dinas = $certificate->office->dinas;
-$regulasi = explode(' AND ', $equipment['regulasi']);
-$equipment_regulasi = '';
-$equipment_regulasi .= '<ol class="regulasi">'; 
 
-foreach($regulasi as $row){
-    $equipment_regulasi .= '<li style="margin-left:70;">' .$row. '</li>'; 
+$default_regulation = get_option('predefined_regulation_of_'.$certificate->categories);
+$equipment_regulasi = !empty($certificate->inspection->equipment['regulasi']) ? $certificate->inspections->equipment['regulasi'] : $default_regulation;
+
+if (!empty($equipment_regulasi)) {
+    $regulasi = explode(' -- ', $equipment_regulasi);
+    $equipment_regulasi = '';
+    $equipment_regulasi .= '<ol class="regulasi">'; 
+
+    foreach($regulasi as $row){
+        $equipment_regulasi .= '<li style="margin-left:70;">' .$row. '</li>'; 
+    }
+    $equipment_regulasi .= '</ol>';
 }
-$equipment_regulasi .= '</ol>'; 
 
-$tahun = getYear($tanggal_inspeksi_raw);
-$bulan = getMonth($tanggal_inspeksi_raw);
-$tanggal = getDay($tanggal_inspeksi_raw);
-$tanggal_inspeksi = $tanggal.' '.$bulan.' '.$tahun;
+$tanggal_pemeriksaan = tanggal_pemeriksaan($inspection->date);
 
-$tahun = getYear($expired_suket_raw);
-$bulan = getMonth($expired_suket_raw);
-$tanggal = getDay($expired_suket_raw);
-$bulan_suket = $bulan.' '.$tahun;
-$expired = $tanggal.' '.$bulan.' '.$tahun;
-
-$tahun = getYear($tanggal_suket_raw);
-$bulan = getMonth($tanggal_suket_raw);
-$tanggal = getDay($tanggal_suket_raw);
-$tanggal_suket = $tanggal.' '.$bulan.' '.$tahun;
-
-//var_dump($certificate->equipment);
+$proposed_date_raw = isset($certificate->proposed_date) ? _d($certificate->proposed_date) : '1970-01-01';
+$tahun = getYear($tanggal_pemeriksaan_raw);
+$bulan = getMonth($tanggal_pemeriksaan_raw);
+$tanggal = getDay($tanggal_pemeriksaan_raw);
+$proposed_date = $tanggal.' '.$bulan.' '.$tahun;
 
 // Set some content to print
 $pdf->ln(2);
@@ -94,7 +90,7 @@ $html = <<<EOD
     <tr>
         <td style="border-bottom:1px solid black; width:200;">Tanggal Pemeriksaan</td>
         <td style="border-bottom:1px solid black; width:45;">:</td>
-        <td style="border-bottom:1px solid black; width:400;">$inspection_tanggal_pemeriksaan</td>
+        <td style="border-bottom:1px solid black; width:400;">$tanggal_pemeriksaan</td>
     </tr>
     <tr>
         <td style="border-bottom:1px solid black; width:200;">Nama Pesawat</td>
@@ -178,7 +174,7 @@ $qrcode ="";
 $qrcode .=$client_company ."\r\n";
 $qrcode .=$certificate_item_number . "\r\n";
 $qrcode .=$equipment_nama_pesawat ."\r\n";
-$qrcode .= $certificate->proposed_date;
+$qrcode .= $proposed_date;
 
 
 
@@ -199,7 +195,7 @@ $pdf->write2DBarcode($qrcode, 'QRCODE,M', $x_pos+70, $y_pos+2, 40, 40, $style, '
 
 
 $assigned = '<div style="text-align:center;">';
-$assigned .= $certificate->proposed_date;
+$assigned .= $proposed_date;
 $assigned .= '<br /><br /><br /><br /><br /><br /><br /><br />';
 $assigned .= get_staff_full_name($certificate->assigned);
 $assigned .= '</div>';
