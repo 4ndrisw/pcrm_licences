@@ -97,14 +97,8 @@
                   <div class="btn-group">
                      <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-file-pdf-o"></i><?php if(is_mobile()){echo ' PDF';} ?> <span class="caret"></span></a>
                      <ul class="dropdown-menu dropdown-menu-right">
-                        <li><a href="<?php echo site_url('licences/'.$licence->id.'/sertifikat/pdf/'.$licence->task_id.'?output_type=I'); ?>" target="_blank"><?php echo _l('view_pdf_in_new_window'); ?></a></li>
-                        <li><a href="<?php echo site_url('licences/'.$licence->id.'/suket/pdf/'.$licence->task_id.'?output_type=I'); ?>" target="_blank"><?php echo _l('view_pdf_in_new_window'); ?></a></li>
-                        <li><a href="<?php echo site_url('licences/pdf/'.$licence->id); ?>"><?php echo _l('download'); ?></a></li>
-                        <li>
-                           <a href="<?php echo site_url('licences/'.$licence->id.'?print=true'); ?>" target="_blank">
-                           <?php echo _l('print'); ?>
-                           </a>
-                        </li>
+                        <li><a href="<?php echo site_url('licences/'.$licence->id.'/sertifikat/pdf/'.$licence->task_id.'?output_type=I'); ?>" target="_blank"><?php echo _l('view_pdf_certificate'); ?></a></li>
+                        <li><a href="<?php echo site_url('licences/'.$licence->id.'/suket/pdf/'.$licence->task_id.'?output_type=I'); ?>" target="_blank"><?php echo _l('view_pdf_licence'); ?></a></li>
                      </ul>
                   </div>
                   <?php
@@ -227,8 +221,8 @@
                         <h4 class="font-medium mbot15">
                            <?php echo _l('this_licence_related to'); ?>
                            <ol>
-                              <li><?php echo('Project : <a href="'.admin_url('projects/view/'.$licence->project_id).'" target="_blank">' . $licence->project_data->name . '</a>');?></li>
-                              <li><?php //echo('Inspection : <a href="'.admin_url('inspections/inspection_item/'.$licence->inspection_id->id.'/'.$licence->task_id).'" target="_blank">' . format_inspection_item_number($licence->inspection_id->id, $licence->task_id) . '</a>');?></li>
+                              <li><?php echo('Project : <a href="'.admin_url('projects/view/'.$licence->project_id).'" target="_blank">' . $licence->task->project_data->name . '</a>');?></li>
+                              <li><?php echo('Inspection : <a href="'.admin_url('inspections/inspection_item/'.$licence->inspection_id->id.'/'.$licence->task_id).'" target="_blank">' . format_inspection_item_number($licence->inspection_id->id, $licence->task_id) . '</a>');?></li>
                            </ol>
                         </h4>
                         <hr />
@@ -297,11 +291,16 @@
                      <div class="col-md-12">
                         <h4 class="bold">
                            <a href="<?php echo site_url('licences/'. $page .'/'.$licence->id.'/'.$licence->hash); ?>">
-                           <span id="licence-number">
-                           <?php echo format_licence_item_number($licence->id,$licence->categories,$licence->task_id); ?>
-                           </span>
-                           </a>      
+                           <div id="licence-number">
+                           <?php 
+                              echo format_licence_item_number($licence->id,$licence->categories,$licence->task_id); 
+                           ?>
+                           </div>
+                           </a>
+                           <?= $licence->task->name; ?>
                         </h4>
+                        <p>
+                        </p>
                      </div>
                   </div>
 
@@ -352,7 +351,12 @@
                                 <td class="<?= $editable_class ?>" data-field="nomor_suket" data-licence_id="<?= $licence->id ?>" data-task_id="<?= $task->id ?>"><?= isset($licence_item->nomor_suket) ? $licence_item->nomor_suket : '' ?></td>
                              </tr>
                              <tr>
-                                <td style="width:30%">Masa berlaku</td>
+                                <td style="width:30%">Masa Berlaku (tahun)</td>
+                                <td style="width:2%">:</td>
+                                <td class="<?= $editable_class ?>" data-field="masa_berlaku" data-licence_id="<?= $licence->id ?>" data-task_id="<?= $task->id ?>"><?= isset($licence_item->masa_berlaku) ? $licence_item->masa_berlaku : '' ?></td>
+                             </tr>
+                             <tr>
+                                <td style="width:30%">Tanggal Periksa berikutnya</td>
                                 <td style="width:2%">:</td>
                                 <td class="<?= $editable_class ?>" data-field="expired" data-licence_id="<?= $licence->id ?>" data-task_id="<?= $task->id ?>"><?= isset($licence_item->expired) ? $licence_item->expired : '' ?></td>
                              </tr>
