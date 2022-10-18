@@ -36,9 +36,20 @@ $equipment_digunakan_untuk = $equipment['digunakan_untuk'];
 $equipment_jenis_pemeriksaan = $equipment['jenis_pemeriksaan'];
 
 $office_dinas = $certificate->office->dinas;
-$regulasi = explode(' -- ', $equipment['regulasi']);
-$equipment_regulasi = '';
-$equipment_regulasi .= '<ol class="regulasi">'; 
+
+$default_regulation = get_option('predefined_regulation_of_'.$certificate->categories);
+$equipment_regulasi = !empty($certificate->inspection->equipment['regulasi']) ? $certificate->inspections->equipment['regulasi'] : $default_regulation;
+
+if (!empty($equipment_regulasi)) {
+    $regulasi = explode(' -- ', $equipment_regulasi);
+    $equipment_regulasi = '';
+    $equipment_regulasi .= '<ol class="regulasi">'; 
+
+    foreach($regulasi as $row){
+        $equipment_regulasi .= '<li style="margin-left:70;">' .$row. '</li>'; 
+    }
+    $equipment_regulasi .= '</ol>';
+}
 
 $tahun = getYear($tanggal_inspeksi_raw);
 $bulan = getMonth($tanggal_inspeksi_raw);
@@ -51,13 +62,6 @@ $tahun = getYear($certificate_proposed_raw);
 $bulan = getMonth($certificate_proposed_raw);
 $tanggal = getDay($certificate_proposed_raw);
 $tanggal_sertifikat = $tanggal.' '.$bulan.' '.$tahun;
-
-foreach($regulasi as $row){
-    $equipment_regulasi .= '<li style="margin-left:70;">' .$row. '</li>'; 
-}
-$equipment_regulasi .= '</ol>'; 
-
-//var_dump($certificate->equipment);
 
 // Set some content to print
 $pdf->ln(2);
