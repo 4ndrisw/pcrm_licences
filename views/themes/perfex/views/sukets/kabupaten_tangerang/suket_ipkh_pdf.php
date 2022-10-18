@@ -51,7 +51,7 @@ $equipment_jenis_pemeriksaan = isset($equipment['jenis_pemeriksaan']) ? $equipme
 $office_dinas = $suket->office->dinas;
 $regulasi = explode(' AND ', $equipment['regulasi']);
 $equipment_regulasi = '';
-$equipment_regulasi .= '<ol class="regulasi">'; 
+$equipment_regulasi .= '<ol class="regulasi">';
 
 $tahun = getYear($tanggal_inspeksi_raw);
 $bulan = getMonth($tanggal_inspeksi_raw);
@@ -93,9 +93,9 @@ $pdf->ln(4);
 $pdf->writeHTML($text, true, 0, true, true);
 
 foreach($regulasi as $row){
-    $equipment_regulasi .= '<li style="margin-left:70;">' .$row. '</li>'; 
+    $equipment_regulasi .= '<li style="margin-left:70;">' .$row. '</li>';
 }
-$equipment_regulasi .= '</ol>'; 
+$equipment_regulasi .= '</ol>';
 
 //var_dump($office_short_name);
 
@@ -254,7 +254,7 @@ $pdf->ln(5);
 
 $text = '<div style="text-align:justify;">';
 $text .= 'Demikian surat keterangan ini dibuat dengan sebenarnya agar dapat digunakan sebagaimana mestinya dan berlaku sepanjang objek pengujian tidak dilakukan perubahan dan / atau sampai dilakukan pengujian selanjutnya paling lambat bulan ';
-$text .= '<strong>'. $expired_bulan .'.</strong>';
+$text .= '<strong>'. $expired_bulan .'</strong>.';
 $text .= '</div>';
 $pdf->SetLeftMargin(20);
 $pdf->SetRightMargin(20);
