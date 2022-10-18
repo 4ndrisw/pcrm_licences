@@ -285,7 +285,8 @@ $pdf->ln(5);
 $left_info = '<div style="text-align:center;">';
 $left_info .= "<br />";
 $left_info .= 'Mengetahui,' .'<br />';
-$left_info .= 'Kepala ' . $suket->office->dinas;
+$left_info .= 'Kepala ' . $suket->office->dinas . '<br />';
+$left_info .= $suket->office->province;
 $left_info .= "<br />";
 $left_info .= "<br />";
 $left_info .= "<br />";
@@ -293,10 +294,9 @@ $left_info .= "<br />";
 $left_info .= "<br />";
 $left_info .= "<br />";
 $left_info .= "<br />";
+$left_info .= '<span style="text-decoration: underline;"><strong>' . $licence_item->kepala_dinas_nama . '</strong></span>';
 $left_info .= "<br />";
-$left_info .= $licence_item->kepala_dinas_nama;
-$left_info .= "<br />";
-$left_info .= $licence_item->kepala_dinas_nip;
+$left_info .= '<strong>' . $licence_item->kepala_dinas_nip .'</strong>';
 $left_info .= '</div>';
 
 
@@ -311,10 +311,9 @@ $right_info .= "<br />";
 $right_info .= "<br />";
 $right_info .= "<br />";
 $right_info .= "<br />";
+$right_info .= '<span style="text-decoration: underline;"><strong>' . $licence_item->pengawas_nama . '</strong></span>';
 $right_info .= "<br />";
-$right_info .= $licence_item->pengawas_nama;
-$right_info .= "<br />";
-$right_info .= $licence_item->pengawas_nip;
+$right_info .= '<strong>' . $licence_item->pengawas_nip . '</strong>';
 $right_info .= '</div>';
 
 
