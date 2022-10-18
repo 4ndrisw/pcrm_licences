@@ -445,7 +445,8 @@ class Mylicence extends ClientsController
         include_once($model_path);
         $this->load->model($inspections_model);
 
-        $equipment_model = $equipment_type .'_model';
+        $equipment_model = ucfirst($equipment_type .'_model');
+
         $model_path = FCPATH . 'modules/'. INSPECTIONS_MODULE_NAME .'/models/' . $equipment_model .'.php';
         
         include_once($model_path);
