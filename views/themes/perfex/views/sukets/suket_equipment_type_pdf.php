@@ -17,13 +17,12 @@ $equipment = $suket->equipment[0];
 
 $equipment_jenis_pesawat = isset($equipment['jenis_pesawat']) ? $equipment['jenis_pesawat'] : 'CEK DATA INSPEKSI';
 
-//var_dump($suket->equipment);
-
 $pdf->SetFont('dejavusans');
 
 $filePath = strtolower($equipment_jenis_pesawat) .'_pdf.php';
 $text = 'File suket_';
 $text .= $filePath;
+$text .= "\r\n" . $suket->office->short_name;
 $text .= ' Tidak ada';
 
 $pdf->ln(35);
