@@ -454,7 +454,7 @@ class Mylicence extends ClientsController
         $inspection_id = $this->licences_model->get_inspection_id($id, $task_id);
         
         $equipment = $this->{$equipment_model}->get('', ['rel_id' => $inspection_id->id, 'task_id' => $task_id]);
-        $suket->inspection = $this->inspections_model->get($inspection_id->id);
+        $suket->inspection = $this->{$inspections_model}->get($inspection_id->id);
         $suket->licence_items = $this->licences_model->get_licence_items($suket->id, $suket->task_id);
         $suket->inspection->assigned_item = get_staff_full_name(get_option('default_jobreport_assigned_'.$suket->categories));
 
