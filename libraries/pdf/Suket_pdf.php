@@ -67,7 +67,7 @@ class Suket_pdf extends App_pdf
         }
 
         $customPath = module_views_path('licences','themes/' . active_clients_theme() . '/views/sukets/' . $office_short_name .'/'. $filePath);
-        $actualPath = module_views_path('licences','themes/' . active_clients_theme() . '/views/sukets/suket_item_pdf.php');
+        $actualPath = module_views_path('licences','themes/' . active_clients_theme() . '/views/sukets/suket_equipment_type_pdf.php');
 
 
         if (file_exists($customPath)) {
