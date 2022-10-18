@@ -48,11 +48,22 @@ class Certificate_pdf extends App_pdf
     protected function file_path()
     {
         $filePath = 'my_certificatepdf.php';
+        $certificate_equipment_type = isset($this->certificate->equipment_type) ? strtolower($this->certificate->equipment_type) : FALSE;
+
         if(isset($this->certificate->categories)){
             $filePath = 'certificate_'. $this->certificate->categories .'_pdf.php';
         }
+        
+        if($certificate_equipment_type){
+            $equipment_type = 'certificate_'. $certificate_equipment_type .'_pdf.php';
+            $equipment_type_filePath = module_views_path('licences','themes/' . active_clients_theme() . '/views/certificates/' . $equipment_type);
+            if (file_exists($equipment_type_filePath)) {
+                $filePath = $equipment_type;
+            }
+        }
+
         $customPath = module_views_path('licences','themes/' . active_clients_theme() . '/views/certificates/' . $filePath);
-        $actualPath = module_views_path('licences','themes/' . active_clients_theme() . '/views/certificates/certificate_item_pdf.php');
+        $actualPath = module_views_path('licences','themes/' . active_clients_theme() . '/views/certificates/certificate_equipment_type_pdf.php');
 
         if (file_exists($customPath)) {
             $actualPath = $customPath;

@@ -50,12 +50,25 @@ class Suket_pdf extends App_pdf
     protected function file_path()
     {
         $filePath = 'my_suketpdf.php';
+        $suket_equipment_type = isset($this->suket->equipment_type) ? strtolower($this->suket->equipment_type) : FALSE;
+
         if(isset($this->suket->categories)){
             $filePath = 'suket_'. $this->suket->categories .'_pdf.php';
         }
+
         $office_short_name = strtolower(str_replace(' ','_',$this->suket->office->short_name));
+
+        if($suket_equipment_type){
+            $equipment_type = 'suket_'. $suket_equipment_type .'_pdf.php';
+            $equipment_type_filePath = module_views_path('licences','themes/' . active_clients_theme() . '/views/sukets/' . $office_short_name .'/'. $equipment_type);
+            if (file_exists($equipment_type_filePath)) {
+                $filePath = $equipment_type;
+            }
+        }
+
         $customPath = module_views_path('licences','themes/' . active_clients_theme() . '/views/sukets/' . $office_short_name .'/'. $filePath);
         $actualPath = module_views_path('licences','themes/' . active_clients_theme() . '/views/sukets/suket_item_pdf.php');
+
 
         if (file_exists($customPath)) {
             $actualPath = $customPath;

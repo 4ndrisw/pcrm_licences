@@ -400,7 +400,7 @@ class Mylicence extends ClientsController
         }
 
         $fileNameHookData = hooks()->apply_filters('licence_file_name_admin_area', [
-                            'file_name' => mb_strtoupper(slug_it($certificate->item_number)) . '.pdf',
+                            'file_name' => mb_strtoupper(slug_it('certificate ' . $certificate->item_number)) . '.pdf',
                             'licence'  => $certificate,
                         ]);
 
@@ -492,7 +492,7 @@ class Mylicence extends ClientsController
         }
 
         $fileNameHookData = hooks()->apply_filters('licence_file_name_admin_area', [
-                            'file_name' => mb_strtoupper(slug_it($suket->item_number)) . '.pdf',
+                            'file_name' => mb_strtoupper(slug_it('suket ' . $suket->item_number)) . '.pdf',
                             'licence'  => $suket,
                         ]);
 

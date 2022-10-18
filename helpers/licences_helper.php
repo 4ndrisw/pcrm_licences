@@ -834,3 +834,12 @@ function get_licence_company_address($id){
     
     return $address;
 }
+
+function tanggal_suket($date){
+    $tanggal_suket_raw = isset($date) ? _d($date) : '1970-01-01';
+    $tahun = getYear($tanggal_suket_raw);
+    $bulan = getMonth($tanggal_suket_raw);
+    $tanggal = getDay($tanggal_suket_raw);
+    $tanggal_suket = $tanggal.' '.$bulan.' '.$tahun;
+    return $tanggal_suket;
+}

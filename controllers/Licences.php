@@ -658,6 +658,7 @@ class Licences extends AdminController
             blank_page(_l('licence_not_found'));
         }
         $licence->task_id       = $task_id;
+        $licence->task       = $task;
         //$licence->documentations = $this->licences_model->get_licence_documentation($id,$task_id);
 
         $data['licence'] = $licence;
@@ -675,9 +676,8 @@ class Licences extends AdminController
 
         $licence->proposed_date       = _d($licence->proposed_date);
 
-        if ($licence->project_id !== null) {
-            $this->load->model('projects_model');
-            $licence->project_data = $this->projects_model->get($licence->project_id);
+        if ($licence->task !== null) {
+            //$licence->project_data = $licence->task->project_data;
         }
 
         //$data = licence_mail_preview_data($template_name, $licence->clientid);

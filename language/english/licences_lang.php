@@ -41,6 +41,9 @@ $lang['licence']                                 = 'Licence';
 $lang['licence_lowercase']                       = 'licences';
 $lang['create_new_licence']                      = 'Create New Licence';
 $lang['view_licence']                            = 'View licence';
+$lang['view_pdf_certificate']                            = 'View pdf Certificate';
+$lang['view_pdf_licence']                            = 'View pdf licence';
+
 $lang['preview_licence']                            = 'Preview licence';
 $lang['licence_reminders']                      = 'Reminders';
 $lang['licence_notes']                          = 'Notes';

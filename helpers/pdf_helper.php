@@ -239,3 +239,4 @@ function pdf_multi_row($left, $right, $pdf, $left_width = 40)
     $pdf->setPage(max($page_end_1, $page_end_2));
     $pdf->SetXY($pdf->GetX(), $ynew);
 }
+
