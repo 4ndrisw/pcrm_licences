@@ -50,6 +50,10 @@
       echo render_select('settings[default_licence_assigned]',$staff,array('staffid',array('firstname','lastname')),'default_licence_assigned_string',$selected);
       ?>
       <hr />
+      <?php echo render_input('settings[licence_certificate_assign_city]','Kota ditandatangani sertifikat' ,get_option('licence_certificate_assign_city')); ?>
+      <hr />
+      <?php echo render_input('settings[licence_certificate_assign_position]','Jabatan Penanda tangan sertifikat' ,get_option('licence_certificate_assign_position')); ?>
+      <hr />
       <?php render_yes_no_option('exclude_licence_from_client_area_with_draft_status','exclude_licence_from_client_area_with_draft_status'); ?>
       <hr />   
       <?php render_yes_no_option('licence_accept_identity_confirmation','licence_accept_identity_confirmation'); ?>
