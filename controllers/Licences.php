@@ -702,7 +702,7 @@ class Licences extends AdminController
         $licence->equipment_type = $equipment_type;
         $inspection_id = $this->licences_model->get_inspection_id($id, $task_id);
         $licence->inspection_id = $inspection_id;
-        $inspections_model = 'inspections_model';
+        $inspections_model = 'Inspections_model';
         $model_path = FCPATH . 'modules/'. INSPECTIONS_MODULE_NAME .'/models/' . $inspections_model .'.php';
 
         include_once($model_path);
