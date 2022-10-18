@@ -33,14 +33,20 @@ $equipment_jenis_pemeriksaan = isset($equipment['jenis_pemeriksaan']) ? $equipme
 $equipment_bentuk = isset($equipment['bentuk']) ? $equipment['bentuk'] : 'CEK DATA INSPEKSI';
 //$equipment_bentuk = isset($equipment['bentuk']) ? $equipment['bentuk'] : 'CEK DATA INSPEKSI';
 $office_dinas = $certificate->office->dinas;
-$regulasi = explode(' -- ', $equipment['regulasi']);
-$equipment_regulasi = '';
-$equipment_regulasi .= '<ol class="regulasi">'; 
 
-foreach($regulasi as $row){
-    $equipment_regulasi .= '<li style="margin-left:70;">' .$row. '</li>'; 
+$default_regulation = get_option('predefined_regulation_of_'.$certificate->categories);
+$equipment_regulasi = !empty($certificate->inspection->equipment['regulasi']) ? $certificate->inspections->equipment['regulasi'] : $default_regulation;
+
+if (!empty($equipment_regulasi)) {
+    $regulasi = explode(' -- ', $equipment_regulasi);
+    $equipment_regulasi = '';
+    $equipment_regulasi .= '<ol class="regulasi">'; 
+
+    foreach($regulasi as $row){
+        $equipment_regulasi .= '<li style="margin-left:70;">' .$row. '</li>'; 
+    }
+    $equipment_regulasi .= '</ol>';
 }
-$equipment_regulasi .= '</ol>'; 
 
 $tanggal_inspeksi_raw = isset($inspection->date) ? _d($inspection->date) : '1970-01-01';
 $tahun = getYear($tanggal_inspeksi_raw);
