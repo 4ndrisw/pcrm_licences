@@ -5,10 +5,7 @@
     <div class="row">
       <div class="col-md-6 no-padding licence-small-table">
         <?php 
-            if ($this->input->is_ajax_request()) {
-                $this->app->get_table_data(module_views_path('licences', 'admin/tables/small_table'));
-            }
-            $this->load->view('admin/licences/licence_small_table'); 
+            $this->load->view('admin/licences/licence_table_proposed'); 
         ?>
       </div>
       <div class="col-md-6 no-padding licence-preview-template">
@@ -47,7 +44,7 @@
 
 <script>
     $(function(){
-        initDataTable('.table-licences', admin_url+'licences/small_table', 'undefined', 'undefined','fnServerParams', [0, 'desc']);
+          initDataTable('.table-licences-proposed', admin_url+'licences/table_proposed', 'undefined', 'undefined','fnServerParams', [0, 'desc']);
     });
 </script>
 
