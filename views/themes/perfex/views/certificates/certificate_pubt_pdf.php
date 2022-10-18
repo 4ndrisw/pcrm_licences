@@ -60,8 +60,6 @@ $bulan = getMonth($proposed_date_raw);
 $tanggal = getDay($proposed_date_raw);
 $proposed_date = $tanggal.' '.$bulan.' '.$tahun;
 
-//var_dump($certificate->equipment);
-
 // Set some content to print
 $pdf->ln(2);
 $html = <<<EOD
