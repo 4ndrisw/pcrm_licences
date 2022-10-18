@@ -260,9 +260,10 @@ $pdf->writeHTML($text, true, 0, true, true);
 
 
 $left_info = '<div style="text-align:center;">';
-$left_info .= "<br /><br />";
+$left_info .= "<br />";
 $left_info .= 'Mengetahui,' .'<br />';
-$left_info .= 'Kepala ' . $suket->office->dinas;
+$left_info .= 'Kepala ' . $suket->office->dinas . '<br />';
+$left_info .= $suket->office->province;
 $left_info .= "<br />";
 $left_info .= "<br />";
 $left_info .= "<br />";
@@ -277,11 +278,10 @@ $left_info .= '</div>';
 
 
 $right_info = '<div style="text-align:center;">';
-$right_info .= "Serang, $tanggal_suket" .'<br /><br />';
+$right_info .= "Serang, $tanggal_suket" .'<br />';
+$right_info .= "<br />";
 $right_info .= 'Yang Melakukan Evaluasi,' .'<br />';
 $right_info .= 'Pengawas Ketenagakerjaan' .'<br />';
-$right_info .= "Spesialis PTP";
-$right_info .= "<br />";
 $right_info .= "<br />";
 $right_info .= "<br />";
 $right_info .= "<br />";
