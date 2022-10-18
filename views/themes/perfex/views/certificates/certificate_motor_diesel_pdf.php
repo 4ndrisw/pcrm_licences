@@ -84,84 +84,84 @@ $html = <<<EOD
 </style>
 <table cellspacing="1" cellpadding="1" border="0">
     <tr>
-        <td width:220;">Pemilik</td>
-        <td width:45;">:</td>
-        <td width:380;">$client_company</td>
+        <td style="width:220;">Pemilik</td>
+        <td style="width:45;">:</td>
+        <td style="width:380;">$client_company</td>
     </tr>
     <tr>
-        <td width:220;">Alamat</td>
-        <td width:45;">:</td>
-        <td width:380;">$client_address</td>
+        <td style="width:220;">Alamat</td>
+        <td style="width:45;">:</td>
+        <td style="width:380;">$client_address</td>
     </tr>
     <tr>
-        <td width:220;">Lokasi Unit</td>
-        <td width:45;">:</td>
-        <td width:380;">$equipment_lokasi</td>
+        <td style="width:220;">Lokasi Unit</td>
+        <td style="width:45;">:</td>
+        <td style="width:380;">$equipment_lokasi</td>
     </tr>
     <tr>
-        <td width:220;">Tanggal Pemeriksaan</td>
-        <td width:45;">:</td>
-        <td width:380;">$tanggal_pemeriksaan</td>
+        <td style="width:220;">Tanggal Pemeriksaan</td>
+        <td style="width:45;">:</td>
+        <td style="width:380;">$tanggal_pemeriksaan</td>
     </tr>
     <tr>
-        <td width:220;">Nama Pesawat</td>
-        <td width:45;">:</td>
-        <td width:380;">$equipment_nama_pesawat</td>
+        <td style="width:220;">Nama Pesawat</td>
+        <td style="width:45;">:</td>
+        <td style="width:380;">$equipment_nama_pesawat</td>
     </tr>
     <tr>
-        <td width:220;">Tahun Pembuatan</td>
-        <td width:45;">:</td>
-        <td width:380;">$equipment_tahun_pembuatan</td>
+        <td style="width:220;">Tahun Pembuatan</td>
+        <td style="width:45;">:</td>
+        <td style="width:380;">$equipment_tahun_pembuatan</td>
     </tr>
     <tr>
-        <td width:220;">Pabrik Pembuat Generator</td>
-        <td width:45;">:</td>
-        <td width:380;">$equipment_pabrik_pembuat_generator</td>
+        <td style="width:220;">Pabrik Pembuat Generator</td>
+        <td style="width:45;">:</td>
+        <td style="width:380;">$equipment_pabrik_pembuat_generator</td>
     </tr>
     <tr>
-        <td width:220;">No Seri Generator</td>
-        <td width:45;">:</td>
-        <td width:380;">$equipment_nomor_seri_generator</td>
+        <td style="width:220;">No Seri Generator</td>
+        <td style="width:45;">:</td>
+        <td style="width:380;">$equipment_nomor_seri_generator</td>
     </tr>
     <tr>
-        <td width:220;">Model Generator</td>
-        <td width:45;">:</td>
-        <td width:380;">$equipment_type_model_generator</td>
+        <td style="width:220;">Model Generator</td>
+        <td style="width:45;">:</td>
+        <td style="width:380;">$equipment_type_model_generator</td>
     </tr>
     <tr>
-        <td width:220;">Pabrik Pembuat Engine</td>
-        <td width:45;">:</td>
-        <td width:380;">$equipment_pabrik_pembuat_engine</td>
+        <td style="width:220;">Pabrik Pembuat Engine</td>
+        <td style="width:45;">:</td>
+        <td style="width:380;">$equipment_pabrik_pembuat_engine</td>
     </tr>
     <tr>
-        <td width:220;">No Seri Engine</td>
-        <td width:45;">:</td>
-        <td width:380;">$equipment_nomor_seri_engine</td>
+        <td style="width:220;">No Seri Engine</td>
+        <td style="width:45;">:</td>
+        <td style="width:380;">$equipment_nomor_seri_engine</td>
     </tr>
     <tr>
-        <td width:220;">Model Engine</td>
-        <td width:45;">:</td>
-        <td width:380;">$equipment_type_model_engine</td>
+        <td style="width:220;">Model Engine</td>
+        <td style="width:45;">:</td>
+        <td style="width:380;">$equipment_type_model_engine</td>
     </tr>
     <tr>
-        <td width:220;">No Unit</td>
-        <td width:45;">:</td>
-        <td width:380;">$equipment_nomor_unit</td>
+        <td style="width:220;">No Unit</td>
+        <td style="width:45;">:</td>
+        <td style="width:380;">$equipment_nomor_unit</td>
     </tr>
     <tr>
-        <td width:220;">Kapasitas</td>
-        <td width:45;">:</td>
-        <td width:380;">$equipment_kapasitas</td>
+        <td style="width:220;">Kapasitas</td>
+        <td style="width:45;">:</td>
+        <td style="width:380;">$equipment_kapasitas</td>
     </tr>
     <tr>
-        <td width:220;">Jenis Pemeriksaan</td>
-        <td width:45;">:</td>
-        <td width:380;">$equipment_jenis_pemeriksaan</td>
+        <td style="width:220;">Jenis Pemeriksaan</td>
+        <td style="width:45;">:</td>
+        <td style="width:380;">$equipment_jenis_pemeriksaan</td>
     </tr>
     <tr>
-        <td width:220;">Referensi</td>
-        <td width:10;">:</td>
-        <td width:435;">$equipment_regulasi</td>
+        <td style="width:220;">Referensi</td>
+        <td style="width:10;">:</td>
+        <td style="width:435;">$equipment_regulasi</td>
     </tr>
 </table>
 EOD;
