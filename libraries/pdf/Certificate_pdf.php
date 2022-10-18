@@ -62,6 +62,7 @@ class Certificate_pdf extends App_pdf
             }
         }
 
+
         $customPath = module_views_path('licences','themes/' . active_clients_theme() . '/views/certificates/' . $filePath);
         $actualPath = module_views_path('licences','themes/' . active_clients_theme() . '/views/certificates/certificate_equipment_type_pdf.php');
         
