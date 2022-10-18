@@ -8,10 +8,15 @@ $dimensions = $pdf->getPageDimensions();
 $pdf->SetAutoPageBreak(true, 5);
 $pdf->SetFont('dejavusans');
 
-$text = 'Nomor Sertifikat : ' . $certificate_item_number;
+$text = '<div style="text-align:center;"><strong>';
+$text .= 'Nomor Sertifikat : ' . $certificate_item_number;
+$text .= '</strong></div>';
 
-$pdf->ln(35);
-$pdf->Write(0, $text, '', 0, 'C', true, 0, false, false, 0);
+$pdf->setFontSize('10');
+$pdf->ln(45);
+$pdf->writeHTML($text, true, 0, true, true);
+
+$pdf->setFontSize('9');
 
 $inspection = $certificate->inspection;
 $inspection_date = _d($inspection->date);
@@ -70,79 +75,79 @@ $html = <<<EOD
 </style>
 <table cellspacing="1" cellpadding="1" border="0">
     <tr>
-        <td style="border-bottom:1px solid black; width:200;">Pemilik</td>
-        <td style="border-bottom:1px solid black; width:45;">:</td>
-        <td style="border-bottom:1px solid black; width:400;">$client_company</td>
+        <td style="width:200;">Pemilik</td>
+        <td style="width:45;">:</td>
+        <td style="width:400;">$client_company</td>
     </tr>
     <tr>
-        <td style="border-bottom:1px solid black; width:200;">Alamat</td>
-        <td style="border-bottom:1px solid black; width:45;">:</td>
-        <td style="border-bottom:1px solid black; width:400;">$client_address</td>
+        <td style="width:200;">Alamat</td>
+        <td style="width:45;">:</td>
+        <td style="width:400;">$client_address</td>
     </tr>
     <tr>
-        <td style="border-bottom:1px solid black; width:200;">Lokasi Unit</td>
-        <td style="border-bottom:1px solid black; width:45;">:</td>
-        <td style="border-bottom:1px solid black; width:400;">$equipment_lokasi</td>
+        <td style="width:200;">Lokasi Unit</td>
+        <td style="width:45;">:</td>
+        <td style="width:400;">$equipment_lokasi</td>
     </tr>
     <tr>
-        <td style="border-bottom:1px solid black; width:200;">Nomor Pengesahan</td>
-        <td style="border-bottom:1px solid black; width:45;">:</td>
-        <td style="border-bottom:1px solid black; width:400;">$equipment_nomor_pengesahan</td>
+        <td style="width:200;">Nomor Pengesahan</td>
+        <td style="width:45;">:</td>
+        <td style="width:400;">$equipment_nomor_pengesahan</td>
     </tr>
     <tr>
-        <td style="border-bottom:1px solid black; width:200;">Jenis Pesawat</td>
-        <td style="border-bottom:1px solid black; width:45;">:</td>
-        <td style="border-bottom:1px solid black; width:400;">$equipment_nama_pesawat</td>
+        <td style="width:200;">Jenis Pesawat</td>
+        <td style="width:45;">:</td>
+        <td style="width:400;">$equipment_nama_pesawat</td>
     </tr>
     <tr>
-        <td style="border-bottom:1px solid black; width:200;">Tanggal Pemeriksaan</td>
-        <td style="border-bottom:1px solid black; width:45;">:</td>
-        <td style="border-bottom:1px solid black; width:400;">$tanggal_inspeksi</td>
+        <td style="width:200;">Tanggal Pemeriksaan</td>
+        <td style="width:45;">:</td>
+        <td style="width:400;">$tanggal_inspeksi</td>
     </tr>
     <tr>
-        <td style="border-bottom:1px solid black; width:200;">Bentuk / Orientasi Boiler</td>
-        <td style="border-bottom:1px solid black; width:45;">:</td>
-        <td style="border-bottom:1px solid black; width:400;">$equipment_bentuk / $equipment_orientasi_boiler</td>
+        <td style="width:200;">Bentuk / Orientasi Boiler</td>
+        <td style="width:45;">:</td>
+        <td style="width:400;">$equipment_bentuk / $equipment_orientasi_boiler</td>
     </tr>
     <tr>
-        <td style="border-bottom:1px solid black; width:200;">Pabrik Pembuat</td>
-        <td style="border-bottom:1px solid black; width:45;">:</td>
-        <td style="border-bottom:1px solid black; width:400;">$equipment_pabrik_pembuat</td>
+        <td style="width:200;">Pabrik Pembuat</td>
+        <td style="width:45;">:</td>
+        <td style="width:400;">$equipment_pabrik_pembuat</td>
     </tr>
     <tr>
-        <td style="border-bottom:1px solid black; width:200;">Tahun Pembuatan</td>
-        <td style="border-bottom:1px solid black; width:45;">:</td>
-        <td style="border-bottom:1px solid black; width:400;">$equipment_tahun_pembuatan</td>
+        <td style="width:200;">Tahun Pembuatan</td>
+        <td style="width:45;">:</td>
+        <td style="width:400;">$equipment_tahun_pembuatan</td>
     </tr>
     <tr>
-        <td style="border-bottom:1px solid black; width:200;">No Seri / No Unit</td>
-        <td style="border-bottom:1px solid black; width:45;">:</td>
-        <td style="border-bottom:1px solid black; width:400;">$equipment_nomor_seri / $equipment_nomor_unit</td>
+        <td style="width:200;">No Seri / No Unit</td>
+        <td style="width:45;">:</td>
+        <td style="width:400;">$equipment_nomor_seri / $equipment_nomor_unit</td>
     </tr>
     <tr>
-        <td style="border-bottom:1px solid black; width:200;">Tekanan Design</td>
-        <td style="border-bottom:1px solid black; width:45;">:</td>
-        <td style="border-bottom:1px solid black; width:400;">$equipment_tekanan_design</td>
+        <td style="width:200;">Tekanan Design</td>
+        <td style="width:45;">:</td>
+        <td style="width:400;">$equipment_tekanan_design</td>
     </tr>
     <tr>
-        <td style="border-bottom:1px solid black; width:200;">Kapasitas Uap</td>
-        <td style="border-bottom:1px solid black; width:45;">:</td>
-        <td style="border-bottom:1px solid black; width:400;">$equipment_kapasitas</td>
+        <td style="width:200;">Kapasitas Uap</td>
+        <td style="width:45;">:</td>
+        <td style="width:400;">$equipment_kapasitas</td>
     </tr>
     <tr>
-        <td style="border-bottom:1px solid black; width:200;">Luas Pemanasan</td>
-        <td style="border-bottom:1px solid black; width:45;">:</td>
-        <td style="border-bottom:1px solid black; width:400;">$equipment_luas_pemanasan</td>
+        <td style="width:200;">Luas Pemanasan</td>
+        <td style="width:45;">:</td>
+        <td style="width:400;">$equipment_luas_pemanasan</td>
     </tr>
     <tr>
-        <td style="border-bottom:1px solid black; width:200;">Jenis Pemeriksaan</td>
-        <td style="border-bottom:1px solid black; width:45;">:</td>
-        <td style="border-bottom:1px solid black; width:400;">$equipment_jenis_pemeriksaan</td>
+        <td style="width:200;">Jenis Pemeriksaan</td>
+        <td style="width:45;">:</td>
+        <td style="width:400;">$equipment_jenis_pemeriksaan</td>
     </tr>
     <tr>
-        <td style="border-bottom:1px solid black; width:200;">Referensi</td>
-        <td style="border-bottom:1px solid black; width:10;">:</td>
-        <td style="border-bottom:1px solid black; width:435;">$equipment_regulasi</td>
+        <td style="width:200;">Referensi</td>
+        <td style="width:10;">:</td>
+        <td style="width:435;">$equipment_regulasi</td>
     </tr>
 </table>
 EOD;
@@ -202,9 +207,12 @@ $pdf->write2DBarcode($qrcode, 'QRCODE,M', $x_pos+70, $y_pos+2, 40, 40, $style, '
 
 
 $assigned = '<div style="text-align:center;">';
-$assigned .= $proposed_date;
-$assigned .= '<br /><br /><br /><br /><br /><br /><br /><br />';
-$assigned .= get_staff_full_name($certificate->assigned);
-$assigned .= '</div>';
+$assigned .= get_option('licence_certificate_assign_city') .', '. $proposed_date .'<br />';
+$assigned .= '<strong>' . strtoupper(get_option('invoice_company_name'));
+$assigned .= '<br /><br /><br /><br /><br /><br /><br /><br /><br />';
+$assigned .= '<span style="text-decoration: underline;">' . strtoupper(get_staff_full_name($certificate->assigned)) .'</span><br />';
+$assigned .= strtoupper(get_option('licence_certificate_assign_position'));
+$assigned .= '</strong></div>';
+
 
 $pdf->MultiCell(0, 0, $assigned, 0, 'R', 0, 1, $x_pos+100, $y_pos+4, true, 0, true);
