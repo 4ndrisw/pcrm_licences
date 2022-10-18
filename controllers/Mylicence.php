@@ -180,7 +180,7 @@ class Mylicence extends ClientsController
         //$tags = get_tags_in($task_id, 'task');
         //$equipment_type = ucfirst(strtolower(str_replace(' ', '_', $tags[0])));
         //$licence->equipment_type = $equipment_type;
-        $inspections_model = 'inspections_model';
+        $inspections_model = 'Inspections_model';
         $model_path = FCPATH . 'modules/'. INSPECTIONS_MODULE_NAME .'/models/' . $inspections_model .'.php';
 
         include_once($model_path);
@@ -349,7 +349,7 @@ class Mylicence extends ClientsController
         $equipment_type = ucfirst(strtolower(str_replace(' ', '_', $tags[0])));
         $certificate->equipment_type = $equipment_type;
         
-        $inspections_model = 'inspections_model';
+        $inspections_model = 'Inspections_model';
         $model_path = FCPATH . 'modules/'. INSPECTIONS_MODULE_NAME .'/models/' . $inspections_model .'.php';
 
         include_once($model_path);
@@ -363,7 +363,7 @@ class Mylicence extends ClientsController
         $inspection_id = $this->licences_model->get_inspection_id($id, $task_id);
         
         $equipment = $this->{$equipment_model}->get('', ['rel_id' => $inspection_id->id, 'task_id' => $task_id]);
-        $certificate->inspection = $this->inspections_model->get($inspection_id->id);
+        $certificate->inspection = $this->{$inspections_model}->get($inspection_id->id);
 
         $offices_model = 'offices_model';
         $model_path = FCPATH . 'modules/'. OFFICES_MODULE_NAME .'/models/' . $offices_model .'.php';
