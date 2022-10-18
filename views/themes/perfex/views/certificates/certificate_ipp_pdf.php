@@ -214,7 +214,7 @@ $style = array(
 $x_pos = $pdf->getX();
 $y_pos = $pdf->getY();
 // QRCODE,L : QR-CODE Low error correction
-$pdf->write2DBarcode($qrcode, 'QRCODE,M', $x_pos+70, $y_pos+2, 40, 40, $style, 'N');
+$pdf->write2DBarcode($qrcode, 'QRCODE,M', $x_pos+70, $y_pos+8, 40, 40, $style, 'N');
 
 
 $assigned = '<div style="text-align:center;">';
