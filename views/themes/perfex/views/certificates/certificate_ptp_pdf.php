@@ -27,16 +27,16 @@ $client_company = $client->company;
 $client_address = $client->address;
 
 $equipment = $certificate->equipment[0];
-$equipment_jenis_pesawat = $equipment['jenis_pesawat'];
-$equipment_lokasi = $equipment['lokasi'];
-$equipment_nama_pesawat = $equipment['nama_pesawat'];
-$equipment_pabrik_pembuat = $equipment['pabrik_pembuat'];
-$equipment_tahun_pembuatan = $equipment['tahun_pembuatan'];
+$equipment_jenis_pesawat = $equipment['jenis_pesawat'] ? $equipment['jenis_pesawat'] : 'CEK DATA INSPEKSI';
+$equipment_lokasi = $equipment['lokasi'] ? $equipment['lokasi'] : 'CEK DATA INSPEKSI';
+$equipment_nama_pesawat = $equipment['nama_pesawat'] ? $equipment['nama_pesawat'] : 'CEK DATA INSPEKSI';
+$equipment_pabrik_pembuat = $equipment['pabrik_pembuat'] ? $equipment['pabrik_pembuat'] : 'CEK DATA INSPEKSI';
+$equipment_tahun_pembuatan = $equipment['tahun_pembuatan'] ? $equipment['tahun_pembuatan'] : 'CEK DATA INSPEKSI';
 
-$equipment_nomor_seri = $equipment['nomor_seri'];
-$equipment_nomor_unit = $equipment['nomor_unit'];
-$equipment_kapasitas =$equipment['kapasitas'];
-$equipment_digunakan_untuk = $equipment['digunakan_untuk'];
+$equipment_nomor_seri = $equipment['nomor_seri'] ? $equipment['nomor_seri'] : 'CEK DATA INSPEKSI';
+$equipment_nomor_unit = $equipment['nomor_unit'] ? $equipment['nomor_unit'] : 'CEK DATA INSPEKSI';
+$equipment_kapasitas = $equipment['kapasitas'] ? $equipment['kapasitas'] : 'CEK DATA INSPEKSI';
+$equipment_digunakan_untuk = $equipment['digunakan_untuk'] ? $equipment['digunakan_untuk'] : 'CEK DATA INSPEKSI';
 $equipment_jenis_pemeriksaan = $equipment['jenis_pemeriksaan'];
 
 $office_dinas = $certificate->office->dinas;
