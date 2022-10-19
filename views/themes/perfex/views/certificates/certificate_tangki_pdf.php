@@ -30,6 +30,7 @@ $equipment_lokasi = isset($equipment['lokasi']) ? $equipment['lokasi'] : 'CEK DA
 $equipment_nama_pesawat = isset($equipment['nama_pesawat']) ? $equipment['nama_pesawat'] : 'CEK DATA INSPEKSI';
 $equipment_pabrik_pembuat = isset($equipment['pabrik_pembuat']) ? $equipment['pabrik_pembuat'] : 'CEK DATA INSPEKSI';
 $equipment_tahun_pembuatan = isset($equipment['tahun_pembuatan']) ? $equipment['tahun_pembuatan'] : 'CEK DATA INSPEKSI';
+$equipment_tempat_pembuatan = isset($equipment['tempat_pembuatan']) ? $equipment['tempat_pembuatan'] : 'CEK DATA INSPEKSI';
 
 $equipment_nomor_seri = isset($equipment['nomor_seri']) ? $equipment['nomor_seri'] : 'CEK DATA INSPEKSI';
 $equipment_nomor_unit = isset($equipment['nomor_unit']) ? $equipment['nomor_unit'] : 'CEK DATA INSPEKSI';
