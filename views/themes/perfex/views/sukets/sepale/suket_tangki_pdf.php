@@ -159,12 +159,6 @@ $html = <<<EOD
     </tr>
     <tr>
         <td style="width:20;"></td>
-        <td style="width:280;">6. Tekanan Design</td>
-        <td style="width:10;">:</td>
-        <td style="width:420;">$equipment_tekanan_design</td>
-    </tr>
-    <tr>
-        <td style="width:20;"></td>
         <td style="width:280;">7. Jenis pemeriksaan</td>
         <td style="width:10;">:</td>
         <td style="width:420;">$equipment_jenis_pemeriksaan</td>
