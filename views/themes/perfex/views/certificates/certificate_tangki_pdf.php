@@ -111,14 +111,19 @@ $html = <<<EOD
         <td style="width:400;">$equipment_pabrik_pembuat</td>
     </tr>
     <tr>
-        <td style="width:200;">Tahun Pembuatan</td>
+        <td style="width:200;">Tempat / Tahun Pembuatan</td>
         <td style="width:45;">:</td>
-        <td style="width:400;">$equipment_tahun_pembuatan</td>
+        <td style="width:400;">$equipment_tempat_pembuatan / $equipment_tahun_pembuatan</td>
     </tr>
     <tr>
         <td style="width:200;">No Seri / No Unit</td>
         <td style="width:45;">:</td>
         <td style="width:400;">$equipment_nomor_seri / $equipment_nomor_unit</td>
+    </tr>
+    <tr>
+        <td style="width:200;">Bentuk / Jenis Bejana</td>
+        <td style="width:45;">:</td>
+        <td style="width:400;">$equipment_jenis_bejana</td>
     </tr>
     <tr>
         <td style="width:200;">Kapasitas</td>
