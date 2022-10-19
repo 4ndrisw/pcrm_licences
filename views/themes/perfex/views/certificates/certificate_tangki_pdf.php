@@ -36,8 +36,8 @@ $equipment_nomor_unit = isset($equipment['nomor_unit']) ? $equipment['nomor_unit
 $equipment_kapasitas = isset($equipment['kapasitas']) ? $equipment['kapasitas'] : 'CEK DATA INSPEKSI';
 $equipment_digunakan_untuk = isset($equipment['digunakan_untuk']) ? $equipment['digunakan_untuk'] : 'CEK DATA INSPEKSI';
 $equipment_jenis_pemeriksaan = isset($equipment['jenis_pemeriksaan']) ? $equipment['jenis_pemeriksaan'] : 'CEK DATA INSPEKSI';
-$equipment_bentuk = isset($equipment['bentuk']) ? $equipment['bentuk'] : 'CEK DATA INSPEKSI';
-//$equipment_bentuk = isset($equipment['bentuk']) ? $equipment['bentuk'] : 'CEK DATA INSPEKSI';
+$equipment_jenis_bejana = isset($equipment['jenis_bejana']) ? $equipment['jenis_bejana'] : 'CEK DATA INSPEKSI';
+//$equipment_jenis_bejana = isset($equipment['jenis_bejana']) ? $equipment['jenis_bejana'] : 'CEK DATA INSPEKSI';
 $office_dinas = $certificate->office->dinas;
 
 $default_regulation = get_option('predefined_regulation_of_'.$certificate->categories);

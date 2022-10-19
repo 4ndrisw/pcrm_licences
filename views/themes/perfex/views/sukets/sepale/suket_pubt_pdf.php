@@ -37,7 +37,7 @@ $equipment_kapasitas = isset($equipment['kapasitas']) ? $equipment['kapasitas'] 
 $equipment_tekanan_design = isset($equipment['tekanan_design']) ? $equipment['tekanan_design'] : '';
 $equipment_tekanan_uji = isset($equipment['tekanan_uji']) ? $equipment['tekanan_uji'] : '';
 $equipment_jenis_pemeriksaan = isset($equipment['jenis_pemeriksaan']) ? $equipment['jenis_pemeriksaan'] : '';
-$equipment_bentuk = isset($equipment['bentuk']) ? $equipment['bentuk'] : '';
+$equipment_jenis_bejana = isset($equipment['jenis_bejana']) ? $equipment['jenis_bejana'] : '';
 $office_dinas = $suket->office->dinas;
 $regulasi = explode(' -- ', $equipment['regulasi']);
 $equipment_regulasi = '';
@@ -143,7 +143,7 @@ $html = <<<EOD
         <td style="width:20;"></td>
         <td style="width:280;">3. Bentuk</td>
         <td style="width:10;">:</td>
-        <td style="width:420;">$equipment_bentuk</td>
+        <td style="width:420;">$equipment_jenis_bejana</td>
     </tr>
     <tr>
         <td style="width:20;"></td>
