@@ -65,7 +65,7 @@ $certificate_proposed_raw = isset($certificate->proposed_date) ? _d($certificate
 $tahun = getYear($certificate_proposed_raw);
 $bulan = getMonth($certificate_proposed_raw);
 $tanggal = getDay($certificate_proposed_raw);
-$tanggal_sertifikat = $tanggal.' '.$bulan.' '.$tahun;
+$proposed_date = $tanggal.' '.$bulan.' '.$tahun;
 
 
 //var_dump($certificate->equipment);
