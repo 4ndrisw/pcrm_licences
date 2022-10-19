@@ -94,7 +94,7 @@ $pdf->setFontSize('10');
 
 $text = 'Berdasarkan hasil pemeriksaan dan pengujian yang telah dilakukan oleh PJK3 ';
 $text .= get_option('invoice_company_name');
-$text .= ' pada tanggal ' .$tanggal_inspeksi. ' terhadap Pesawat Angkat dan Angkut diterangkan bahwa :' . "\r\n";
+$text .= ' pada tanggal ' .$tanggal_inspeksi. ' terhadap Pesawat Angkat dan Angkut, diterangkan bahwa :' . "\r\n";
 
 $pdf->SetLeftMargin(24);
 $pdf->SetRightMargin(24);
