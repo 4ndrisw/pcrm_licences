@@ -94,10 +94,6 @@ $pdf->ln(4);
 
 $pdf->writeHTML($text, true, 0, true, true);
 
-foreach($regulasi as $row){
-    $equipment_regulasi .= '<li style="margin-left:70;">' .$row. '</li>'; 
-}
-$equipment_regulasi .= '</ol>'; 
 
 //var_dump($office_short_name);
 
