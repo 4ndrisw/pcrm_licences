@@ -37,15 +37,12 @@ $equipment_tempat_pembuatan = isset($equipment['tempat_pembuatan']) ? $equipment
 
 $equipment_pabrik_pembuat = isset($equipment['pabrik_pembuat']) ? $equipment['pabrik_pembuat'] : '';
 $equipment_merk = isset($equipment['merk']) ? $equipment['merk'] : '';
-$equipment_jumlah_nozzle = isset($equipment['jumlah_nozzle']) ? $equipment['jumlah_nozzle'] : '';
 $equipment_type_model = isset($equipment['type_model']) ? $equipment['type_model'] : '';
 $equipment_tempat_pembuatan =isset($equipment['tempat_pembuatan']) ? $equipment['tempat_pembuatan'] : '';
+$equipment_jenis_penggerak =$equipment['jenis_penggerak'];
 
 $equipment_tahun_pembuatan = isset($equipment['tahun_pembuatan']) ? $equipment['tahun_pembuatan'] : '';
-$equipment_tekanan_kerja = isset($equipment['tekanan_kerja']) ? $equipment['tekanan_kerja'] : '';
-$equipment_tekanan_uji = isset($equipment['tekanan_uji']) ? $equipment['tekanan_uji'] : '';
 $equipment_nomor_unit = isset($equipment['nomor_unit']) ? $equipment['nomor_unit'] : '';
-$equipment_penggerak_utama = isset($equipment['penggerak_utama']) ? $equipment['penggerak_utama'] : '';
 $equipment_nomor_seri = isset($equipment['nomor_seri']) ? $equipment['nomor_seri'] : '';
 $equipment_kapasitas = isset($equipment['kapasitas']) ? $equipment['kapasitas'] : '';
 $equipment_jenis_pemeriksaan = isset($equipment['jenis_pemeriksaan']) ? $equipment['jenis_pemeriksaan'] : '';
@@ -92,9 +89,9 @@ $pdf->writeHTML($text, true, 0, true, true);
 
 $pdf->setFontSize('10');
 
-$text = 'Berdasarkan hasil pemeriksaan dan pengujian yang telah dilakukan oleh PJK3 ';
+$text = '        Berdasarkan hasil pemeriksaan dan pengujian yang telah dilakukan oleh PJK3 ';
 $text .= get_option('invoice_company_name');
-$text .= ' pada tanggal ' .$tanggal_inspeksi. ' terhadap Pesawat Angkat dan Angkut diterangkan bahwa :' . "\r\n";
+$text .= ' pada tanggal ' .$tanggal_inspeksi. ' terhadap Pesawat Angkat dan Angkut, diterangkan bahwa :' . "\r\n";
 
 $pdf->SetLeftMargin(24);
 $pdf->SetRightMargin(24);
@@ -154,33 +151,33 @@ $html = <<<EOD
     </tr>
     <tr>
         <td style="width:20;"></td>
-        <td style="width:310;">1. Merk / Type</td>
-        <td style="width:10;">:</td>
-        <td style="width:370;">$equipment_merk / $equipment_type_model</td>
-    </tr>
-    <tr>
-        <td style="width:20;"></td>
-        <td style="width:310;">2. Pabrik Pembuat</td>
+        <td style="width:310;">1. Merk / Pabrik Pembuat</td>
         <td style="width:10;">:</td>
         <td style="width:370;">$equipment_pabrik_pembuat</td>
     </tr>
     <tr>
         <td style="width:20;"></td>
-        <td style="width:310;">3. Tempat / Tahun Pembuatan</td>
+        <td style="width:310;">2. Tempat / Tahun Pembuatan</td>
         <td style="width:10;">:</td>
         <td style="width:370;">$equipment_tempat_pembuatan / $equipment_tahun_pembuatan</td>
     </tr>
     <tr>
         <td style="width:20;"></td>
-        <td style="width:310;">4. Nomor Seri / Nomor Unit</td>
+        <td style="width:310;">3. Nomor Seri / Nomor Unit</td>
         <td style="width:10;">:</td>
         <td style="width:370;">$equipment_nomor_seri / $equipment_nomor_unit</td>
     </tr>
     <tr>
         <td style="width:20;"></td>
-        <td style="width:310;">5. Kapasitas</td>
+        <td style="width:310;">4. Kapasitas</td>
         <td style="width:10;">:</td>
         <td style="width:370;">$equipment_kapasitas</td>
+    </tr>
+    <tr>
+        <td style="width:20;"></td>
+        <td style="width:310;">5. Jenis Penggerak</td>
+        <td style="width:10;">:</td>
+        <td style="width:370;">$equipment_jenis_penggerak</td>
     </tr>
     <tr>
         <td style="width:20;"></td>
