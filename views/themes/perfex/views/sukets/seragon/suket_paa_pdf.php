@@ -203,14 +203,7 @@ $html = <<<EOD
     </tr>
     <tr>
         <td style="width:20;"></td>
-        <td style="width:310;">2. Pemeriksaan Dokumen</td>
-        <td style="width:10;">:</td>
-        <td style="width:220;">Baik</td>
-        <td style="width:200;">(Terlampir)</td>
-    </tr>
-    <tr>
-        <td style="width:20;"></td>
-        <td style="width:310;">3. Pengujian</td>
+        <td style="width:310;">2. Pengujian</td>
         <td style="width:10;">:</td>
         <td style="width:220;">Baik</td>
         <td style="width:200;">(Terlampir)</td>
