@@ -154,9 +154,9 @@ $html = <<<EOD
     </tr>
     <tr>
         <td style="width:20;"></td>
-        <td style="width:310;">2. Untuk Produksi</td>
+        <td style="width:310;">2. Kapasitas Daya</td>
         <td style="width:10;">:</td>
-        <td style="width:370;">$equipment_daya_produksi</td>
+        <td style="width:370;">$equipment_daya_terpasang</td>
     </tr>
     <tr>
         <td style="width:20;"></td>
