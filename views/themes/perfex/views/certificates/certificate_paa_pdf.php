@@ -32,7 +32,7 @@ $equipment_nama_pesawat = isset($equipment['nama_pesawat']) ? $equipment['nama_p
 $equipment_pabrik_pembuat = isset($equipment['pabrik_pembuat']) ? $equipment['pabrik_pembuat'] : '';
 $equipment_tahun_pembuatan = isset($equipment['tahun_pembuatan']) ? $equipment['tahun_pembuatan'] : 'CEK DATA INSPEKSI';
 
-$equipment_nomor_seri = isset($equipment['nomor_seri']) ? $equipment['nomor_seri'] : 'CEK DATA INSPEKSI';
+$equipment_nomor_seri = $equipment['nomor_seri'] ? $equipment['nomor_seri'] : 'CEK DATA INSPEKSI';
 $equipment_nomor_unit = isset($equipment['nomor_unit']) ? $equipment['nomor_unit'] : 'CEK DATA INSPEKSI';
 $equipment_type_model = isset($equipment['type_model']) ? $equipment['type_model'] : 'CEK DATA INSPEKSI';
 $equipment_kapasitas =isset($equipment['kapasitas']) ? $equipment['kapasitas'] : 'CEK DATA INSPEKSI';
