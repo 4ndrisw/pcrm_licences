@@ -31,6 +31,7 @@ $equipment_lokasi = $equipment['lokasi'];
 $equipment_nama_pesawat = isset($equipment['nama_pesawat']) ? $equipment['nama_pesawat'] : 'CEK DATA INSPEKSI';
 $equipment_pabrik_pembuat = isset($equipment['pabrik_pembuat']) ? $equipment['pabrik_pembuat'] : '';
 $equipment_tahun_pembuatan = isset($equipment['tahun_pembuatan']) ? $equipment['tahun_pembuatan'] : 'CEK DATA INSPEKSI';
+$equipment_tempat_pembuatan = $equipment['tempat_pembuatan'] ? $equipment['tempat_pembuatan'] : 'CEK DATA INSPEKSI';
 
 $equipment_nomor_seri = $equipment['nomor_seri'] ? $equipment['nomor_seri'] : 'CEK DATA INSPEKSI';
 $equipment_nomor_unit = isset($equipment['nomor_unit']) ? $equipment['nomor_unit'] : 'CEK DATA INSPEKSI';
@@ -110,9 +111,9 @@ $html = <<<EOD
         <td style="width:400;">$equipment_pabrik_pembuat</td>
     </tr>
     <tr>
-        <td style="width:200;">Tahun Pembuatan</td>
+        <td style="width:200;">Tempat / Tahun Pembuatan</td>
         <td style="width:45;">:</td>
-        <td style="width:400;">$equipment_tahun_pembuatan</td>
+        <td style="width:400;">$equipment_tempat_pembuatan / $equipment_tahun_pembuatan</td>
     </tr>
     <tr>
         <td style="width:200;">No Seri</td>
