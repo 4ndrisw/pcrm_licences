@@ -147,7 +147,7 @@ $html = <<<EOD
     </tr>
     <tr>
         <td style="width:20;"></td>
-        <td style="width:280;">4. No. serie / No. unit</td>
+        <td style="width:280;">4. No. Serie / No. Unit</td>
         <td style="width:10;">:</td>
         <td style="width:420;">$equipment_nomor_seri / $equipment_nomor_unit</td>
     </tr>
