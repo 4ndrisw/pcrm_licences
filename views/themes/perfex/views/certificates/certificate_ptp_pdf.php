@@ -35,6 +35,10 @@ $equipment_tahun_pembuatan = $equipment['tahun_pembuatan'] ? $equipment['tahun_p
 
 $equipment_nomor_seri = $equipment['nomor_seri'] ? $equipment['nomor_seri'] : 'CEK DATA INSPEKSI';
 $equipment_nomor_unit = $equipment['nomor_unit'] ? $equipment['nomor_unit'] : 'CEK DATA INSPEKSI';
+
+$equipment_merk = $equipment['merk'] ? $equipment['merk'] : 'CEK DATA INSPEKSI';
+$equipment_type_model = $equipment['type_model'] ? $equipment['type_model'] : 'CEK DATA INSPEKSI';
+
 $equipment_kapasitas = $equipment['kapasitas'] ? $equipment['kapasitas'] : 'CEK DATA INSPEKSI';
 $equipment_jenis_pemeriksaan = $equipment['jenis_pemeriksaan'];
 
@@ -116,6 +120,12 @@ $html = <<<EOD
         <td style="width:45;">:</td>
         <td style="width:400;">$equipment_nomor_seri / $equipment_nomor_unit</td>
     </tr>
+    <tr>
+        <td style="width:200;">Merk / Model</td>
+        <td style="width:45;">:</td>
+        <td style="width:400;">$equipment_merk / $equipment_type_model</td>
+    </tr>
+
     <tr>
         <td style="width:200;">Kapasitas</td>
         <td style="width:45;">:</td>
