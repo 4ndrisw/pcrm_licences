@@ -199,14 +199,14 @@ $html = <<<EOD
         <td style="width:310;">1. Pemeriksaan Visual</td>
         <td style="width:10;">:</td>
         <td style="width:220;">Baik</td>
-        <td style="width:200;">(Terlampir)</td>
+        <td style="width:200;">( Terlampir )</td>
     </tr>
     <tr>
         <td style="width:20;"></td>
         <td style="width:310;">2. Pengujian</td>
         <td style="width:10;">:</td>
         <td style="width:220;">Baik</td>
-        <td style="width:200;">(Terlampir)</td>
+        <td style="width:200;">( Terlampir )</td>
     </tr>
     <tr>
         <td style="width:20;"></td>
