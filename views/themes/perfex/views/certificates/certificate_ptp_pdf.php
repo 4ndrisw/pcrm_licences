@@ -36,7 +36,6 @@ $equipment_tahun_pembuatan = $equipment['tahun_pembuatan'] ? $equipment['tahun_p
 $equipment_nomor_seri = $equipment['nomor_seri'] ? $equipment['nomor_seri'] : 'CEK DATA INSPEKSI';
 $equipment_nomor_unit = $equipment['nomor_unit'] ? $equipment['nomor_unit'] : 'CEK DATA INSPEKSI';
 $equipment_kapasitas = $equipment['kapasitas'] ? $equipment['kapasitas'] : 'CEK DATA INSPEKSI';
-$equipment_digunakan_untuk = $equipment['digunakan_untuk'] ? $equipment['digunakan_untuk'] : 'CEK DATA INSPEKSI';
 $equipment_jenis_pemeriksaan = $equipment['jenis_pemeriksaan'];
 
 $office_dinas = $certificate->office->dinas;
@@ -103,11 +102,6 @@ $html = <<<EOD
         <td style="width:400;">$equipment_nama_pesawat</td>
     </tr>
     <tr>
-        <td style="width:200;">Jenis Bejana</td>
-        <td style="width:45;">:</td>
-        <td style="width:400;"></td>
-    </tr>
-    <tr>
         <td style="width:200;">Pabrik Pembuat</td>
         <td style="width:45;">:</td>
         <td style="width:400;">$equipment_pabrik_pembuat</td>
@@ -126,11 +120,6 @@ $html = <<<EOD
         <td style="width:200;">Kapasitas</td>
         <td style="width:45;">:</td>
         <td style="width:400;">$equipment_kapasitas</td>
-    </tr>
-    <tr>
-        <td style="width:200;">Digunakan untuk</td>
-        <td style="width:45;">:</td>
-        <td style="width:400;">$equipment_digunakan_untuk</td>
     </tr>
     <tr>
         <td style="width:200;">Jenis Pemeriksaan</td>
