@@ -43,9 +43,13 @@ $equipment_type_model = isset($equipment['type_model']) ? $equipment['type_model
 $equipment_jenis_pemeriksaan = isset($equipment['jenis_pemeriksaan']) ? $equipment['jenis_pemeriksaan'] : '';
 
 $office_dinas = $suket->office->dinas;
-$regulasi = explode(' AND ', $equipment['regulasi']);
-$equipment_regulasi = '';
-$equipment_regulasi .= '<ol class="regulasi">'; 
+$regulasi = '';
+$default_regulation = get_option('predefined_regulation_of_'.$suket->categories);
+$equipment_regulasi = !empty($equipment['regulasi']) ? $equipment['regulasi'] : $default_regulation;
+
+if (!empty($equipment_regulasi)) {
+    $regulasi = str_replace('--', 'jo', $equipment_regulasi);
+}
 
 $tahun = getYear($tanggal_inspeksi_raw);
 $bulan = getMonth($tanggal_inspeksi_raw);
@@ -66,12 +70,17 @@ $tanggal_suket = $tanggal.' '.$bulan.' '.$tahun;
 $nomor_suket = $licence_item->nomor_suket;
 $ahli_k3 = $inspection->assigned_item;
 
-$text = 'SURAT KETERANGAN' ."\r\n";
-$text .= 'HASIL PEMERIKSAAN DAN PENGUJIAN' ."\r\n";
+$text = '<div style="text-align:center;"><strong>';
+$text .= 'SURAT KETERANGAN' . '<br>';
+$text .= '<span style="text-decoration: underline;">HASIL PEMERIKSAAN DAN PENGUJIAN' .'</span><br>';
 $text .= 'Nomor : ' . $nomor_suket;
+$text .= '</strong></div>';
 
-$pdf->ln(20);
-$pdf->Write(0, $text, '', 0, 'C', true, 0, false, false, 0);
+$pdf->setFontSize('12');
+$pdf->ln(25);
+$pdf->writeHTML($text, true, 0, true, true);
+
+$pdf->setFontSize('10');
 
 $text = '<div style="text-align:justify;">';
 $text .= 'Berdasarkan hasil pemeriksaan dan pengujian yang dilakukan oleh PJK3 ';
@@ -270,9 +279,10 @@ $pdf->writeHTML($text, true, 0, true, true);
 
 
 $left_info = '<div style="text-align:center;">';
-$left_info .= "<br /><br />";
+$left_info .= "<br />";
 $left_info .= 'Mengetahui,' .'<br />';
-$left_info .= 'Kepala ' . $suket->office->dinas;
+$left_info .= 'Kepala ' . $suket->office->dinas . '<br />';
+$left_info .= $suket->office->province;
 $left_info .= "<br />";
 $left_info .= "<br />";
 $left_info .= "<br />";
@@ -280,27 +290,39 @@ $left_info .= "<br />";
 $left_info .= "<br />";
 $left_info .= "<br />";
 $left_info .= "<br />";
-$left_info .= $licence_item->kepala_dinas_nama;
+$left_info .= '<span style="text-decoration: underline;"><strong>' . $licence_item->kepala_dinas_nama . '</strong></span>';
 $left_info .= "<br />";
-$left_info .= $licence_item->kepala_dinas_nip;
+$left_info .= '<strong>' . $licence_item->kepala_dinas_nip .'</strong>';
 $left_info .= '</div>';
 
 
 $right_info = '<div style="text-align:center;">';
-$right_info .= "Serang, $tanggal_suket" .'<br /><br />';
+$right_info .= "Serang, $tanggal_suket" .'<br />';
+$right_info .= "<br />";
 $right_info .= 'Yang Melakukan Evaluasi,' .'<br />';
-$right_info .= 'Pengawas Keselamatan Kerja' .'<br />';
+$right_info .= 'Pengawas Ketenagakerjaan' .'<br />';
 $right_info .= "<br />";
 $right_info .= "<br />";
 $right_info .= "<br />";
 $right_info .= "<br />";
 $right_info .= "<br />";
 $right_info .= "<br />";
+$right_info .= '<span style="text-decoration: underline;"><strong>' . $licence_item->pengawas_nama . '</strong></span>';
 $right_info .= "<br />";
-$right_info .= $licence_item->pengawas_nama;
-$right_info .= "<br />";
-$right_info .= $licence_item->pengawas_nip;
+$right_info .= '<strong>' . $licence_item->pengawas_nip . '</strong>';
 $right_info .= '</div>';
 
-$pdf->ln(4);
-pdf_multi_row($left_info, $right_info, $pdf, ($dimensions['wk'] / 2) - $dimensions['lm']);
+
+
+$html = <<<EOD
+
+<table cellspacing="1" cellpadding="1" border="0">
+    <tr>
+        <td style="text-align:center;">$left_info</td>
+        <td style="text-align:center;">$right_info</td>
+    </tr>
+</table>
+EOD;
+
+$pdf->writeHTML($html, true, 0, true, true);
+
