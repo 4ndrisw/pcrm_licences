@@ -211,7 +211,7 @@ $assigned = '<div style="text-align:center;">';
 $assigned .= get_option('licence_certificate_assign_city') .', '. $proposed_date .'<br />';
 $assigned .= '<strong>' . strtoupper(get_option('invoice_company_name'));
 $assigned .= '<br /><br /><br /><br /><br /><br /><br /><br /><br />';
-$assigned .= '<span style="text-decoration: underline;">' . strtoupper(get_staff_full_name($certificate->assigned)) .'</span><br />';
+$assigned .= '<span style="text-decoration: underline;">' . strtoupper(get_staff_full_name(get_option('default_certificate_assigned'))) .'</span><br />';
 $assigned .= strtoupper(get_option('licence_certificate_assign_position'));
 $assigned .= '</strong></div>';
 
