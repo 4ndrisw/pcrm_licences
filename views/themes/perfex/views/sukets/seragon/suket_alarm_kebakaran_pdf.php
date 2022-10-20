@@ -177,31 +177,25 @@ $html = <<<EOD
     </tr>
     <tr>
         <td style="width:20;"></td>
-        <td style="width:310;">4. Jumlah Smoke Detector</td>
+        <td style="width:310;">5. Jumlah Smoke Detector</td>
         <td style="width:10;">:</td>
         <td style="width:370;">$equipment_jumlah_smoke_detector</td>
     </tr>
     <tr>
         <td style="width:20;"></td>
-        <td style="width:310;">4. Jumlah Alarm Bell</td>
+        <td style="width:310;">6. Jumlah Alarm Bell</td>
         <td style="width:10;">:</td>
         <td style="width:370;">$equipment_jumlah_alarm_bell</td>
     </tr>
     <tr>
         <td style="width:20;"></td>
-        <td style="width:310;">4. Jumlah Alarm Lamp</td>
+        <td style="width:310;">7. Jumlah Alarm Lamp</td>
         <td style="width:10;">:</td>
         <td style="width:370;">$equipment_jumlah_alarm_lamp</td>
     </tr>
     <tr>
         <td style="width:20;"></td>
-        <td style="width:310;">5. MCFA/Merk</td>
-        <td style="width:10;">:</td>
-        <td style="width:370;">$equipment_mcfa</td>
-    </tr>
-    <tr>
-        <td style="width:20;"></td>
-        <td style="width:310;">6. Jenis pemeriksaan</td>
+        <td style="width:310;">8. Jenis pemeriksaan</td>
         <td style="width:10;">:</td>
         <td style="width:370;">$equipment_jenis_pemeriksaan</td>
     </tr>
@@ -226,14 +220,7 @@ $html = <<<EOD
     </tr>
     <tr>
         <td style="width:20;"></td>
-        <td style="width:310;">2. Pemeriksaan Dokumen</td>
-        <td style="width:10;">:</td>
-        <td style="width:220;">Baik</td>
-        <td style="width:200;">(Terlampir)</td>
-    </tr>
-    <tr>
-        <td style="width:20;"></td>
-        <td style="width:310;">3. Pengujian</td>
+        <td style="width:310;">2. Pengujian</td>
         <td style="width:10;">:</td>
         <td style="width:220;">Baik</td>
         <td style="width:200;">(Terlampir)</td>
