@@ -119,7 +119,7 @@ $html = <<<EOD
         <td style="width:20;"></td>
         <td style="width:310;">1. Jenis objek K3 yang diuji</td>
         <td style="width:10;">:</td>
-        <td style="width:370;">Sarana Proteksi Kebakaran</td>
+        <td style="width:370;">Instalasi Proteksi Kebakaran</td>
     </tr>
     <tr>
         <td style="width:20;"></td>
