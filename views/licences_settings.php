@@ -37,6 +37,8 @@
       <hr />
       <?php render_yes_no_option('show_licences_clients_area_menu_items','show_licences_clients_area_menu_items'); ?>
       <hr />
+      <?php render_yes_no_option('allow_edit_suket_on_draft_status','allow_edit_suket_on_draft_status'); ?>
+      <hr />
       <?php
       $staff = $this->staff_model->get('', ['active' => 1]);
       $selected = get_option('default_licence_assigned');

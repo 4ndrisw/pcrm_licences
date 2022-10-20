@@ -689,13 +689,15 @@ class Licences extends AdminController
         $data['licence_statuses'] = $this->licences_model->get_statuses();
         $data['totalNotes']        = total_rows(db_prefix() . 'notes', ['rel_id' => $id, 'rel_type' => 'licence']);
 
+        $allow_editable = get_option('allow_edit_suket_on_draft_status');
         $data['editable_class']          = 'not_editable';
         $data['editableText_class']          = 'noteditableText';
-        if($licence->status == 2 ){
+
+        if($licence->status == 2 || $allow_editable){
             $data['editable_class']          = 'editable';
             $data['editableText_class']          = 'editableText';
-
         }
+        
         $tags = get_tags_in($licence->task_id, 'task');
 
         $equipment_type = ucfirst(strtolower(str_replace(' ', '_', $tags[0])));
