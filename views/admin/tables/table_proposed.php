@@ -42,7 +42,7 @@ foreach ($rResult as $aRow) {
 
         if ($aColumns[$i] == db_prefix() . 'tasks.name') {
             //$_data = '<a href="' . admin_url('tasks/view/' . $aRow['task_id']) . '" target = "_blank">' . $_data . '</a>';
-            $_data = '<a href="' . admin_url('licences/licence_proposed/' . $aRow['licence_id'].'/' . $aRow['task_id']) . '" target = "_blank">' . $_data . '</a>';
+            $_data = '<a href="' . admin_url('licences/licence_proposed/' . $aRow['licence_id'].'/' . $aRow['task_id']) . '">' . $_data . '</a>';
         } elseif ($aColumns[$i] == 'flag') {
             $_data = '<a class="btn btn-danger" title = "'._l('remove_this_item').'" href="#" onclick="licence_remove_proposed_item(' . $aRow['licence_id'] . ',' . $aRow['task_id'] . '); return false;">x</a>';
         } 
