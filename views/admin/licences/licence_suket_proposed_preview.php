@@ -117,7 +117,7 @@ Editable(".editable", {
       text: this.textContent, // or you can also use UI.text
       //text: this.innerHTML, // or you can also use UI.text
     }
-    console.log(data); // Submit your data to server
+    //console.log(data); // Submit your data to server
     licence_update_licence_items(data);
 
   }
