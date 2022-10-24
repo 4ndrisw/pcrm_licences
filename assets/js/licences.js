@@ -142,14 +142,19 @@ function licence_mark_as(status_id, licence_id) {
 
 // From licence table mark as
 
-function licence_add_proposed_item(licence_id, project_id, task_id) {
+function licence_add_proposed_item(licence_id, project_id, task_id, equipment_name) {
     var data = {};
     data.licence_id = licence_id;
     data.project_id = project_id;
     data.task_id = task_id;
+    data.equipment_name = equipment_name;
+    //console.log(data)
+    
     $.post(admin_url + 'licences/add_proposed_item', data).done(function (response) {
         reload_licences_tables();
     });
+
+
 }
 
 // From licence table mark as

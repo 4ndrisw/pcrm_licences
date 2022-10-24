@@ -54,7 +54,8 @@ foreach ($rResult as $aRow) {
         }elseif ($aColumns[$i] == db_prefix() . 'licence_items.flag') {
             $_data = '';
             if(!empty($aRow[db_prefix() . 'inspection_items.equipment_name']) && $aRow[db_prefix() . 'inspection_items.equipment_name'] !== NULL ){
-                $_data = '<a class="btn btn-success" title = "'._l('propose_this_item').'" href="#" onclick="licence_add_proposed_item(' . $licence_id . ','. $project_id . ',' . $aRow['task_id'] . '); return false;">+</a>';
+                $equipment_name = $aRow[db_prefix() . 'inspection_items.equipment_name'];
+                $_data = '<a class="btn btn-success" title = "'._l('propose_this_item').'" href="#" onclick="licence_add_proposed_item(' . $licence_id . ','. $project_id . ',' . $aRow['task_id'] .',' . "'". $equipment_name . "'" . '); return false;">+</a>';
             }
         } 
         $row[] = $_data;

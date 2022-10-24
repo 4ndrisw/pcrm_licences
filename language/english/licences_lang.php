@@ -137,6 +137,8 @@ $lang['licence_released']				= 'Licence released';
 
 $lang['no_licence_released']				= 'No licence released';
 $lang['propose']				= 'Propose';
+$lang['propose_item']				= 'Propose Item';
+
 $lang['this_licence_already_send']				= 'This licence already send';
 $lang['licence_already_send_to_client_tooltip']  = 'This licence is already sent to the client %s';
 $lang['licence_office_label']				= 'UPT';
@@ -152,6 +154,7 @@ $lang['licence_send_telegram_message']				= 'Send telegram message';
 $lang['licences_tracking']				= 'Licences tracking';
 $lang['release_this_item']				= 'Release this item';
 $lang['release']				= 'Release';
+$lang['release_item']				= 'Release Item';
 $lang['licence_equipment_name']				= 'Equipment';
 
 $lang['licence_add_proposed']				= 'Add items into table below to be proposed.';

@@ -103,6 +103,130 @@ class Licences extends AdminController
         $this->load->view('admin/licences/licence_release_preview', $data);
     }
 
+    /* Add new licence or update existing */
+    public function release_item($id, $task_id)
+    {
+
+        $licence = $this->licences_model->get($id);
+
+        if (!$licence || !user_can_view_licence($id)) {
+            blank_page(_l('licence_not_found'));
+        }
+
+        $data['licence'] = $licence;
+        $data['edit']     = false;
+        $title            = _l('preview_licence');
+
+        if ($this->input->post()) {
+
+            $licence_data = $this->input->post();
+            if(!empty($licence_data['tasks'])){
+                $tasks_data = $licence_data['tasks'];
+                $this->licences_model->update_licence_data($id, $licence->project_id, $tasks_data);
+            }
+
+        }
+
+        if ($this->input->get('customer_id')) {
+            $data['customer_id'] = $this->input->get('customer_id');
+        }
+
+        $data['staff']             = $this->staff_model->get('', ['active' => 1]);
+        $data['licence_statuses'] = $this->licences_model->get_statuses();
+        $data['title']             = $title;
+
+        $licence->date = _d($licence->proposed_date);
+        
+        if ($licence->project_id !== null) {
+            $this->load->model('projects_model');
+            $licence->project_data = $this->projects_model->get($licence->project_id);
+        }
+        
+
+        //$data = licence_mail_preview_data($template_name, $licence->clientid);
+
+        //$data['licence_members'] = $this->licences_model->get_licence_members($id,true);
+
+        //$data['licence_items']    = $this->licences_model->get_licence_item($id);
+
+        $data['activity']          = $this->licences_model->get_licence_activity($id);
+        $data['licence']          = $licence;
+        $data['members']           = $this->staff_model->get('', ['active' => 1]);
+        $data['licence_statuses'] = $this->licences_model->get_statuses();
+
+        //$data['related_tasks'] = $this->licences_model->get_related_tasks($id, $licence->project_data->id);
+        //$data['released_tasks'] = $this->licences_model->get_related_tasks($id, $licence->project_data->id, true, true);
+
+        $data['totalNotes']        = total_rows(db_prefix() . 'notes', ['rel_id' => $id, 'rel_type' => 'licence']);
+
+        $data['send_later'] = false;
+        if ($this->session->has_userdata('send_later')) {
+            $data['send_later'] = true;
+            $this->session->unset_userdata('send_later');
+        }
+        $inspection_id = $this->licences_model->get_inspection_id($id, $task_id);
+        $licence->inspection_id = $inspection_id;
+        $inspections_model = 'Inspections_model';
+        $model_path = FCPATH . 'modules/'. INSPECTIONS_MODULE_NAME .'/models/' . $inspections_model .'.php';
+
+        include_once($model_path);
+        $this->load->model($inspections_model);
+        $_inspection = $this->{$inspections_model}->get($inspection_id);
+        $inspection = (object)$_inspection[0];
+        $data['task_id'] = $task_id;
+        $tags = get_tags_in($task_id,'task');
+        //$data['jenis_pesawat'] = $tags[0];
+
+        $equipment_type = ucfirst(strtolower(str_replace(' ', '_', $tags[0])));
+        
+        $tag_id = $this->licences_model->get_available_tags($task_id);
+        $licence->categories = get_option('tag_id_'.$tag_id['0']['tag_id']);
+                
+        $licence->item_number = format_licence_item_number($id, $licence->categories, $task_id);
+        $licence_items = $this->licences_model->get_licence_items($licence->id, $task_id);
+        $licence->licence_items = $licence_items[0];
+        $equipment_model = $equipment_type .'_model';
+        $model_path = FCPATH . 'modules/'. INSPECTIONS_MODULE_NAME .'/models/' . $equipment_model .'.php';
+        
+
+        if (!file_exists($model_path)) {
+            set_alert('danger', _l('file_not_found ;', $equipment_model));
+            log_activity('File '. $equipment_model . ' not_found');
+            redirect(admin_url('licences/release/'.$id));
+        }
+
+        include_once($model_path);
+        $this->load->model($equipment_model);
+
+        $_equipment = $this->{$equipment_model}->get('', ['rel_id' => $inspection_id->id, 'task_id' =>$task_id]);
+        $equipment = (object)$_equipment;
+        $inspection->equipment = $equipment;
+        $inspection->client = $licence->client;
+        
+        $licence->inspection = (object)$inspection;
+        $licence->equipment = $equipment;
+        $tag_id = get_available_tags($task_id);
+
+        $inspection->categories = get_option('tag_id_'.$tag_id['0']['tag_id']);
+        $qrcode = licence_generate_qrcode($licence);
+/*        
+        echo '<pre>';
+        var_dump($inspection->billing_street);
+        var_dump($equipment);
+        echo '</pre>';
+        die();
+*/
+
+        if ($this->input->is_ajax_request()) {
+            $this->app->get_table_data(module_views_path('licences', 'admin/tables/small_table'));
+            //$this->app->get_table_data(module_views_path('licences', 'admin/tables/table_proposed'));
+        }
+
+        $this->session->set_userdata('licence_id', $licence->id);
+        $this->session->set_userdata('project_id', $licence->project_id);
+
+        $this->load->view('admin/licences/licence_release_item_preview', $data);
+    }
 
     /* Add new propose or update existing */
     public function propose($id='')
@@ -126,7 +250,6 @@ class Licences extends AdminController
         if ($this->input->post()) {
 
             $licence_data = $this->input->post();
-
             if(!empty($licence_data['tasks'])){
                 $tasks_data = $licence_data['tasks'];
                 unset($tasks_data['licence_id_'.$id]);
@@ -607,6 +730,7 @@ class Licences extends AdminController
     {
         if ($this->input->post() && $this->input->is_ajax_request()) {
             $x = $this->input->post();
+            log_activity(json_encode($x));
             $this->licences_model->licence_add_proposed_item($this->input->post());
         }
     }
@@ -677,7 +801,7 @@ class Licences extends AdminController
         $licence->proposed_date       = _d($licence->proposed_date);
 
         if ($licence->task !== null) {
-            //$licence->project_data = $licence->task->project_data;
+            $licence->project_data = $licence->task->project_data;
         }
 
         //$data = licence_mail_preview_data($template_name, $licence->clientid);
@@ -758,9 +882,107 @@ class Licences extends AdminController
             $licence_id = $this->input->post('licence_id');
             $field = $this->input->post('field');
 
-            log_activity(json_encode($this->input->post()));
+            //log_activity(json_encode($this->input->post()));
 
             $this->licences_model->update_licence_item_data($this->input->post(), $licence_id, $task_id);
         }
+    }
+
+    /* Add new licence or update existing */
+    public function suket_to_doc($id, $task_id)
+    {
+        $licence = $this->licences_model->get($id);
+
+        if (!$licence || !user_can_view_licence($id)) {
+            blank_page(_l('licence_not_found'));
+        }
+
+        $inspection_id = $this->licences_model->get_inspection_id($id, $task_id);
+        $licence->inspection_id = $inspection_id;
+        $inspections_model = 'Inspections_model';
+        $model_path = FCPATH . 'modules/'. INSPECTIONS_MODULE_NAME .'/models/' . $inspections_model .'.php';
+
+        include_once($model_path);
+        $this->load->model($inspections_model);
+        $_inspection = $this->{$inspections_model}->get($inspection_id);
+        $inspection = (object)$_inspection[0];
+
+        $tags = get_tags_in($task_id,'task');
+        //$data['jenis_pesawat'] = $tags[0];
+
+        $equipment_type = ucfirst(strtolower(str_replace(' ', '_', $tags[0])));
+        
+        $tag_id = $this->licences_model->get_available_tags($task_id);
+        $licence->categories = get_option('tag_id_'.$tag_id['0']['tag_id']);
+                
+        $licence->item_number = format_licence_item_number($id, $licence->categories, $task_id);
+        $licence_items = $this->licences_model->get_licence_items($licence->id, $task_id);
+        $licence->licence_items = $licence_items[0];
+        $equipment_model = $equipment_type .'_model';
+        $model_path = FCPATH . 'modules/'. INSPECTIONS_MODULE_NAME .'/models/' . $equipment_model .'.php';
+        
+
+        if (!file_exists($model_path)) {
+            set_alert('danger', _l('file_not_found ;', $equipment_model));
+            log_activity('File '. $equipment_model . ' not_found');
+            redirect(admin_url('licences/release/'.$id));
+        }
+
+        include_once($model_path);
+        $this->load->model($equipment_model);
+
+        $_equipment = $this->{$equipment_model}->get('', ['rel_id' => $inspection_id->id, 'task_id' =>$task_id]);
+        $equipment = (object)$_equipment[0];
+        $inspection->equipment = $equipment;
+        $inspection->client = $licence->client;
+        
+        $licence->inspection = (object)$inspection;
+        $licence->equipment = $equipment;
+        $tag_id = get_available_tags($task_id);
+
+        $inspection->categories = get_option('tag_id_'.$tag_id['0']['tag_id']);
+        
+        $data = inspection_data($inspection, $task_id);
+
+        $_data = licence_data($licence, $task_id);
+        
+        foreach ($_data as $key => $value) {
+            $data[$key] = $value;
+        }
+        /*
+        echo '<pre>';
+        var_dump($equipment->jenis_pesawat);
+        echo '<br />=============<br />';
+        var_dump($data);
+        echo '</pre>';
+        die();
+        */
+        $phpWord = new \PhpOffice\PhpWord\PhpWord();
+
+        $template = FCPATH .'modules/'. LICENCES_MODULE_NAME . '/assets/resources/suket_'. strtolower($equipment->jenis_pesawat).'.docx';
+
+        $templateProcessor = $phpWord->loadTemplate($template);
+        
+        $templateProcessor->setValues($data);
+
+
+
+        //$templateProcessor->setImageValue('CompanyLogo', 'path/to/company/logo.png');
+        $temp_filename = strtoupper($equipment->jenis_pesawat) .'-'. $inspection->formatted_number . '.docx';
+        $templateProcessor->saveAs($temp_filename);
+
+        header('Content-Description: File Transfer');
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename='.$temp_filename);
+        header('Content-Transfer-Encoding: binary');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+        header('Pragma: public');
+        header('Content-Length: ' . filesize($temp_filename));
+        flush();
+        readfile($temp_filename);
+        unlink($temp_filename);
+        exit; 
+
     }
 }

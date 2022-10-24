@@ -73,19 +73,22 @@
             </div>
          </div>
          <div class="row mtop10">
-            <div class="col-md-5">
-               <?php echo format_licence_status($licence->status,'mtop5');  ?>           
+            <div class="col-md-6">
+               <?php echo format_licence_status($licence->status,'mtop5');  ?>
                <?php
                   $path = $this->uri->segment(3);
-                  if($path == 'propose'){
-                    echo '<a href="'. admin_url() .'licences/release/'.$licence->id.'" class="btn btn-success">'._l('release').'</a>';
+                  if($path == 'licence_proposed'){
+                    echo '<a href="'. admin_url() .'licences/release_item/'.$licence->id.'/'.$task->id . '" class="btn btn-success">'._l('release_item').'</a>';
                   }elseif($path == 'release'){
                     echo '<a href="'. admin_url() .'licences/propose/'.$licence->id.'" class="btn btn-info">'._l('propose').'</a>';
+                  }
+                  elseif($path == 'release_item'){
+                    echo '<a href="'. admin_url() .'licences/release/'.$licence->id.'" class="btn btn-success">'._l('release').'</a>';
                   }
                ?>
             </div>
 
-            <div class="col-md-7">
+            <div class="col-md-6">
                <div class="visible-xs">
                   <div class="mtop10"></div>
                </div>
@@ -345,6 +348,11 @@
                         <?php $value = date('Y-m-d'); ?>
                         <table id="<?= 'licence-'.$licence->id ?>" class="table licence table-bordered">
                           <tbody>
+                             <tr>
+                                <td style="width:30%">Sertifikat Lama</td>
+                                <td style="width:2%">:</td>
+                                <td class="<?= $editable_class ?>" data-field="nomor_sertifikat_lama" data-licence_id="<?= $licence->id ?>" data-task_id="<?= $task->id ?>"><?= isset($licence_item->nomor_sertifikat_lama) ? $licence_item->nomor_sertifikat_lama : '' ?></td>
+                             </tr>
                              <tr>
                                 <td style="width:30%">Suket</td>
                                 <td style="width:2%">:</td>

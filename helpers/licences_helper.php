@@ -843,3 +843,79 @@ function tanggal_suket($date){
     $tanggal_suket = $tanggal.' '.$bulan.' '.$tahun;
     return $tanggal_suket;
 }
+
+
+function get_licence_id_from_spection_item($task_id)
+{
+    $CI = &get_instance();
+
+    $CI->db->select('licence_id');
+    $CI->db->join(db_prefix() . 'inspection_items', db_prefix() . 'inspection_items.task_id = ' . db_prefix() . 'licence_items.task_id');
+
+    $CI->db->where(db_prefix() . 'inspection_items.task_id = ' . $task_id);
+    return $CI->db->get(db_prefix() . 'licence_items')->row();
+}
+
+function licence_generate_qrcode($licence){
+    $CI = &get_instance();
+    $nomor_sertifikat = isset($licence->licence_items->nomor_sertifikat_lama) ? $licence->licence_items->nomor_sertifikat_lama : '';
+    $qrcode_data  = '';
+    $qrcode_data .= $licence->client->company ."\r\n";
+    $qrcode_data .= 'Nomor : ' . $nomor_sertifikat ."\r\n";
+    $qrcode_data .= 'Diterbitkan :' .$licence->proposed_date ."\r\n";
+    $qrcode_data .= 'Peralatan :' . $licence->licence_items->equipment_name ."\r\n";
+    $qrcode_data .= 'PJK3 : ' . get_option('invoice_company_name');
+
+    $licence_path = get_upload_path_by_type('licences') . $licence->id . '/';
+    _maybe_create_upload_path('uploads/licences');
+    _maybe_create_upload_path('uploads/licences/'.$licence_path);
+
+    $params['data'] = $qrcode_data;
+    $params['writer'] = 'png';
+    //$params['setSize'] = isset($setSize) ? $setSize : 160;
+    $params['setSize'] = 160;
+    $params['encoding'] = 'UTF-8';
+    $params['setMargin'] = 0;
+    $params['setForegroundColor'] = ['r'=>0,'g'=>0,'b'=>0];
+    $params['setBackgroundColor'] = ['r'=>255,'g'=>255,'b'=>255];
+
+    $params['crateLogo'] = false;
+    //$params['logo'] = './uploads/company/favicon.png';
+    $params['setResizeToWidth'] = 80;
+
+    $params['crateLabel'] = false;
+    $params['label'] = $licence->item_number;
+    $params['setTextColor'] = ['r'=>255,'g'=>0,'b'=>0];
+    $params['ErrorCorrectionLevel'] = 'medium';
+
+    $params['saveToFile'] = FCPATH.'uploads/licences/'.$licence_path .'certificate-'.$licence->item_number.'.'.$params['writer'];
+
+    $CI->load->library('endroid_qrcode');
+    $CI->endroid_qrcode->generate($params);
+
+}
+
+function licence_data($licence, $task_id){
+    $data['upt'] = $licence->office->short_name;
+    $data['dinas'] = $licence->office->dinas;
+    $data['provinsi'] = $licence->office->province;
+    $data['dinas_uppercase'] = strtoupper($licence->office->dinas);
+    $data['provinsi_uppercase'] = strtoupper($licence->office->province);
+    
+    $data['nomor_inspeksi'] = $licence->formatted_number;
+    $data['nomor_sertifikat'] = $licence->item_number;
+    $data['tanggal_certificate'] = tanggal_pemeriksaan($licence->proposed_date);
+
+    //$data = [];
+
+    foreach ($licence->licence_items as $key => $value) {
+        $data[$key] = $value;
+    }
+    
+    $data['expired'] = tanggal_pemeriksaan($data['expired']);
+    $data['tanggal_suket'] = tanggal_pemeriksaan($data['tanggal_suket']);
+
+    unset($data['id'],$data['licence_id'],$data['project_id'],$data['task_id'],$data['categories'],$data['equipment_name'],$data['released'],$data['flag'],);
+
+    return $data;
+}

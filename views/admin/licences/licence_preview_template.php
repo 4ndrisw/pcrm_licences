@@ -73,7 +73,7 @@
             </div>
          </div>
          <div class="row mtop10">
-            <div class="col-md-5">
+            <div class="col-md-6">
                <?php echo format_licence_status($licence->status,'mtop5');  ?>           
                <?php
                   $path = $this->uri->segment(3);
@@ -82,10 +82,13 @@
                   }elseif($path == 'release'){
                     echo '<a href="'. admin_url() .'licences/propose/'.$licence->id.'" class="btn btn-info">'._l('propose').'</a>';
                   }
+                  elseif($path == 'release_item'){
+                    echo '<a href="'. admin_url() .'licences/licence_proposed/'.$licence->id.'/'.$task_id .'" class="btn btn-info">'._l('propose_item').'</a>';
+                  }
                ?>
             </div>
 
-            <div class="col-md-7">
+            <div class="col-md-6">
                <div class="visible-xs">
                   <div class="mtop10"></div>
                </div>
@@ -307,6 +310,9 @@
                                  echo '<p class="mleft15">' . _l('licence_add_proposed') . '</p>'; 
                                  $this->load->view('admin/licences/licence_table_proposed');
                               }elseif($info == 'release'){
+                                 echo '<p class="mleft15">' . _l('licence_add_released') . '</p>'; 
+                                 $this->load->view('admin/licences/licence_table_released');
+                              }elseif($info == 'release_item'){
                                  echo '<p class="mleft15">' . _l('licence_add_released') . '</p>'; 
                                  $this->load->view('admin/licences/licence_table_released');
                               }

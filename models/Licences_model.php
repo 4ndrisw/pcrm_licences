@@ -1374,8 +1374,11 @@ class Licences_model extends App_Model
         
         $this->db->insert(db_prefix() . 'licence_items', [
                 'licence_id'      => $data['licence_id'],
-                'project_id' => $data['project_id'],
-                'task_id'              => $data['task_id']]);
+                'project_id'      => $data['project_id'],
+                'task_id'         => $data['task_id'],
+                'equipment_name'  => $data['equipment_name'],
+            ]
+            );
 
         hooks()->do_action('after_licence_item_added', $data);
     }

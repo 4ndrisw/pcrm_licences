@@ -136,6 +136,7 @@ $lang['licence_released']				= 'Licence diterbitkan';
 $lang['no_licence_released']				= 'Belum ada licence yang terbit';
 $lang['this_licence_already_send']				= 'Pengajuan lisensi ini sudah dikirim.';
 $lang['propose']				= 'Pengajuan';
+$lang['propose_item']				= 'Pengajuan Alat';
 
 $lang['licence_already_send_to_client_tooltip'] 					= 'Suket ini telah dikirim kepada klien %s';
 $lang['licence_office_label']				= 'UPT';
@@ -153,6 +154,7 @@ $lang['licence_send_telegram_message']				= 'Kirim pesan telegram';
 $lang['licences_tracking']				= 'Daftar Licensi';
 $lang['release_this_item']				= 'Terbitkan lisensi ini';
 $lang['release']				= 'Terbit';
+$lang['release_item']				= 'Terbit Alat';
 $lang['licence_equipment_name']				= 'Equipment';
 
 $lang['licence_add_proposed']				= 'Tambahkan item ke table berikut untuk diajukan';
