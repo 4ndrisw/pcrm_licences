@@ -46,6 +46,7 @@
              <a class="btn btn-sm btn-danger <?= $disabled ?>"  href="<?php echo admin_url() . 'licences/suket_to_doc/'.$licence->id.'/'.$task_id; ?>">
                 <?php echo _l($label); ?>
              </a>
+             <?php echo $template; ?>
           </div>
           <div class="clearfix"></div>
            <div class="col-md-8">
