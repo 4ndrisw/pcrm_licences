@@ -5,7 +5,7 @@
 		<div class="row">
 			<div class="col-md-6 no-padding licence-small-table">
 				<?php
-					$this->load->view('admin/licences/licence_table_released');
+					$this->load->view('admin/licences/licence_table_processed');
 				?>
 			</div>
 			<div class="col-md-6 no-padding licence-preview-template">
@@ -38,7 +38,7 @@
 
 <script>
     $(function(){
-        initDataTable('.table-licences', window.location.href, 'undefined', 'undefined','fnServerParams', [0, 'desc']);
+        initDataTable('.table-licences-processed', admin_url+'licences/table_processed', 'undefined', 'undefined','fnServerParams', [0, 'desc']);
     });
 </script>
 <script>
