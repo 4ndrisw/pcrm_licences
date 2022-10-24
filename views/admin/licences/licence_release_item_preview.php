@@ -5,7 +5,7 @@
 		<div class="row">
 			<div class="col-md-6 no-padding licence-small-table">
 				<?php
-					$this->load->view('admin/licences/licence_small_table');
+					$this->load->view('admin/licences/licence_table_released');
 				?>
 			</div>
 			<div class="col-md-6 no-padding licence-preview-template">
