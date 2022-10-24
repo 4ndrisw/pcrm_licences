@@ -959,6 +959,7 @@ class Licences extends AdminController
         */
         $phpWord = new \PhpOffice\PhpWord\PhpWord();
         $file = strtolower($equipment->jenis_pesawat).'.docx';
+        $file = str_replace(' ', '_', $file);
         $dir = strtolower($data['upt']);
         $dir = str_replace(' ', '_', $dir);
         

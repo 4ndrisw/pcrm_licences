@@ -34,6 +34,7 @@
           <?php
               $disabled = ''; 
               $file = isset($equipment['jenis_pesawat']) ? strtolower($equipment['jenis_pesawat']).'.docx' : 'undefined.docx';
+              $file = str_replace(' ', '_', $file);
               $dir = isset($licence_data['upt']) ? strtolower($licence_data['upt']) : 'undefined';
               $dir = str_replace(' ', '_', $dir);
               $template = FCPATH .'modules/'. LICENCES_MODULE_NAME . '/assets/resources/'. $dir .'/suket_'. $file;
