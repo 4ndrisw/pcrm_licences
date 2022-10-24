@@ -2,6 +2,7 @@
 <?php
    $inspection_data = inspection_data($licence->inspection, $task_id);
    $licence_data = licence_data($licence, $task_id);
+   $equipment = reset($licence->inspection->equipment);
  ?>
     <div class="panel_s">
         <div class="panel-body">
@@ -32,7 +33,7 @@
           <h3> 2. Data Lisensi</h3>
           <?php
               $disabled = ''; 
-              $file = isset($inspection_data['jenis_pesawat']) ? strtolower($inspection_data['jenis_pesawat']).'.docx' : 'undefined.docx';
+              $file = isset($equipment['jenis_pesawat']) ? strtolower($equipment['jenis_pesawat']).'.docx' : 'undefined.docx';
               $dir = isset($licence_data['upt']) ? strtolower($licence_data['upt']) : 'undefined';
               $dir = str_replace(' ', '_', $dir);
               $template = FCPATH .'modules/'. LICENCES_MODULE_NAME . '/assets/resources/'. $dir .'/suket_'. $file;

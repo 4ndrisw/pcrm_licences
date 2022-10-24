@@ -937,7 +937,7 @@ class Licences extends AdminController
         $inspection->client = $licence->client;
         
         $licence->inspection = (object)$inspection;
-        $licence->equipment = $equipment;
+        //$licence->equipment = $equipment;
         $tag_id = get_available_tags($task_id);
 
         $inspection->categories = get_option('tag_id_'.$tag_id['0']['tag_id']);
@@ -963,8 +963,7 @@ class Licences extends AdminController
         $dir = str_replace(' ', '_', $dir);
         
         $template = FCPATH .'modules/'. LICENCES_MODULE_NAME . '/assets/resources/'.$dir.'/suket_'. $file;
-        var_dump($template);
-        die();
+        
         if (!file_exists($template)) {
             set_alert('danger', _l('file_not_found ;', $file));
             log_activity('File '. $file . ' not_found');
