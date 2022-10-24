@@ -39,13 +39,15 @@
               $dir = str_replace(' ', '_', $dir);
               $template = FCPATH .'modules/'. LICENCES_MODULE_NAME . '/assets/resources/'. $dir .'/suket_'. $file;
               $label = 'download';
+              $button = 'btn-success';
               if (!file_exists($template)) {
                  $disabled = 'disabled';
+                 $button = 'btn-danger';
                  $label = 'template_not_available';
               }
           ?>
            <div class="col-md-12">
-             <a class="btn btn-sm btn-danger <?= $disabled ?>"  href="<?php echo admin_url() . 'licences/suket_to_doc/'.$licence->id.'/'.$task_id; ?>">
+             <a class="btn btn-sm <?= $button.' '.$disabled ?>"  href="<?php echo admin_url() . 'licences/suket_to_doc/'.$licence->id.'/'.$task_id; ?>">
                 <?php echo _l($label); ?>
              </a>
              <?php echo '../'.$dir.'/suket_'.$file; ?>
