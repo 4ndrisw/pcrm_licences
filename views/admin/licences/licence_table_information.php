@@ -32,7 +32,7 @@
           <h3> 2. Data Lisensi</h3>
           <?php
               $disabled = ''; 
-              $file = strtolower($inspection_data['jenis_pesawat']).'.docx';
+              $file = isset($inspection_data['jenis_pesawat']) ? strtolower($inspection_data['jenis_pesawat']).'.docx' : 'undefined.docx';
               $dir = isset($licence_data['upt']) ? strtolower($licence_data['upt']) : 'undefined';
               $dir = str_replace(' ', '_', $dir);
               $template = FCPATH .'modules/'. LICENCES_MODULE_NAME . '/assets/resources/'. $dir .'/suket_'. $file;
