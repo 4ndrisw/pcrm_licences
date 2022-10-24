@@ -23,7 +23,7 @@ $lang['settings_group_licences']                          = 'Job Reports';
 $lang['require_client_logged_in_to_view_licence']                          = 'Klien harus login untuk melihat Suket';
 $lang['licences']                          = 'Suket';
 $lang['licence_view_activity_tooltip']           = 'Log aktifitas';
-
+$lang['template_not_available'] = 'Template tidak tersedia';
 $lang['licence_status_draft']           = 'Draft';
 $lang['licence_status_sent']            = 'Terkirim';
 $lang['licence_status_declined']        = 'Ditolak';

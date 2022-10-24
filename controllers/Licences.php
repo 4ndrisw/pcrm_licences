@@ -958,14 +958,21 @@ class Licences extends AdminController
         die();
         */
         $phpWord = new \PhpOffice\PhpWord\PhpWord();
-
-        $template = FCPATH .'modules/'. LICENCES_MODULE_NAME . '/assets/resources/suket_'. strtolower($equipment->jenis_pesawat).'.docx';
-
+        $file = strtolower($equipment->jenis_pesawat).'.docx';
+        $dir = strtolower($data['upt']);
+        $dir = str_replace(' ', '_', $dir);
+        
+        $template = FCPATH .'modules/'. LICENCES_MODULE_NAME . '/assets/resources/'.$dir.'/suket_'. $file;
+        var_dump($template);
+        die();
+        if (!file_exists($template)) {
+            set_alert('danger', _l('file_not_found ;', $file));
+            log_activity('File '. $file . ' not_found');
+            redirect(admin_url('licences/release_item/'.$id.'/'. $task_id));
+        }
         $templateProcessor = $phpWord->loadTemplate($template);
         
         $templateProcessor->setValues($data);
-
-
 
         //$templateProcessor->setImageValue('CompanyLogo', 'path/to/company/logo.png');
         $temp_filename = strtoupper($equipment->jenis_pesawat) .'-'. $inspection->formatted_number . '.docx';

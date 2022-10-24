@@ -23,7 +23,7 @@ $lang['settings_group_licences']                          = 'Licences';
 $lang['require_client_logged_in_to_view_licence']                          = 'Require client logged in to view licence';
 $lang['licences']                          = 'Licences';
 $lang['licence_view_activity_tooltip']           = 'Activity Log';
-
+$lang['template_not_available'] = 'Template not available';
 
 $lang['licence_status_draft']           = 'Draft';
 $lang['licence_status_sent']            = 'Sent';
