@@ -5,7 +5,7 @@
         <div class="panel-body">
         <hr class="hr-panel-heading" />
 
-          <h3> 1. Data Inspeksi : <?= $inspection_data['nama_pesawat'] ? $inspection_data['nama_pesawat'] : '' ?></h3>
+          <h3> 1. Data Inspeksi : <?= isset($inspection_data['nama_pesawat']) ? $inspection_data['nama_pesawat'] : '' ?></h3>
            <div class="col-md-12">
               <div class ="table-responsive">
                  <table class="table inspection-data table-bordered">
