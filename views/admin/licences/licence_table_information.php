@@ -77,7 +77,7 @@
            </div>
            <div class="col-md-4">
                <div class="qrcode text-center">
-                   <img src="<?php echo site_url('download/preview_image?path='.protected_file_url_by_path(get_licence_upload_path('licence').$licence->id.'/certificate-'.$licence->item_number.'.png')); ?>" class="img-responsive center-block licence-assigned" alt="licence-<?= $licence->id ?>">
+                   <img width="180" height="180" src="<?php echo site_url('download/preview_image?path='.protected_file_url_by_path(get_licence_upload_path('licence').$licence->id.'/certificate-'.$licence->item_number.'.png')); ?>" class="img-responsive center-block licence-assigned" alt="licence-<?= $licence->id ?>">
                </div>
            </div>
     </div>

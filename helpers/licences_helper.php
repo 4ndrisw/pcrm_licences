@@ -873,7 +873,7 @@ function licence_generate_qrcode($licence){
     $params['data'] = $qrcode_data;
     $params['writer'] = 'png';
     //$params['setSize'] = isset($setSize) ? $setSize : 160;
-    $params['setSize'] = 160;
+    $params['setSize'] = 200;
     $params['encoding'] = 'UTF-8';
     $params['setMargin'] = 0;
     $params['setForegroundColor'] = ['r'=>0,'g'=>0,'b'=>0];
