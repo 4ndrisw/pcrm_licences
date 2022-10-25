@@ -42,7 +42,7 @@ foreach ($rResult as $aRow) {
     for ($i = 0; $i < count($aColumns); $i++) {
         $_data = $aRow[$aColumns[$i]];
         if ($aColumns[$i] == db_prefix() . 'tasks.name') {
-            $_data = '<a href="' . admin_url('licences/licence_proposed/' . $aRow['licence_id']) . '/' . $aRow['task_id']) . '">' . $_data . '</a>';
+            $_data = '<a href="' . admin_url('licences/licence_proposed/' . $aRow['licence_id'] . '/' . $aRow['task_id']) . '">' . $_data . '</a>';
         }elseif ($aColumns[$i] == 'flag') {
             $_data = '<a class="btn btn-success" title = "'._l('release_this_item').'" href="#" onclick="licence_add_released_item(' . $licence_id . ','. $project_id . ',' . $aRow['task_id'] . '); return false;">+</a>';
         } 
