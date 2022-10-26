@@ -974,9 +974,10 @@ class Licences extends AdminController
         $templateProcessor = $phpWord->loadTemplate($template);
         
         $templateProcessor->setValues($data);
+        $client_company = str_replace(' ','_', $inspection->client->company);
 
         //$templateProcessor->setImageValue('CompanyLogo', 'path/to/company/logo.png');
-        $temp_filename = strtoupper($equipment->jenis_pesawat) .'-'. $inspection->formatted_number .'-'. $task_id . '.docx';
+        $temp_filename = strtoupper($client_company .'-'. $equipment->jenis_pesawat) .'-'. $licence->formatted_number .'-'. $task_id . '.docx';
         $templateProcessor->saveAs($temp_filename);
 
         header('Content-Description: File Transfer');
