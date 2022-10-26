@@ -206,16 +206,7 @@ class Licences extends AdminController
             call equipment model from inspection modules
         */
         $_equipment = inspections_get_equipment_model($equipment_model, $inspection_id->id, $task_id);
-        /*
-        echo '<pre>';
-        echo $equipment_model . '<br />';
-        var_dump($_equipment);
-        echo '<br />=====================<br />';
-        var_dump($_equipments);
-        echo '</pre>';
-        die();
-        */
-
+       
         $equipment = (object)$_equipment;
         $inspection->equipment = $equipment;
         $inspection->client = $licence->client;
@@ -985,7 +976,7 @@ class Licences extends AdminController
         $templateProcessor->setValues($data);
 
         //$templateProcessor->setImageValue('CompanyLogo', 'path/to/company/logo.png');
-        $temp_filename = strtoupper($equipment->jenis_pesawat) .'-'. $inspection->formatted_number . '.docx';
+        $temp_filename = strtoupper($equipment->jenis_pesawat) .'-'. $inspection->formatted_number .'-'. $task_id . '.docx';
         $templateProcessor->saveAs($temp_filename);
 
         header('Content-Description: File Transfer');
