@@ -9,7 +9,7 @@
 				?>
 			</div>
 			<div class="col-md-6 no-padding licence-preview-template">
-				<?php $this->load->view('admin/licences/licence_preview_template'); ?>
+				<?php $this->load->view('admin/licences/licence_release_item_preview_template'); ?>
 			</div>
 		</div>
 
