@@ -177,7 +177,6 @@ class Licences extends AdminController
         $tags = get_tags_in($task_id,'task');
         //$data['jenis_pesawat'] = $tags[0];
 
-        $equipment_type = ucfirst(strtolower(str_replace(' ', '_', $tags[0])));
         
         $tag_id = $this->licences_model->get_available_tags($task_id);
         $licence->categories = get_option('tag_id_'.$tag_id['0']['tag_id']);
@@ -185,10 +184,12 @@ class Licences extends AdminController
         $licence->item_number = format_licence_item_number($id, $licence->categories, $task_id);
         $licence_items = $this->licences_model->get_licence_items($licence->id, $task_id);
         $licence->licence_items = $licence_items[0];
+
+        $equipment_type = ucfirst(strtolower(str_replace(' ', '_', $tags[0])));
         $equipment_model = $equipment_type .'_model';
+        /*
         $model_path = FCPATH . 'modules/'. INSPECTIONS_MODULE_NAME .'/models/' . $equipment_model .'.php';
         
-
         if (!file_exists($model_path)) {
             set_alert('danger', _l('file_not_found ;', $equipment_model));
             log_activity('File '. $equipment_model . ' not_found');
@@ -199,23 +200,32 @@ class Licences extends AdminController
         $this->load->model($equipment_model);
 
         $_equipment = $this->{$equipment_model}->get('', ['rel_id' => $inspection_id->id, 'task_id' =>$task_id]);
+        */
+
+        /*
+            call equipment model from inspection modules
+        */
+        $_equipment = inspections_get_equipment_model($equipment_model, $inspection_id->id, $task_id);
+        /*
+        echo '<pre>';
+        echo $equipment_model . '<br />';
+        var_dump($_equipment);
+        echo '<br />=====================<br />';
+        var_dump($_equipments);
+        echo '</pre>';
+        die();
+        */
+
         $equipment = (object)$_equipment;
         $inspection->equipment = $equipment;
         $inspection->client = $licence->client;
         
         $licence->inspection = (object)$inspection;
-        $licence->equipment = $equipment;
+        //$licence->equipment = $equipment;
         $tag_id = get_available_tags($task_id);
 
         $inspection->categories = get_option('tag_id_'.$tag_id['0']['tag_id']);
         $qrcode = licence_generate_qrcode($licence);
-/*        
-        echo '<pre>';
-        var_dump($inspection->billing_street);
-        var_dump($equipment);
-        echo '</pre>';
-        die();
-*/
 
         if ($this->input->is_ajax_request()) {
             $this->app->get_table_data(module_views_path('licences', 'admin/tables/small_table'));
