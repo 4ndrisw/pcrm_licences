@@ -115,6 +115,8 @@ $lang['licence_proposed_this_week']                = 'Licences proposed this wee
 $lang['licence_date']                = 'Licence date';
 $lang['licence_datesend']                = 'Licence sent date';
 $lang['licence_assigned_string']                = 'Submitted by';
+$lang['default_certificate_assigned_string']                = 'certificate Assigned';
+
 $lang['licence_url']                = 'URL';
 $lang['licence_send_to_customer_already_sent']                = 'Licence already sent to customer_';
 $lang['licence_list_client']                = 'Customer';

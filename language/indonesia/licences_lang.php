@@ -116,6 +116,8 @@ $lang['licence_list_client']                = 'Customer';
 $lang['licence_list_date']                = 'Tanggal';
 $lang['new_licence']                = 'Buat Suket';
 $lang['licence_assigned_string']                = 'Manager Operasional';
+$lang['default_certificate_assigned_string']                = 'Pendanda tangan Sertifikat';
+
 $lang['clients_html_btn_download']                = 'Unduh';
 $lang['licence_qrcode_size']                = 'Ukuran qrcode Suket';
 $lang['default_licence_assigned_string']                = 'Default penugasan Suket';

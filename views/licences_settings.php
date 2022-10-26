@@ -62,7 +62,7 @@
          
        }
       }
-      echo render_select('settings[default_certificate_assigned]',$staff,array('staffid',array('firstname','lastname')),'default_licence_assigned_string',$selected);
+      echo render_select('settings[default_certificate_assigned]',$staff,array('staffid',array('firstname','lastname')),'default_certificate_assigned_string',$selected);
       ?>
       <hr />
       <?php echo render_input('settings[licence_certificate_assign_city]','Kota ditandatangani sertifikat' ,get_option('licence_certificate_assign_city')); ?>
