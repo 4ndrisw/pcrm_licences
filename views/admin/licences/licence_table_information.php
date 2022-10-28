@@ -1,8 +1,11 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
 <?php
-   $inspection_data = inspection_data($licence->inspection, $task_id);
+   //$inspection_data = inspection_data($licence->inspection, $task_id);
+   $inspection_data = inspection_data($inspection, $task_id);
+   //$inspection = $inspection;
+   
    $licence_data = licence_data($licence, $task_id);
-   $equipment = reset($licence->inspection->equipment);
+   
  ?>
     <div class="panel_s">
         <div class="panel-body">
@@ -32,8 +35,8 @@
            </div>
           <h3> 2. Data Lisensi</h3>
           <?php
-              $disabled = ''; 
-              $file = isset($equipment['jenis_pesawat']) ? strtolower($equipment['jenis_pesawat']).'.docx' : 'undefined.docx';
+              $disabled = '';
+              $file = isset($inspection->categories) ? strtolower($inspection->categories).'.docx' : 'undefined.docx';
               $file = str_replace(' ', '_', $file);
               $dir = isset($licence_data['upt']) ? strtolower($licence_data['upt']) : 'undefined';
               $dir = str_replace(' ', '_', $dir);

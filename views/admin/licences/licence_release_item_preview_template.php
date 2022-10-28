@@ -231,7 +231,7 @@
                            <?php echo _l('this_licence_related to'); ?>
                            <ol>
                               <li><?php echo('Project : <a href="'.admin_url('projects/view/'.$licence->project_id).'" target="_blank">' . $licence->project_data->name . '</a>');?></li>
-                              <li><?php echo('Inspection : <a href="'.admin_url('inspections/inspection_item/'.$licence->inspection_id->id.'/'.$task_id).'" target="_blank">' . format_inspection_item_number($licence->inspection_id->id, $task_id) . '</a>');?></li>
+                              <li><?php echo('Inspection : <a href="'.admin_url('inspections/inspection_item/'.$inspection->id.'/'.$task_id).'" target="_blank">' . format_inspection_item_number($inspection->id, $task_id) . '</a>');?></li>
                            </ol>
                         </h4>
                      </div>
