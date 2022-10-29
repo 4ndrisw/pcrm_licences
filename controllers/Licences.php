@@ -879,74 +879,6 @@ class Licences extends AdminController
     /* Add new licence or update existing */
     public function suket_to_doc($id, $task_id)
     {
-        /*
-        $licence = $this->licences_model->get($id);
-
-        if (!$licence || !user_can_view_licence($id)) {
-            blank_page(_l('licence_not_found'));
-        }
-
-        $inspection_id = $this->licences_model->get_inspection_id($id, $task_id);
-        $licence->inspection_id = $inspection_id;
-        $inspections_model = 'Inspections_model';
-        $model_path = FCPATH . 'modules/'. INSPECTIONS_MODULE_NAME .'/models/' . $inspections_model .'.php';
-
-        include_once($model_path);
-        $this->load->model($inspections_model);
-        $_inspection = $this->{$inspections_model}->get($inspection_id);
-        $inspection = (object)$_inspection[0];
-
-        $tags = get_tags_in($task_id,'task');
-        //$data['jenis_pesawat'] = $tags[0];
-
-        $equipment_type = ucfirst(strtolower(str_replace(' ', '_', $tags[0])));
-
-        $tag_id = $this->licences_model->get_available_tags($task_id);
-        $licence->categories = get_option('tag_id_'.$tag_id['0']['tag_id']);
-
-        $licence->item_number = format_licence_item_number($id, $licence->categories, $task_id);
-        $licence_items = $this->licences_model->get_licence_items($licence->id, $task_id);
-        $licence->licence_items = $licence_items[0];
-        $equipment_model = $equipment_type .'_model';
-        $model_path = FCPATH . 'modules/'. INSPECTIONS_MODULE_NAME .'/models/' . $equipment_model .'.php';
-
-
-        if (!file_exists($model_path)) {
-            set_alert('danger', _l('file_not_found ;', $equipment_model));
-            log_activity('File '. $equipment_model . ' not_found');
-            redirect(admin_url('licences/release/'.$id));
-        }
-
-        include_once($model_path);
-        $this->load->model($equipment_model);
-
-        $_equipment = $this->{$equipment_model}->get('', ['rel_id' => $inspection_id->id, 'task_id' =>$task_id]);
-        $equipment = (object)$_equipment[0];
-        $inspection->equipment = $equipment;
-        $inspection->client = $licence->client;
-
-        $licence->inspection = (object)$inspection;
-        //$licence->equipment = $equipment;
-        $tag_id = get_available_tags($task_id);
-
-        $inspection->categories = get_option('tag_id_'.$tag_id['0']['tag_id']);
-
-        $data = inspection_data($inspection, $task_id);
-
-        $_data = licence_data($licence, $task_id);
-
-        foreach ($_data as $key => $value) {
-            $data[$key] = $value;
-        }
-        
-        echo '<pre>';
-        var_dump($equipment->jenis_pesawat);
-        echo '<br />=============<br />';
-        var_dump($data);
-        echo '</pre>';
-        die();
-        */
-
         $licence = $this->licences_model->get($id);
 
         if (!$licence || !user_can_view_licence($id)) {
@@ -1010,7 +942,8 @@ class Licences extends AdminController
         
         //$inspection->categories = get_option('tag_id_'.$_tag['0']['tag_id']);
         $inspection->categories = $inspection->equipment->jenis_pesawat;
-        $licence->item_number = format_licence_item_number($id, $inspection->categories, $task_id);
+        //$licence->item_number = format_licence_item_number($id, $inspection->categories, $task_id);
+        $licence->item_number = $inspection->equipment->nomor_sertifikat;
         $_licence_items = $this->licences_model->get_licence_items($licence->id, $task_id);
         $licence->licence_items = $_licence_items[0];
 
