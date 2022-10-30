@@ -251,14 +251,21 @@ class Licences extends AdminController
         include_once($model_path);
         $this->load->model($equipment_model);
         $_equipment = $this->{$equipment_model}->get('', ['rel_id' => $inspection->id, 'task_id' =>$task_id]);
-        $inspection->equipment = (object)$_equipment[0];
-        
+        if($_equipment){
+            $inspection->equipment = (object)$_equipment[0];
+        }
+        $licence->equipment = $inspection->equipment;
+
         //$inspection->categories = get_option('tag_id_'.$_tag['0']['tag_id']);
-        $inspection->categories = $inspection->equipment->jenis_pesawat;
-        $licence->item_number = format_licence_item_number($id, $inspection->categories, $task_id);
+        //$inspection->categories = $inspection->equipment->jenis_pesawat;
         $_licence_items = $this->licences_model->get_licence_items($licence->id, $task_id);
         $licence->licence_items = $_licence_items[0];
-        $qrcode = licence_generate_qrcode($licence);
+        //$licence->item_number = format_licence_item_number($id, $licence->licence_items->categories, $task_id);
+        $_nomor_sertifikat = format_nomor_sertifikat($inspection, $task_id);
+        $nomor_sertifikat = !empty($licence->equipment->nomor_sertifikat) ? $licence->equipment->nomor_sertifikat : $_nomor_sertifikat;
+        $licence->nomor_sertifikat = $nomor_sertifikat;
+        $licence->nomor_sertifikat_file = str_replace(array(' ','/'), array('_','-'), $nomor_sertifikat);
+        $qrcode = licence_generate_qrcode($licence, $task_id);
 
         //$offices_model = 'offices_model';
         //$model_path = FCPATH . 'modules/'. OFFICES_MODULE_NAME .'/models/' . $offices_model .'.php';
@@ -918,6 +925,7 @@ class Licences extends AdminController
         $this->load->model($inspections_model);
         $_inspection = $this->{$inspections_model}->get($inspection_id->id);
         $inspection = (object)$_inspection;
+        $licence->inspection_id = $inspection->id;
         $_inspection_item = $this->{$inspections_model}->get_inspection_items($inspection_id->id, $inspection->project_id, $task_id);
         $inspection->inspection_item = $_inspection_item[0];
 
@@ -941,13 +949,14 @@ class Licences extends AdminController
         $inspection->equipment = (object)$_equipment[0];
         
         //$inspection->categories = get_option('tag_id_'.$_tag['0']['tag_id']);
-        $inspection->categories = $inspection->equipment->jenis_pesawat;
+        //$inspection->categories = $inspection->equipment->jenis_pesawat;
         //$licence->item_number = format_licence_item_number($id, $inspection->categories, $task_id);
-        $licence->item_number = $inspection->equipment->nomor_sertifikat;
+        //$licence->item_number = $inspection->equipment->nomor_sertifikat;
         $_licence_items = $this->licences_model->get_licence_items($licence->id, $task_id);
         $licence->licence_items = $_licence_items[0];
 
         $inspection_data = inspection_data($inspection, $task_id);
+        $licence->nomor_sertifikat = $inspection_data['nomor_sertifikat'];
         $licence_data = licence_data($licence, $task_id);
         $data = array_merge($inspection_data, $licence_data);
 
