@@ -349,11 +349,6 @@
                         <table id="<?= 'licence-'.$licence->id ?>" class="table licence table-bordered">
                           <tbody>
                              <tr>
-                                <td style="width:30%">Sertifikat Lama</td>
-                                <td style="width:2%">:</td>
-                                <td class="<?= $editable_class ?>" data-field="nomor_sertifikat_lama" data-licence_id="<?= $licence->id ?>" data-task_id="<?= $task->id ?>"><?= isset($licence_item->nomor_sertifikat_lama) ? $licence_item->nomor_sertifikat_lama : '' ?></td>
-                             </tr>
-                             <tr>
                                 <td style="width:30%">Suket</td>
                                 <td style="width:2%">:</td>
                                 <td class="<?= $editable_class ?>" data-field="nomor_suket" data-licence_id="<?= $licence->id ?>" data-task_id="<?= $task->id ?>"><?= isset($licence_item->nomor_suket) ? $licence_item->nomor_suket : '' ?></td>
