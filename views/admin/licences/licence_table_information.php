@@ -1,11 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
 <?php
-   //$inspection_data = inspection_data($licence->inspection, $task_id);
-   $inspection_data = inspection_data($inspection, $task_id);
-   //$inspection = $inspection;
-   
+   $inspection_data = inspection_data($inspection, $task_id);   
    $licence_data = licence_data($licence, $task_id);
-   
  ?>
     <div class="panel_s">
         <div class="panel-body">
@@ -36,7 +32,7 @@
           <h3> 2. Data Lisensi</h3>
           <?php
               $disabled = '';
-              $file = isset($inspection->categories) ? strtolower($inspection->categories).'.docx' : 'undefined.docx';
+              $file = isset($inspection->equipment->jenis_pesawat) ? strtolower($inspection->equipment->jenis_pesawat).'.docx' : 'undefined.docx';
               $file = str_replace(' ', '_', $file);
               $dir = isset($licence_data['upt']) ? strtolower($licence_data['upt']) : 'undefined';
               $dir = str_replace(' ', '_', $dir);
@@ -80,7 +76,7 @@
            </div>
            <div class="col-md-4">
                <div class="qrcode text-center">
-                   <img width="180" height="180" src="<?php echo site_url('download/preview_image?path='.protected_file_url_by_path(get_licence_upload_path('licence').$licence->id.'/certificate-'.$licence->item_number.'.png')); ?>" class="img-responsive center-block licence-assigned" alt="licence-<?= $licence->id ?>">
+                   <img width="180" height="180" src="<?php echo site_url('download/preview_image?path='.protected_file_url_by_path(get_licence_upload_path('licence').$licence->id.'/certificate-'.$licence->nomor_sertifikat_file.'.png')); ?>" class="img-responsive center-block licence-assigned" alt="licence-<?= $licence->id ?>">
                </div>
            </div>
     </div>
