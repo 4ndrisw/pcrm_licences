@@ -856,12 +856,14 @@ function get_licence_id_from_spection_item($task_id)
     return $CI->db->get(db_prefix() . 'licence_items')->row();
 }
 
-function licence_generate_qrcode($licence){
+function licence_generate_qrcode($licence, $task_id){
     $CI = &get_instance();
-    $nomor_sertifikat = isset($licence->licence_items->nomor_sertifikat_lama) ? $licence->licence_items->nomor_sertifikat_lama : '';
+
+    //$nomor_sertifikat = isset($licence->equipment->nomor_sertifikat) ? $licence->equipment->nomor_sertifikat : $licence->nomor_sertifikat;
+
     $qrcode_data  = '';
     $qrcode_data .= $licence->client->company ."\r\n";
-    $qrcode_data .= 'Nomor : ' . $nomor_sertifikat ."\r\n";
+    $qrcode_data .= 'Nomor : ' . $licence->nomor_sertifikat ."\r\n";
     $qrcode_data .= 'Diterbitkan :' .$licence->proposed_date ."\r\n";
     $qrcode_data .= 'Peralatan :' . $licence->licence_items->equipment_name ."\r\n";
     $qrcode_data .= 'PJK3 : ' . get_option('invoice_company_name');
@@ -884,11 +886,11 @@ function licence_generate_qrcode($licence){
     $params['setResizeToWidth'] = 80;
 
     $params['crateLabel'] = false;
-    $params['label'] = $licence->item_number;
+    //$params['label'] = $licence->nomor_sertifikat;
     $params['setTextColor'] = ['r'=>255,'g'=>0,'b'=>0];
     $params['ErrorCorrectionLevel'] = 'medium';
 
-    $params['saveToFile'] = FCPATH.'uploads/licences/'.$licence_path .'certificate-'.$licence->item_number.'.'.$params['writer'];
+    $params['saveToFile'] = FCPATH.'uploads/licences/'.$licence_path .'certificate-'.$licence->nomor_sertifikat_file.'.'.$params['writer'];
 
     $CI->load->library('endroid_qrcode');
     $CI->endroid_qrcode->generate($params);
@@ -902,8 +904,10 @@ function licence_data($licence, $task_id){
     $data['dinas_uppercase'] = strtoupper($licence->office->dinas);
     $data['provinsi_uppercase'] = strtoupper($licence->office->province);
     
-    $data['nomor_inspeksi'] = $licence->formatted_number;
-    $data['nomor_sertifikat'] = $licence->item_number;
+    //$data['nomor_laporan'] = format_inspection_item_number($licence->inspection_id, $task_id);
+    $data['nomor_laporan'] = format_nomor_laporan($licence->inspection_id, $task_id);
+    
+    $data['nomor_sertifikat'] = $licence->nomor_sertifikat;
     $data['tanggal_certificate'] = tanggal_pemeriksaan($licence->proposed_date);
 
     //$data = [];
@@ -915,7 +919,7 @@ function licence_data($licence, $task_id){
     $data['expired'] = tanggal_pemeriksaan($data['expired']);
     $data['tanggal_suket'] = tanggal_pemeriksaan($data['tanggal_suket']);
 
-    unset($data['id'],$data['licence_id'],$data['project_id'],$data['task_id'],$data['categories'],$data['equipment_name'],$data['released'],$data['flag'],);
+    unset($data['id'],$data['licence_id'],$data['project_id'],$data['task_id'],$data['categories'],$data['equipment_name'],$data['released'],$data['flag'],$data['nomor_sertifikat_lama']);
 
     return $data;
 }
