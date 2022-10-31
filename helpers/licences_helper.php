@@ -897,7 +897,7 @@ function licence_generate_qrcode($licence, $task_id){
 
 }
 
-function licence_data($licence, $task_id){
+function licence_data($licence, $inspection, $task_id){
     $data['upt'] = $licence->office->short_name;
     $data['dinas'] = $licence->office->dinas;
     $data['provinsi'] = $licence->office->province;
@@ -905,8 +905,8 @@ function licence_data($licence, $task_id){
     $data['provinsi_uppercase'] = strtoupper($licence->office->province);
     
     //$data['nomor_laporan'] = format_inspection_item_number($licence->inspection_id, $task_id);
-    $data['nomor_laporan'] = format_nomor_laporan($licence->inspection_id, $task_id);
-    
+    $_nomor_laporan = $inspection->equipment->nomor_laporan;
+    $data['nomor_laporan'] = !empty($_nomor_laporan) ? $_nomor_laporan : format_nomor_laporan($inspection, $task_id);
     $data['nomor_sertifikat'] = $licence->nomor_sertifikat;
     $data['tanggal_certificate'] = tanggal_pemeriksaan($licence->proposed_date);
 
