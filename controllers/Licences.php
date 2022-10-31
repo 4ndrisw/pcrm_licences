@@ -264,7 +264,7 @@ class Licences extends AdminController
         $_nomor_sertifikat = format_nomor_sertifikat($inspection, $task_id);
         $nomor_sertifikat = !empty($licence->equipment->nomor_sertifikat) ? $licence->equipment->nomor_sertifikat : $_nomor_sertifikat;
         $licence->nomor_sertifikat = $nomor_sertifikat;
-        $licence->nomor_sertifikat_file = str_replace(array(' ','/'), array('_','-'), $nomor_sertifikat);
+        $licence->nomor_sertifikat_file = str_replace(array(' ','/'), array('','-'), $nomor_sertifikat);
         $qrcode = licence_generate_qrcode($licence, $task_id);
 
         //$offices_model = 'offices_model';
@@ -278,6 +278,10 @@ class Licences extends AdminController
         $data['activity']          = $this->licences_model->get_licence_activity($id);
         $data['licence']          = $licence;
         $data['inspection']          = $inspection;
+
+        $data['inspection_data'] = inspection_data($inspection, $task_id);   
+        $data['licence_data'] = licence_data($licence, $inspection, $task_id);
+
         $data['task_id']          = $task_id;
         $data['members']           = $this->staff_model->get('', ['active' => 1]);
         $data['licence_statuses'] = $this->licences_model->get_statuses();
@@ -925,18 +929,16 @@ class Licences extends AdminController
         $this->load->model($inspections_model);
         $_inspection = $this->{$inspections_model}->get($inspection_id->id);
         $inspection = (object)$_inspection;
-        $licence->inspection_id = $inspection->id;
         $_inspection_item = $this->{$inspections_model}->get_inspection_items($inspection_id->id, $inspection->project_id, $task_id);
         $inspection->inspection_item = $_inspection_item[0];
-
+        $licence->inspection = $inspection;
+        
         $tags = get_tags_in($task_id, 'task');
 
         $equipment_type = ucfirst(strtolower(str_replace(' ', '_', $tags[0])));
-
         $equipment_model = $equipment_type .'_model';
         $model_path = FCPATH . 'modules/'. INSPECTIONS_MODULE_NAME .'/models/' . $equipment_model .'.php';
         
-
         if (!file_exists($model_path)) {
             set_alert('danger', _l('file_not_found ;', $equipment_model));
             log_activity('File '. $equipment_model . ' not_found');
@@ -957,7 +959,7 @@ class Licences extends AdminController
 
         $inspection_data = inspection_data($inspection, $task_id);
         $licence->nomor_sertifikat = $inspection_data['nomor_sertifikat'];
-        $licence_data = licence_data($licence, $task_id);
+        $licence_data = licence_data($licence, $inspection, $task_id);
         $data = array_merge($inspection_data, $licence_data);
 
         $phpWord = new \PhpOffice\PhpWord\PhpWord();
