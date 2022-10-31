@@ -1,8 +1,4 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
-<?php
-   $inspection_data = inspection_data($inspection, $task_id);   
-   $licence_data = licence_data($licence, $task_id);
- ?>
     <div class="panel_s">
         <div class="panel-body">
         <hr class="hr-panel-heading" />
